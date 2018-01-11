@@ -47,47 +47,66 @@ class Mahasiswa extends Authenticatable
     }
 
     /**
-     * data calon hmj
+     * mengambil data calon hmj
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function ketuaHMJ()
+    public function getCalonHmj()
     {
-        return $this->hasOne('App\CalonHMJ', 'ketua_id');
-    }
+        $calonHmj = $this->hasOne('App\CalonHMJ', 'ketua_id');
+        if (is_null($calonHmj)){
+            $calonHmj = $this->hasOne('App\CalonHMJ', 'wakil_id');
+        }
 
-    /**
-     * data calon hmj
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function wakilHMJ()
-    {
-        return $this->hasOne('App\CalonHMJ', 'wakil_id');
+        return $calonHmj;
     }
 
     /**
      * data calon bem
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function ketuaBEM()
+    public function getCalonBem()
     {
-        return $this->hasOne('App\CalonBEM', 'ketua_id');
-    }
+        $calonBem = $this->hasOne('App\CalonBEM', 'ketua_id');
+        if (is_null($calonBem)){
+            $calonHmj = $this->hasOne('App\CalonBEM', 'wakil_id');
+        }
 
-    /**
-     * data calon bem
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function wakilBEM()
-    {
-        return $this->hasOne('App\CalonBEM', 'wakil_id');
+        return $calonBem;
     }
 
     /**
      * data calon dpm
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function anggotaDPM()
+    public function getCalonDpm()
     {
         return $this->hasOne('App\CalonDPM', 'anggota_id');
+    }
+
+    /**
+     * mendapatkan data calon hmj yang dipilih
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function getPemilihanHmj()
+    {
+        return $this->belongsToMany('App\CalonHMJ', 'pemilihan_hmj', 'calon_hmj_id', 'mahasiswa_id')->withTimestamps();
+    }
+
+    /**
+     * mendapatkan data calon bem yang dipilih
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function getPemilihanBem()
+    {
+        return $this->belongsToMany('App\CalonBEM', 'pemilihan_bem', 'calon_bem_id', 'mahasiswa_id')->withTimestamps();
+    }
+
+    /**
+     * mendapatkan data calon dpm yang dipilih
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function getPemilihanDpm()
+    {
+        return $this->belongsToMany('App\CalonDPM', 'pemilihan_dpm', 'calon_dpm_id', 'mahasiswa_id')->withTimestamps();
     }
 }
