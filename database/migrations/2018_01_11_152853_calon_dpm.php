@@ -13,7 +13,7 @@ class CalonDpm extends Migration
      */
     public function up()
     {
-        Schema::create('calon_hmj', function (Blueprint $table){
+        Schema::create('calon_dpm', function (Blueprint $table){
             $table->increments('id');
             $table->string('anggota_id');
             $table->foreign('anggota_id')
