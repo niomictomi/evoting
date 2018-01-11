@@ -163,9 +163,14 @@ class Mahasiswa extends Authenticatable
         return false;
     }
 
-    public static function getYangTelahMemilihHmj($jurusan_id)
+    /**
+     * @param $jurusan_id
+     * @return mixed
+     */
+    public static function getYangTelahMemilihHmjViaFlag($jurusan_id)
     {
-        $jurusan = Jurusan::find($jurusan_id);
-
+        return Jurusan::find($jurusan_id)->getMahasiswa()
+            ->where('status', Mahasiswa::AKTIF)
+            ->where('hmj', true);
     }
 }
