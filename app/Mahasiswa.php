@@ -173,4 +173,24 @@ class Mahasiswa extends Authenticatable
             ->where('status', Mahasiswa::AKTIF)
             ->where('hmj', true);
     }
+
+    /**
+     * @param $jurusan_id
+     * @return mixed
+     */
+    public static function getYangTelahMemilihDpmViaFlag($jurusan_id)
+    {
+        return Jurusan::find($jurusan_id)->getMahasiswa()
+            ->where('status', Mahasiswa::AKTIF)
+            ->where('dpm', true);
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getYangTelahMemilihBemViaFlag()
+    {
+        return Mahasiswa::where('status', Mahasiswa::AKTIF)
+            ->where('bem', true);
+    }
 }
