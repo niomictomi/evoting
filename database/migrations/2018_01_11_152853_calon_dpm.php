@@ -13,7 +13,18 @@ class CalonDpm extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('calon_hmj', function (Blueprint $table){
+            $table->increments('id');
+            $table->string('anggota_id');
+            $table->foreign('anggota_id')
+                ->references('id')
+                ->on('mahasiswa')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+            $table->text('dir');
+            $table->text('visi')->nullable();
+            $table->text('misi')->nullable();
+        });
     }
 
     /**
