@@ -37,7 +37,7 @@ class Mahasiswa extends Authenticatable
      * Mendapatkan data prodi dari salah satu mahasiswa
      * @return Model|null|static
      */
-    public function prodi()
+    public function getProdi()
     {
         return $this->belongsTo('App\Prodi', 'prodi_id')->first();
     }
@@ -161,5 +161,11 @@ class Mahasiswa extends Authenticatable
         if ($this->getCalonBem()->count() > 0)
             return true;
         return false;
+    }
+
+    public static function getYangTelahMemilihHmj($jurusan_id)
+    {
+        $jurusan = Jurusan::find($jurusan_id);
+
     }
 }

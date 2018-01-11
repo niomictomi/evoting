@@ -45,11 +45,18 @@ class CalonHMJ extends Model
      * mendapatkan id semua calon
      * @return array
      */
-    public static function getAllIdCalon()
+    public static function getAllIdCalon($jurusan_id = null)
     {
         $id_mhs = Array();
         foreach (CalonHMJ::all() as $calon){
-            array_push($id_mhs, $calon->ketua_id, $calon->wakil_id);
+            if (is_null($jurusan_id)){
+                array_push($id_mhs, $calon->ketua_id, $calon->wakil_id);
+            }
+            else{
+                if ($calon->getKetua()->getProdi()->jurusan_id == $jurusan_id){
+                    array_push($id_mhs, $calon->ketua_id, $calon->wakil_id);
+                }
+            }
         }
 
         return $id_mhs;
@@ -59,8 +66,10 @@ class CalonHMJ extends Model
      * mendapatkan semua data calon
      * @return mixed
      */
-    public static function getAllCalon()
+    public static function getAllCalon($jurusan_id = null)
     {
-        return Mahasiswa::whereIn('id', CalonHMJ::getAllIdCalon());
+        if (is_null($jurusan_id))
+            return Mahasiswa::whereIn('id', CalonHMJ::getAllIdCalon());
+        return Mahasiswa::whereIn('id', CalonHMJ::getAllIdCalon($jurusan_id));
     }
 }
