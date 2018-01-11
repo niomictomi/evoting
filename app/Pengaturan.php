@@ -10,6 +10,8 @@ class Pengaturan extends Model
 
     protected $keyType = 'string';
 
+    protected $primaryKey = 'key';
+
     public $timestamps = false;
 
     protected $fillable = [
