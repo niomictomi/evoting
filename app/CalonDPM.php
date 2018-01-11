@@ -36,11 +36,18 @@ class CalonDPM extends Model
      * mendapatkan id semua calon
      * @return array
      */
-    public static function getAllIdAnggota()
+    public static function getAllIdAnggota($jurusan_id = null)
     {
         $id_mhs = Array();
         foreach (CalonDPM::all() as $calon){
-            array_push($id_mhs, $calon->anggota_id);
+            if (is_null($jurusan_id)){
+                array_push($id_mhs, $calon->anggota_id);
+            }
+            else{
+                if ($calon->getKetua()->getProdi()->jurusan_id == $jurusan_id){
+                    array_push($id_mhs, $calon->anggota_id);
+                }
+            }
         }
 
         return $id_mhs;
@@ -50,8 +57,10 @@ class CalonDPM extends Model
      * mendapatkan semua data calon
      * @return mixed
      */
-    public static function getAllAnggota()
+    public static function getAllAnggota($jurusan_id = null)
     {
-        return Mahasiswa::whereIn('id', CalonDPM::getAllIdAnggota());
+        if (is_null($jurusan_id))
+            return Mahasiswa::whereIn('id', CalonDPM::getAllIdAnggota());
+        return Mahasiswa::whereIn('id', CalonDPM::getAllIdAnggota($jurusan_id));
     }
 }
