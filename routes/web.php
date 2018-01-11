@@ -15,6 +15,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('login', [
+    'middleware' => 'guest',
+    'uses' => 'Auth\LoginController@form',
+    'as' => 'admin.login.form'
+]);
+
+Route::post('login/admin', [
+    'uses' => 'Auth\LoginController@login',
+    'as' => 'admin.login.process'
+]);
+
+Route::post('logout', [
+    'uses' => 'Auth\LoginController@logout',
+    'as' => 'logout'
+]);
+
+
 // Route public untuk login mahasiswa
 
 Route::group(['namespace' => 'Page', 'prefix' => 'mahasiswa'], function() {
@@ -38,3 +55,5 @@ Route::prefix('mahasiswa')->group(function() {
     });
 
 });
+
+
