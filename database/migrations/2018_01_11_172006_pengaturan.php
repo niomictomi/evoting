@@ -13,7 +13,10 @@ class Pengaturan extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('pengaturan', function (Blueprint $table){
+            $table->string('key')->unique()->primary();
+            $table->text('value');
+        });
     }
 
     /**
