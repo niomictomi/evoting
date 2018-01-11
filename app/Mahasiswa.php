@@ -20,7 +20,7 @@ class Mahasiswa extends Authenticatable
     protected $keyType = 'string';
 
     protected $fillable = [
-        'prodi_id', 'nama', 'bisa_memilih'
+        'id', 'prodi_id', 'nama', 'status', 'login', 'hmj', 'dpm', 'bem'
     ];
 
     /**
@@ -29,7 +29,7 @@ class Mahasiswa extends Authenticatable
      */
     public function prodi()
     {
-        return $this->belongsTo('Voting\Prodi', 'prodi_id')->first();
+        return $this->belongsTo('App\Prodi', 'prodi_id')->first();
     }
 
     /**
