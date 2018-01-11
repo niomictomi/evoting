@@ -55,4 +55,13 @@ class CalonBEM extends Model
 
         return $id_mhs;
     }
+
+    /**
+     * mendapatkan semua data calon
+     * @return mixed
+     */
+    public function getAllCalon()
+    {
+        return Mahasiswa::whereIn('id', CalonBEM::getAllIdCalon());
+    }
 }
