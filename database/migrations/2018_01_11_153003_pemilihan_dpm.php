@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class MemilihBem extends Migration
+class PemilihanDpm extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class MemilihBem extends Migration
      */
     public function up()
     {
-        Schema::create('memilih_bem', function (Blueprint $table){
-            $table->integer('calon_bem_id');
-            $table->foreign('calon_bem_id')
+        Schema::create('pemilihan_dpm', function (Blueprint $table){
+            $table->integer('calon_dpm_id');
+            $table->foreign('calon_dpm_id')
                 ->references('id')
-                ->on('calon_bem')
+                ->on('calon_dpm')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
             $table->string('mahasiswa_id');
