@@ -13,7 +13,16 @@ class Prodi extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('prodi', function (Blueprint $table){
+            $table->increments('id');
+            $table->integer('jurusan_id')->unsigned();
+            $table->foreign('jurusan_id')
+                ->references('id')
+                ->on('jurusan')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+            $table->string('nama');
+        });
     }
 
     /**
