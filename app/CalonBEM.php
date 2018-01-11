@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\Expr\Array_;
 
 class CalonBEM extends Model
 {
@@ -39,5 +40,19 @@ class CalonBEM extends Model
     public function getWakil()
     {
         return $this->belongsTo('App\Mahasiswa','wakil_id')->first();
+    }
+
+    /**
+     * mendapatkan id semua calon
+     * @return array
+     */
+    public static function getAllIdCalon()
+    {
+        $id_mhs = Array();
+        foreach (CalonBEM::all() as $calon){
+            array_push($id_mhs, $calon->ketua_id, $calon->wakil_id);
+        }
+
+        return $id_mhs;
     }
 }
