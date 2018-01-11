@@ -23,6 +23,16 @@ class Mahasiswa extends Authenticatable
         'id', 'prodi_id', 'nama', 'status', 'login', 'hmj', 'dpm', 'bem'
     ];
 
+    const AKTIF = 'A';
+
+    const CUTI = 'C';
+
+    const NONAKTIF = 'N';
+
+    const STATUS = [
+        'A', 'C', 'N'
+    ];
+
     /**
      * Mendapatkan data prodi dari salah satu mahasiswa
      * @return Model|null|static
@@ -108,5 +118,15 @@ class Mahasiswa extends Authenticatable
     public function getPemilihanDpm()
     {
         return $this->belongsToMany('App\CalonDPM', 'pemilihan_dpm', 'calon_dpm_id', 'mahasiswa_id')->withTimestamps();
+    }
+
+    /**
+     * mendapatkan mahasiswa dengan status
+     * @param array $status
+     * @return mixed
+     */
+    public static function getByStatus($status = Array(Mahasiswa::AKTIF))
+    {
+        return Mahasiswa::whereIn('status', $status);
     }
 }
