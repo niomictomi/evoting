@@ -54,6 +54,30 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
+
+        Route::middleware(['web', 'hakakses:mahasiswa'])
+             ->namespace($this->namespace)
+             ->group(base_path('routes/web/mahasiswa.php'));
+
+        Route::middleware(['web', 'hakakses:panitia'])
+             ->namespace($this->namespace)
+             ->group(base_path('routes/web/panitia.php'));
+
+        Route::middleware(['web', 'hakakses:root'])
+             ->namespace($this->namespace)
+             ->group(base_path('routes/web/root.php'));
+        
+        Route::middleware(['web', 'dosen'])
+             ->namespace($this->namespace)
+             ->group(base_path('routes/web/wd3dosen.php'));
+        
+        Route::middleware(['web', 'hakakses:admin'])
+             ->namespace($this->namespace)
+             ->group(base_path('routes/web/admin.php'));
+        
+             Route::middleware(['web', 'hakakses:ketua kpu'])
+             ->namespace($this->namespace)
+             ->group(base_path('routes/web/ketuakpu.php'));
     }
 
     /**
