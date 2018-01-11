@@ -18,7 +18,7 @@ class CalonBEM extends Model
      * mengambil data mahasiswa yang memilih
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function getMahasiswa()
+    public function getPemilih()
     {
         return $this->belongsToMany('App\Mahasiswa','pemilihan_bem','mahasiswa_id', 'calon_bem_id')->withTimestamps();
     }

@@ -18,7 +18,7 @@ class CalonHMJ extends Model
      * mengambil data mahasiswa yang memilih
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function getMahasiswa()
+    public function getPemilih()
     {
         return $this->belongsToMany('App\Mahasiswa','pemilihan_hmj','mahasiswa_id', 'calon_hmj_id')->withTimestamps();
     }
