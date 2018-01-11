@@ -13,7 +13,10 @@ class Jurusan extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('jurusan', function (Blueprint $table){
+            $table->increments('id');
+            $table->string('nama');
+        });
     }
 
     /**
