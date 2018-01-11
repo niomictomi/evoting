@@ -24,6 +24,7 @@ class Mahasiswa extends Migration
                 ->onUpdate('CASCADE')
                 ->onDelete('SET NULL');
             $table->string('nama');
+            $table->string('status');
             $table->boolean('login')->default(false);
             $table->boolean('hmj')->default(false);
             $table->boolean('dpm')->default(false);
