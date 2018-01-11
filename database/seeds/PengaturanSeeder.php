@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Pengaturan;
+use Carbon\Carbon;
 
 class PengaturanSeeder extends Seeder
 {
@@ -11,6 +13,14 @@ class PengaturanSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Pengaturan::create([
+            'key' => 'mulai',
+            'value' => Carbon::today()->toDateTimeString()
+        ]);
+
+        Pengaturan::create([
+            'key' => 'selesai',
+            'value' => Carbon::today()->addHours(23)->toDateTimeString()
+        ]);
     }
 }
