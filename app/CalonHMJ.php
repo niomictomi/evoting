@@ -40,4 +40,27 @@ class CalonHMJ extends Model
     {
         return $this->belongsTo('App\Mahasiswa','wakil_id')->first();
     }
+
+    /**
+     * mendapatkan id semua calon
+     * @return array
+     */
+    public static function getAllIdCalon()
+    {
+        $id_mhs = Array();
+        foreach (CalonHMJ::all() as $calon){
+            array_push($id_mhs, $calon->ketua_id, $calon->wakil_id);
+        }
+
+        return $id_mhs;
+    }
+
+    /**
+     * mendapatkan semua data calon
+     * @return mixed
+     */
+    public static function getAllCalon()
+    {
+        return Mahasiswa::whereIn('id', CalonHMJ::getAllIdCalon());
+    }
 }
