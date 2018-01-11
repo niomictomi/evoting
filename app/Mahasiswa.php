@@ -20,7 +20,7 @@ class Mahasiswa extends Authenticatable
     protected $keyType = 'string';
 
     protected $fillable = [
-        'prodi_id', 'nama', 'bisa_memilih'
+        'id', 'prodi_id', 'nama', 'status', 'login', 'hmj', 'dpm', 'bem'
     ];
 
     /**
@@ -29,7 +29,7 @@ class Mahasiswa extends Authenticatable
      */
     public function prodi()
     {
-        return $this->belongsTo('Voting\Prodi', 'prodi_id')->first();
+        return $this->belongsTo('App\Prodi', 'prodi_id')->first();
     }
 
     /**
@@ -44,5 +44,50 @@ class Mahasiswa extends Authenticatable
     {
         // karena pada tabel tidak ada field remember_token
         // maka buat saja accessornya menjadi kosong
+    }
+
+    /**
+     * data calon hmj
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function ketuaHMJ()
+    {
+        return $this->hasOne('App\CalonHMJ', 'ketua_id');
+    }
+
+    /**
+     * data calon hmj
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function wakilHMJ()
+    {
+        return $this->hasOne('App\CalonHMJ', 'wakil_id');
+    }
+
+    /**
+     * data calon bem
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function ketuaBEM()
+    {
+        return $this->hasOne('App\CalonBEM', 'ketua_id');
+    }
+
+    /**
+     * data calon bem
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function wakilBEM()
+    {
+        return $this->hasOne('App\CalonBEM', 'wakil_id');
+    }
+
+    /**
+     * data calon dpm
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function anggotaDPM()
+    {
+        return $this->hasOne('App\CalonDPM', 'anggota_id');
     }
 }

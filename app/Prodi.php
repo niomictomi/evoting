@@ -20,7 +20,7 @@ class Prodi extends Model
      */
     public function mahasiswa()
     {
-        return $this->hasMany('Voting\Mahasiswa', 'prodi_id');
+        return $this->hasMany('App\Mahasiswa', 'prodi_id');
     }
 
     /**
@@ -29,7 +29,7 @@ class Prodi extends Model
      */
     public function jurusan()
     {
-        return $this->belongsTo('Voting\Jurusan', 'jurusan_id')->first();
+        return $this->belongsTo('App\Jurusan', 'jurusan_id')->first();
     }
 
     /**
