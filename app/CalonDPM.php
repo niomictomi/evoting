@@ -31,4 +31,27 @@ class CalonDPM extends Model
     {
         return $this->belongsTo('App\Mahasiswa','ketua_id')->first();
     }
+
+    /**
+     * mendapatkan id semua calon
+     * @return array
+     */
+    public static function getAllIdAnggota()
+    {
+        $id_mhs = Array();
+        foreach (CalonDPM::all() as $calon){
+            array_push($id_mhs, $calon->anggota_id);
+        }
+
+        return $id_mhs;
+    }
+
+    /**
+     * mendapatkan semua data calon
+     * @return mixed
+     */
+    public static function getAllAnggota()
+    {
+        return Mahasiswa::whereIn('id', CalonDPM::getAllIdAnggota());
+    }
 }
