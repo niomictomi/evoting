@@ -129,4 +129,37 @@ class Mahasiswa extends Authenticatable
     {
         return Mahasiswa::whereIn('status', $status);
     }
+
+    /**
+     * mengecek apakah telah memilih hmj atau belum
+     * @return bool
+     */
+    public function telahMemilihHmj()
+    {
+        if ($this->getCalonHmj()->count() > 0)
+            return true;
+        return false;
+    }
+
+    /**
+     * mengecek apakah telah memilih dpm atau belum
+     * @return bool
+     */
+    public function telahMemilihDpm()
+    {
+        if ($this->getCalonDpm()->count() > 0)
+            return true;
+        return false;
+    }
+
+    /**
+     * mengecek apakah telah memilih bem atau belum
+     * @return bool
+     */
+    public function telahMemilihBem()
+    {
+        if ($this->getCalonBem()->count() > 0)
+            return true;
+        return false;
+    }
 }
