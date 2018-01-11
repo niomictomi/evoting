@@ -99,7 +99,7 @@ class Mahasiswa extends Authenticatable
      */
     public function getPemilihanHmj()
     {
-        return $this->belongsToMany('App\CalonHMJ', 'pemilihan_hmj', 'calon_hmj_id', 'mahasiswa_id')->withTimestamps();
+        return $this->belongsToMany('App\CalonHMJ', 'pemilihan_hmj', 'mahasiswa_id', 'calon_hmj_id')->withTimestamps();
     }
 
     /**
@@ -108,7 +108,7 @@ class Mahasiswa extends Authenticatable
      */
     public function getPemilihanBem()
     {
-        return $this->belongsToMany('App\CalonBEM', 'pemilihan_bem', 'calon_bem_id', 'mahasiswa_id')->withTimestamps();
+        return $this->belongsToMany('App\CalonBEM', 'pemilihan_bem', 'mahasiswa_id', 'calon_bem_id')->withTimestamps();
     }
 
     /**
@@ -117,7 +117,7 @@ class Mahasiswa extends Authenticatable
      */
     public function getPemilihanDpm()
     {
-        return $this->belongsToMany('App\CalonDPM', 'pemilihan_dpm', 'calon_dpm_id', 'mahasiswa_id')->withTimestamps();
+        return $this->belongsToMany('App\CalonDPM', 'pemilihan_dpm', 'mahasiswa_id', 'calon_dpm_id')->withTimestamps();
     }
 
     /**
