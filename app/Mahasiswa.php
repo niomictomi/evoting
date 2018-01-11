@@ -193,4 +193,87 @@ class Mahasiswa extends Authenticatable
         return Mahasiswa::where('status', Mahasiswa::AKTIF)
             ->where('bem', true);
     }
+
+    /**
+     * @param $jurusan_id
+     * @return mixed
+     */
+    public static function getYangBelumMemilihHmjViaFlag($jurusan_id)
+    {
+        return Jurusan::find($jurusan_id)->getMahasiswa()
+            ->where('status', Mahasiswa::AKTIF)
+            ->where('hmj', false);
+    }
+
+    /**
+     * @param $jurusan_id
+     * @return mixed
+     */
+    public static function getYangBelumMemilihHmjViaRelation($jurusan_id)
+    {
+        $id_mhs = Array();
+        foreach (CalonHMJ::all() as $calon){
+            $id_mhs = array_merge($id_mhs, array_flatten($calon->getPemilih()->get()->map(function ($mhs){
+                    return collect($mhs->toArray())->only(['id'])->all();
+                }))
+            );
+        }
+
+        return Jurusan::find($jurusan_id)->getMahasiswa()
+            ->where('status', Mahasiswa::AKTIF)
+            ->whereNotIn('id', $id_mhs);
+    }
+
+    /**
+     * @param $jurusan_id
+     * @return mixed
+     */
+    public static function getYangBelumMemilihDpmViaFlag($jurusan_id)
+    {
+        return Jurusan::find($jurusan_id)->getMahasiswa()
+            ->where('status', Mahasiswa::AKTIF)
+            ->where('dpm', false);
+    }
+
+    /**
+     * @param $jurusan_id
+     * @return mixed
+     */
+    public static function getYangBelumMemilihDpmViaRelation($jurusan_id)
+    {
+        $id_mhs = Array();
+        foreach (CalonDPM::all() as $calon){
+            $id_mhs = array_merge($id_mhs, array_flatten($calon->getPemilih()->get()->map(function ($mhs){
+                    return collect($mhs->toArray())->only(['id'])->all();
+                }))
+            );
+        }
+
+        return Jurusan::find($jurusan_id)->getMahasiswa()
+            ->where('status', Mahasiswa::AKTIF)
+            ->whereNotIn('id', $id_mhs);
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getYangBelumMemilihBemViaFlag()
+    {
+        return Mahasiswa::where('status', Mahasiswa::AKTIF)
+            ->where('bem', false);
+    }
+
+    public static function getYangBelumMemilihBemViaRelation()
+    {
+        $id_mhs = Array();
+        foreach (CalonBEM::all() as $calon){
+            $id_mhs = array_merge($id_mhs, array_flatten($calon->getPemilih()->get()->map(function ($mhs){
+                    return collect($mhs->toArray())->only(['id'])->all();
+                }))
+            );
+        }
+
+        return Mahasiswa::where('status', Mahasiswa::AKTIF)
+            ->whereNotIn('id', $id_mhs);
+    }
 }
