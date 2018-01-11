@@ -34,6 +34,8 @@ class PemilihanBemSeeder extends Seeder
             $memilih = rand(0,1);
             if ($memilih){
                 $mhs->getPemilihanBem()->attach($calon[rand(0, $jumlahCalon - 1)]);
+                $mhs->bem = true;
+                $mhs->save();
             }
         }
     }

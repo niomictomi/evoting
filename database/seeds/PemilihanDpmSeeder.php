@@ -39,6 +39,8 @@ class PemilihanDpmSeeder extends Seeder
                 $memilih = rand(0,1);
                 if ($memilih){
                     $mhs->getPemilihanDpm()->attach($calon[rand(0, $jumlahCalon - 1)]);
+                    $mhs->dpm = true;
+                    $mhs->save();
                 }
             }
         }
