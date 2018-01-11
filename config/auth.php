@@ -45,6 +45,11 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
+        'mhs' => [
+            'driver' => 'session',
+            'provider' => 'mahasiswa'
+        ]
     ],
 
     /*
@@ -69,6 +74,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+
+        'mahasiswa' => [
+            'driver' => 'eloquent',
+            'model' => App\Mahasiswa::class
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
