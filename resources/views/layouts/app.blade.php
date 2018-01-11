@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{asset('modular/css/vendor.css')}}">
     <link rel="stylesheet" href="{{asset('modular/css/app.css')}}">
     <link rel="stylesheet" href="{{asset('modular/css/app-blue.css')}}">
-    @if(Auth::guard('mahasiswa')->check())
+    @if(Auth::guard('mhs')->check())
         <style>
             .app {
                 padding-left: 0;
@@ -51,11 +51,11 @@
                                 @if(Auth::check())
                                     {{Auth::user()->nama }} </span>
                             @else
-                                {{ Auth::guard('mahasiswa')->user()->nama }}
+                                {{ Auth::guard('mhs')->user()->nama }}
                             @endif
                         </a>
                         <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
-                            @unless(Auth::guard('mahasiswa')->check())
+                            @unless(Auth::guard('mhs')->check())
                                 <a class="dropdown-item" href="#">
                                     <i class="fa fa-gear icon"></i>
                                     Pengaturan
@@ -74,7 +74,7 @@
                 </ul>
             </div>
         </header>
-        @unless(Auth::guard('mahasiswa')->check())
+        @unless(Auth::guard('mhs')->check())
             <aside class="sidebar">
                 <div class="sidebar-container">
                     <div class="sidebar-header">

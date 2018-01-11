@@ -31,7 +31,7 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div class="tab-pane active" id="home-pills">
-                @if(!Auth::guard('mahasiswa')->user()->telahMemilih($idpemilihanhmj))
+                @if(!Auth::guard('mhs')->user()->telahMemilih($idpemilihanhmj))
                 <h4>Daftar Pasangan Calon</h4>
                 <div id="paslonhmj" class="row">
                     <card-paslon v-for="paslon in daftarPaslon" :key="paslon.id" ref="satu" :id="paslon.nama" :foto="paslon.dir" :nama-ketua="paslon.nama_ketua" :nama-wakil="paslon.nama_wakil" :idpaslon="paslon.id" :href="href"></card-paslon>
@@ -41,7 +41,7 @@
                 @endif
             </div>
             <div class="tab-pane fade" id="profile-pills">
-                @if(!Auth::guard('mahasiswa')->user()->telahMemilih($idpemilihanbem))
+                @if(!Auth::guard('mhs')->user()->telahMemilih($idpemilihanbem))
                 <h4>Daftar Pasangan Calon</h4>
                 <div id="paslonbem" class="row">
                     <card-paslon v-for="paslon in daftarPaslon" :key="paslon.id" ref="satu" :id="paslon.nama" :foto="paslon.dir" :nama-ketua="paslon.nama_ketua" :nama-wakil="paslon.nama_wakil" :idpaslon="paslon.id" :href="href"></card-paslon>
@@ -51,7 +51,7 @@
                 @endif
             </div>
             <div class="tab-pane fade" id="messages-pills">
-                @if(!Auth::guard('mahasiswa')->user()->telahMemilih($idpemilihandpm))
+                @if(!Auth::guard('mhs')->user()->telahMemilih($idpemilihandpm))
                 <h4>Daftar Pasangan Calon</h4>
                     <div id="paslondpm" class="row">
                         <card-paslon v-for="paslon in daftarPaslon" :key="paslon.id" ref="satu" :id="paslon.nama" :foto="paslon.dir" :nama-ketua="paslon.nama_ketua" :nama-wakil="paslon.nama_wakil" :idpaslon="paslon.id" :href="href"></card-paslon>
@@ -87,7 +87,7 @@
             })
             @endif
 
-            @unless(Auth::guard('mahasiswa')->user()->telahMemilih($idpemilihanhmj))
+            @unless(Auth::guard('mhs')->user()->telahMemilih($idpemilihanhmj))
             let hmj = new Vue({
                 el: '#paslonhmj',
                 data: {
@@ -97,7 +97,7 @@
             });
             @endunless
             
-            @unless(Auth::guard('mahasiswa')->user()->telahMemilih($idpemilihanbem))
+            @unless(Auth::guard('mhs')->user()->telahMemilih($idpemilihanbem))
             let bem = new Vue({
                 el: '#paslonbem',
                 data: {
@@ -107,7 +107,7 @@
             });
             @endunless
             
-            @unless(Auth::guard('mahasiswa')->user()->telahMemilih($idpemilihandpm))
+            @unless(Auth::guard('mhs')->user()->telahMemilih($idpemilihandpm))
             let dpm = new Vue({
                 el: '#paslondpm',
                 data: {
