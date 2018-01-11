@@ -18,7 +18,12 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            if($guard == 'mahasiswa')
+                return redirect()->route('mahasiswa.halaman.voting');
+            else if($guard == 'web')
+                return redirect('/home');
+                
+            return abort(403, 'Forbidden Access !');
         }
 
         return $next($request);

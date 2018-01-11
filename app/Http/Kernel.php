@@ -57,5 +57,9 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'hakakses' => \App\Http\Middleware\PengecekanHakAkses::class,
+        // Middleware dibawah ini berfungsi untuk mengecek apakah user adalah
+        // dosen atau wd3
+        'dosen' => \App\Http\Middleware\CekHakAksesDosenWD3::class
     ];
 }
