@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'id', 'nama', 'password', 'role', 'keterangan', 'created_at', 'updated_at'
     ];
 
     /**
@@ -26,4 +26,58 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Mengecek apakah user ini adalah admin atau bukan
+     * @return bool
+     */
+    public function isPanitia()
+    {
+        return ($this->role == Role::PANITIA);
+    }
+
+    /**
+     * Mengecek apakah user ini adalah ketua kpu atau bukan
+     * @return bool
+     */
+    public function isKetuaKPU()
+    {
+        return ($this->role == Role::KETUA_KPU);
+    }
+
+    /**
+     * Mengecek apakah user ini adalah dosen atau bukan
+     * @return bool
+     */
+    public function isDosen()
+    {
+        return ($this->role == Role::DOSEN);
+    }
+
+    /**
+     * Mengecek apakah user ini adalah wd1 atau bukan
+     * @return bool
+     */
+    public function isWD3()
+    {
+        return ($this->role == Role::WD3);
+    }
+
+    /**
+     * Mengecek apakah user ini adalah admin atau bukan
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return ($this->role == Role::ADMIN);
+    }
+
+    /**
+     * Mengecek apakah user ini adalah root atau bukan
+     * @return bool
+     */
+    public function isRoot()
+    {
+        return ($this->role == Role::ROOT);
+    }
 }
