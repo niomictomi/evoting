@@ -31,4 +31,16 @@ class Role
         'admin',
         'root'
     ];
+
+    const PANITIA_KPU = 'kpu';
+
+    const PANITIA_BAWASLU = 'bawaslu';
+
+    const PANITIA_KPS = 'kps';
+
+    const PANITIA_ALL = [
+        'kpu',
+        'bawaslu',
+        'kps'
+    ];
 }
