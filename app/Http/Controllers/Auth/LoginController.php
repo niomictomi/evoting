@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Voting\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use App\User;
 use App\Mahasiswa;
 
