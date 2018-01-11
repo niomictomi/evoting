@@ -131,7 +131,7 @@ class Mahasiswa extends Authenticatable
     }
 
     /**
-     * mengecek apakah telah memilih hmj atau belum
+     * mengecek apakah telah memilih hmj atau belum via relasi tabel
      * @return bool
      */
     public function telahMemilihHmj()
@@ -142,7 +142,7 @@ class Mahasiswa extends Authenticatable
     }
 
     /**
-     * mengecek apakah telah memilih dpm atau belum
+     * mengecek apakah telah memilih dpm atau belum via relasi tabel
      * @return bool
      */
     public function telahMemilihDpm()
@@ -153,7 +153,7 @@ class Mahasiswa extends Authenticatable
     }
 
     /**
-     * mengecek apakah telah memilih bem atau belum
+     * mengecek apakah telah memilih bem atau belum via relasi tabel
      * @return bool
      */
     public function telahMemilihBem()
