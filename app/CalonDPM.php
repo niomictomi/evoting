@@ -11,7 +11,7 @@ class CalonDPM extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'anggota_id', 'dir', 'visi', 'misi'
+        'anggota_id', 'dir', 'visi', 'misi', 'nomor'
     ];
 
     /**

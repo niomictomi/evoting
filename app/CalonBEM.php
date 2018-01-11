@@ -11,7 +11,7 @@ class CalonBEM extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'ketua_id', 'wakil_id', 'dir', 'visi', 'misi'
+        'ketua_id', 'wakil_id', 'dir', 'visi', 'misi', 'nomor'
     ];
 
     /**

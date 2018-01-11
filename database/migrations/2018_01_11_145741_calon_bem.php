@@ -27,6 +27,7 @@ class CalonBem extends Migration
                 ->on('mahasiswa')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
+            $table->smallInteger('nomor')->nullable();
             $table->text('dir');
             $table->text('visi');
             $table->text('misi');

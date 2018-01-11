@@ -21,6 +21,7 @@ class CalonDpm extends Migration
                 ->on('mahasiswa')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
+            $table->smallInteger('nomor')->nullable();
             $table->text('dir');
             $table->text('visi')->nullable();
             $table->text('misi')->nullable();
