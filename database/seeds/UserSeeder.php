@@ -15,8 +15,8 @@ class UserSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create();
-        $id_panitia = 543210;
-        $id_others = 543220;
+        $id_panitia = 12345543210;
+        $id_others = 12345543220;
 
         foreach (Role::ALL as $role){
             if ($role == Role::PANITIA){
