@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CalonHmj extends Migration
+class CalonBemTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CalonHmj extends Migration
      */
     public function up()
     {
-        Schema::create('calon_hmj', function (Blueprint $table){
+        Schema::create('calon_bem', function (Blueprint $table){
             $table->increments('id');
             $table->string('ketua_id');
             $table->foreign('ketua_id')

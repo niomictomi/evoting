@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Jurusan extends Migration
+class ProdiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,14 @@ class Jurusan extends Migration
      */
     public function up()
     {
-        Schema::create('jurusan', function (Blueprint $table){
+        Schema::create('prodi', function (Blueprint $table){
             $table->increments('id');
+            $table->integer('jurusan_id')->unsigned();
+            $table->foreign('jurusan_id')
+                ->references('id')
+                ->on('jurusan')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
             $table->string('nama');
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CalonDpm extends Migration
+class PemilihanHmjTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,20 @@ class CalonDpm extends Migration
      */
     public function up()
     {
-        Schema::create('calon_dpm', function (Blueprint $table){
-            $table->increments('id');
-            $table->string('anggota_id');
-            $table->foreign('anggota_id')
+        Schema::create('pemilihan_hmj', function (Blueprint $table){
+            $table->integer('calon_hmj_id');
+            $table->foreign('calon_hmj_id')
+                ->references('id')
+                ->on('calon_hmj')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+            $table->string('mahasiswa_id');
+            $table->foreign('mahasiswa_id')
                 ->references('id')
                 ->on('mahasiswa')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
-            $table->smallInteger('nomor')->nullable();
-            $table->text('dir');
-            $table->text('visi')->nullable();
-            $table->text('misi')->nullable();
+            $table->timestamps();
         });
     }
 
