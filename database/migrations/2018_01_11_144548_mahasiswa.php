@@ -26,6 +26,7 @@ class Mahasiswa extends Migration
             $table->string('nama');
             $table->string('status');
             $table->boolean('login')->default(false);
+            $table->boolean('telah_login')->default(false);
             $table->boolean('hmj')->default(false);
             $table->boolean('dpm')->default(false);
             $table->boolean('bem')->default(false);
