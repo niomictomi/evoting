@@ -30,14 +30,13 @@
             </header>
             <div class="auth-content">
 
-                @if(Session::has('message'))
+                @if(Session::has('error'))
                 <p class="alert alert-danger">
-                    {{ Session::get('message') }}
+                    {{ Session::get('error') }}
                 </p>
                 @endif
 
                 <p class="text-center">Silahkan Masuk</p>
-                {{ \Carbon\Carbon::today()->toDateString() }}
                 <form id="login-form" action="{{ route('mahasiswa.login') }}" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">

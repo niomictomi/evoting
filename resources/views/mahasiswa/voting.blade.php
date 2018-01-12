@@ -13,6 +13,7 @@
     @endif
     
     <div class="card-block">
+        {{ Auth::guard('mhs')->user()->id }}
         <div class="card-title-block">
             <h3 class="title"> Pilih Jenis Pemilihan </h3>
         </div>
@@ -31,30 +32,51 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div class="tab-pane active" id="home-pills">
-                @if(!Auth::guard('mhs')->user()->telahMemilih($idpemilihanhmj))
+                @if(!Auth::guard('mhs')->user()->telahMemilihHmj())
                 <h4>Daftar Pasangan Calon</h4>
                 <div id="paslonhmj" class="row">
-                    <card-paslon v-for="paslon in daftarPaslon" :key="paslon.id" ref="satu" :id="paslon.nama" :foto="paslon.dir" :nama-ketua="paslon.nama_ketua" :nama-wakil="paslon.nama_wakil" :idpaslon="paslon.id" :href="href"></card-paslon>
+                    <card-paslon 
+                    v-for="paslon in daftarPaslon" 
+                    :key="paslon.id" 
+                    ref="satu"
+                    :foto="paslon.dir" 
+                    :nama-ketua="paslon.nama_ketua" 
+                    :nama-wakil="paslon.nama_wakil"
+                    :href="href"></card-paslon>
                 </div>
                 @else
                 <h5>Anda tidak bisa melakukan pemilihan Ketua dan Wakil Ketua Himpunan Jurusan</h5>
                 @endif
             </div>
             <div class="tab-pane fade" id="profile-pills">
-                @if(!Auth::guard('mhs')->user()->telahMemilih($idpemilihanbem))
+                @if(!Auth::guard('mhs')->user()->telahMemilihBem())
                 <h4>Daftar Pasangan Calon</h4>
                 <div id="paslonbem" class="row">
-                    <card-paslon v-for="paslon in daftarPaslon" :key="paslon.id" ref="satu" :id="paslon.nama" :foto="paslon.dir" :nama-ketua="paslon.nama_ketua" :nama-wakil="paslon.nama_wakil" :idpaslon="paslon.id" :href="href"></card-paslon>
+                    <card-paslon 
+                    v-for="paslon in daftarPaslon" 
+                    :key="paslon.id" 
+                    ref="satu"
+                    :foto="paslon.dir" 
+                    :nama-ketua="paslon.nama_ketua" 
+                    :nama-wakil="paslon.nama_wakil"
+                    :href="href"></card-paslon>
                 </div>
                 @else
                 <h5>Anda tidak bisa melakukan pemilihan Ketua dan Wakil Ketua BEM</h5>
                 @endif
             </div>
             <div class="tab-pane fade" id="messages-pills">
-                @if(!Auth::guard('mhs')->user()->telahMemilih($idpemilihandpm))
+                @if(!Auth::guard('mhs')->user()->telahMemilihDpm())
                 <h4>Daftar Pasangan Calon</h4>
                     <div id="paslondpm" class="row">
-                        <card-paslon v-for="paslon in daftarPaslon" :key="paslon.id" ref="satu" :id="paslon.nama" :foto="paslon.dir" :nama-ketua="paslon.nama_ketua" :nama-wakil="paslon.nama_wakil" :idpaslon="paslon.id" :href="href"></card-paslon>
+                        <card-calon-dpm 
+                        v-for="paslon in daftarPaslon" 
+                        :key="paslon.id" 
+                        ref="satu" 
+                        :id="paslon.id" 
+                        :foto="paslon.dir" 
+                        :nama="paslon.nama"
+                        :href="href"></card-calon-dpm>
                     </div>
                     @else
                     <h5>Anda tidak bisa melakukan pemilihan Ketua dan Wakil Ketua DPM</h5>
@@ -66,55 +88,56 @@
 </div>
         
 </div>
-        {{--  <form id="vote-hmj" action="{{ route('mahasiswa.vote.hmj') }}" method="post">
-            <input type="text" name="terpilih" :value="terpilih"/>
-            {{ csrf_field() }}
-            <button type="submit">Vote</button>
-        </form>  --}}
-        
+
+<div id="vote-hmj">
+    <form-vote ref="form"></form-vote>
+</div>
+<div id="vote-bem">
+    <form-vote ref="form"></form-vote>
+</div>
+<div id="vote-dpm">
+    <form-vote ref="form"></form-vote>
+</div>
+
         @endsection
         
         @push('js')
         <script>
 
-            @if(Session::has('message'))
-            swal({
-                title: "{{ Session::get('error') ? 'Gagal !' : 'Berhasil !' }}",
-                text: "{{ Session::get('message') }}",
-                icon: "{{ Session::get('error') ? 'error' : 'success' }}",
-            }).then(function() {
-                $('#keluar').submit();
-            })
-            @endif
-
-            @unless(Auth::guard('mhs')->user()->telahMemilih($idpemilihanhmj))
             let hmj = new Vue({
                 el: '#paslonhmj',
                 data: {
-                    daftarPaslon: {!! $paslonHMJ !!},
+                    daftarPaslon: {!! $calonHMJ !!},
                     href: '{{ route('mahasiswa.vote.hmj') }}'
                 }
             });
-            @endunless
-            
-            @unless(Auth::guard('mhs')->user()->telahMemilih($idpemilihanbem))
+
             let bem = new Vue({
                 el: '#paslonbem',
                 data: {
-                    daftarPaslon: {!! $paslonBEM !!},
+                    daftarPaslon: {!! $calonBEM !!},
                     href: '{{ route('mahasiswa.vote.bem') }}'
                 }
             });
-            @endunless
-            
-            @unless(Auth::guard('mhs')->user()->telahMemilih($idpemilihandpm))
+
             let dpm = new Vue({
                 el: '#paslondpm',
                 data: {
-                    daftarPaslon: {!! $paslonDPM !!},
+                    daftarPaslon: {!! $calonDPM !!},
                     href: '{{ route('mahasiswa.vote.dpm') }}'
                 }
-            });
-            @endunless
+            })
+
+            let voteHmj = new Vue({
+                el: '#vote-hmj'
+            })
+
+            let voteBem = new Vue({
+                el: '#vote-bem'
+            })
+            
+            let voteDpm = new Vue({
+                el: '#vote-dpm'
+            })
         </script>
         @endpush
