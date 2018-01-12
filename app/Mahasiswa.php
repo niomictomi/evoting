@@ -20,7 +20,7 @@ class Mahasiswa extends Authenticatable
     protected $keyType = 'string';
 
     protected $fillable = [
-        'id', 'prodi_id', 'nama', 'status', 'login', 'hmj', 'dpm', 'bem', 'telah_login'
+        'id', 'prodi_id', 'nama', 'status', 'login', 'hmj', 'dpm', 'bem', 'telah_login', 'password'
     ];
 
     const AKTIF = 'A';
