@@ -347,4 +347,16 @@ class Mahasiswa extends Authenticatable
             return false;
         }
     }
+
+    /**
+     * Mengecek apakah mahasiswa adalah mahasiswa aktif, ditandai
+     * dengan field status pada tabel mahasiswa bernilai 'A'
+     *
+     * @return boolean
+     */
+    public function isMahasiswaAktif()
+    {
+        return ($this->status === 'A');
+    }
+
 }
