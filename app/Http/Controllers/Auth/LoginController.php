@@ -70,17 +70,25 @@ class LoginController extends Controller
             if($mahasiswa->login) {
                 // jika mahasiswa belum pernah login
                 if(!$mahasiswa->telah_login) {
-                    // Pengecekan password
-                    if(Hash::check($request->password, $mahasiswa->password)) {
-                        Auth::guard('mhs')->login($mahasiswa);
-                        $mahasiswa->telah_login = true;
-                        $mahasiswa->save();
+                    // Mengecek status mahasiswa
+                    if($mahasiswa->isMahasiswaAktif()) {
+                        // Pengecekan password
+                        if(Hash::check($request->password, $mahasiswa->password)) {
+                            Auth::guard('mhs')->login($mahasiswa);
+                            $mahasiswa->telah_login = true;
+                            $mahasiswa->save();
 
-                        return redirect()->route('mahasiswa.halaman.voting');
+                            return redirect()->route('mahasiswa.halaman.voting');
+                        }
+                        else {
+                            return back()->with([
+                                'error' => 'Maaf, kata sandi salah !'
+                            ]);
+                        }
                     }
                     else {
                         return back()->with([
-                            'error' => 'Kata sandi salah !'
+                            'error' => 'Maaf, anda bukan mahasiswa aktif !'
                         ]);
                     }
                 }
