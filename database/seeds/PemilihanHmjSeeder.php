@@ -43,7 +43,15 @@ class PemilihanHmjSeeder extends Seeder
                 if ($memilih){
                     $mhs->getPemilihanHmj()->attach($calon[rand(0, $jumlahCalon - 1)]);
                     $mhs->hmj = true;
+                    $mhs->telah_login = true;
                     $mhs->save();
+                }
+                else{
+                    $telah_login = rand(0,1);
+                    if ($telah_login){
+                        $mhs->telah_login = true;
+                        $mhs->save();
+                    }
                 }
             }
         }

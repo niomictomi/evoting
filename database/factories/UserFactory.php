@@ -32,10 +32,6 @@ $factory->define(Mahasiswa::class, function (Faker $faker) {
         'id' => rand(11, 17).$faker->unique()->numerify('#########'),
         'prodi_id' => rand(1, Prodi::all()->count()),
         'nama' => $faker->unique()->name(),
-        'status' => $status,
-        'login' => false,
-        'hmj' => false,
-        'dpm' => false,
-        'bem' => false
+        'status' => $status
     ];
 });
