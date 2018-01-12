@@ -92,8 +92,8 @@ class CalonHMJ extends Model
      */
     public static function getDaftarCalon($jurusan_id)
     {
-        $calonHMJ = CalonHMJ::whereHas('getRelasiKetua', function ($query) {
-            $query->whereHas('getRelasiProdi', function($query) {
+        $calonHMJ = CalonHMJ::whereHas('getRelasiKetua', function ($query) use ($jurusan_id) {
+            $query->whereHas('getRelasiProdi', function($query) use($jurusan_id) {
                 $query->where('jurusan_id', $jurusan_id);
             });
         });
