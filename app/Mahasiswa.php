@@ -39,7 +39,7 @@ class Mahasiswa extends Authenticatable
      *
      * @return BelongsTo
      */
-    public function relasiProdi()
+    public function getRelasiProdi()
     {
         return $this->belongsTo('App\Prodi', 'prodi_id');
     }
