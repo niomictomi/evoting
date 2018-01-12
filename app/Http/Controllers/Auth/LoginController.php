@@ -121,6 +121,9 @@ class LoginController extends Controller
             return redirect()->route('admin.login.form');
         }
         else if(Auth::guard('mhs')->check()) {
+            $user = Auth::guard('mhs')->user();
+            $user->telah_login = false;
+            $user->save();
             Auth::guard('mhs')->logout();
             return redirect()->route('mahasiswa.login');
         }
