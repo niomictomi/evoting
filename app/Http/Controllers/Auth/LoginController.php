@@ -36,7 +36,7 @@ class LoginController extends Controller
             if (Auth::user()->isAdmin()){
                 return redirect()->route('admin.dashboard');
             }
-            if (Auth::user()->isDosen() || Auth::user()->isWD1()){
+            if (Auth::user()->isDosen() || Auth::user()->isWD3()){
                 return redirect()->route('dosen.dashboard');
             }
             if (Auth::user()->isKetuaKPU()){
