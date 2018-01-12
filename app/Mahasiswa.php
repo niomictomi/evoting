@@ -279,4 +279,23 @@ class Mahasiswa extends Authenticatable
         return Mahasiswa::where('status', Mahasiswa::AKTIF)
             ->whereNotIn('id', $id_mhs);
     }
+
+    /**
+     * @param $calon_hmj_id
+     * @return bool
+     */
+    public function doPilihHmj($calon_hmj_id)
+    {
+        try{
+            $calon = CalonHMJ::find($calon_hmj_id);
+            $this->getCalonHmj()->attach($calon);
+            $this->hmj = true;
+            $this->save();
+
+            return true;
+        }
+        catch (Exception $exception){
+            return false;
+        }
+    }
 }
