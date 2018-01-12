@@ -1,38 +1,37 @@
 <template>
     <form :action="action" method="post">
-        <input type="hidden" name="_token" :value="csrf"/>
-        <input type="hidden" name="idterpilih" :value="terpilih"/>
+        <input type="hidden" name="terpilih" :value="terpilih"/>
     </form>
 </template>
 
 <script>
 export default {
     props: [
-        'terpilih', 'action'
+        'action'
     ],
     data() {
         return {
-            csrf: document.head.querySelector('meta[name="csrf-token"]').content,
-            voted: false
+            voted: false,
+            terpilih: null
         }
     },
     methods: {
-        submit() {
-            axios.post(this.action).then((response) => {
-                swal({
-                    title: response.data.error ? 'Gagal !' : 'Berhasil !',
-                    text: response.data.message,
-                    icon: response.data.error ? 'error' : 'success',
-                }).then(() => {
-                        
-                })
-            }).catch((error) => {
-
-            })
-        },
-        ubahTerpilih(id) {
+        submit(id) {
             this.terpilih = id
-            Vue.nextTick()
+            let that = this
+            $.ajax({
+                url: that.action,
+                method: 'post',
+                data: 'terpilih=' + that.terpilih,
+                success: function(response) {
+                    if(!response.error) {
+                        that.voted = true
+                    }
+                },
+                error: function(error) {
+                    console.log(error)
+                }
+            })
         }
     }
 }

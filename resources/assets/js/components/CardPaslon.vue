@@ -30,12 +30,10 @@ export default {
     methods: {
         submit() {
             if(this.jenis === 'hmj') {
-                voteHmj.$refs.form.ubahTerpilih(id)
-                voteHmj.$refs.form.submit()
+                voteHmj.$refs.form.submit(this.id)
             }
             else if(this.jenis === 'bem') {
-                voteBem.$refs.form.ubahTerpilih(id)
-                voteBem.$refs.form.submit()
+                voteBem.$refs.form.submit(this.id)
             }
         }
     }
