@@ -298,4 +298,23 @@ class Mahasiswa extends Authenticatable
             return false;
         }
     }
+
+    /**
+     * @param $calon_hmj_id
+     * @return bool
+     */
+    public function doPilihDpm($calon_dpm_id)
+    {
+        try{
+            $calon = CalonDPM::find($calon_dpm_id);
+            $this->getCalonDpm()->attach($calon);
+            $this->dpm = true;
+            $this->save();
+
+            return true;
+        }
+        catch (Exception $exception){
+            return false;
+        }
+    }
 }
