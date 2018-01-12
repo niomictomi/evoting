@@ -16,7 +16,7 @@
         </div>
         <div class="card-block">
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table table-hover" id="panitia">
                     <thead>
                     <tr>
                         <td><b>NIM</b></td>

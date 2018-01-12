@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{asset('modular/css/vendor.css')}}">
     <link rel="stylesheet" href="{{asset('modular/css/app.css')}}">
     <link rel="stylesheet" href="{{asset('modular/css/app-blue.css')}}">
-    <link href="{{ asset('css/dataTables.bootstrap.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/dataTables.responsive.css') }}" rel="stylesheet"/>
     @if(Auth::guard('mhs')->check())
         <style>
@@ -309,8 +309,9 @@
 <script src="{{asset('modular/js/app.js')}}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.responsive.js') }}"></script>
+<script src="{{ asset('js/datatables-setting.js') }}"></script>
 @stack('js')
 </body>
 </html>
