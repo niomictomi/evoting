@@ -36,7 +36,7 @@ class PengecekanHakAkses
             (!$user->isRoot() && $hakakses === Role::ROOT) ||
             (!$user->isKetuaKPU() && $hakakses === Role::KETUA_KPU) ||
             (!$user->isDosen() && $hakakses === Role::DOSEN) ||
-            (!$user->isWD1() && $hakakses === Role::WD1)
+            (!$user->isWD3() && $hakakses === Role::WD3)
             )
                 return abort(403, 'Anda bukan ' . $hakakses);
         }
