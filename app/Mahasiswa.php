@@ -143,35 +143,32 @@ class Mahasiswa extends Authenticatable
 
     /**
      * mengecek apakah telah memilih hmj atau belum via relasi tabel
+     * 
      * @return bool
      */
     public function telahMemilihHmj()
     {
-        if ($this->getCalonHmj()->count() > 0)
-            return true;
-        return false;
+        return $this->getPemilihanHmj()->count() > 0;
     }
 
     /**
      * mengecek apakah telah memilih dpm atau belum via relasi tabel
+     * 
      * @return bool
      */
     public function telahMemilihDpm()
     {
-        if ($this->getCalonDpm()->count() > 0)
-            return true;
-        return false;
+        return $this->getPemilihanDpm()->count() > 0;
     }
 
     /**
      * mengecek apakah telah memilih bem atau belum via relasi tabel
+     * 
      * @return bool
      */
     public function telahMemilihBem()
     {
-        if ($this->getCalonBem()->count() > 0)
-            return true;
-        return false;
+        return $this->getPemilihanBem()->count() > 0;
     }
 
     /**
@@ -297,15 +294,18 @@ class Mahasiswa extends Authenticatable
      */
     public function doPilihHmj($calon_hmj_id)
     {
+        if($this->telahMemilihHmj())
+            return false;
+
         try{
-            $calon = CalonHMJ::find($calon_hmj_id);
-            $this->getCalonHmj()->attach($calon);
+            $calon = CalonHMJ::findOrFail($calon_hmj_id);
+            $this->getPemilihanHmj()->attach($calon);
             $this->hmj = true;
             $this->save();
 
             return true;
         }
-        catch (Exception $exception){
+        catch (ModelNotFoundException $exception){
             return false;
         }
     }
@@ -316,15 +316,18 @@ class Mahasiswa extends Authenticatable
      */
     public function doPilihDpm($calon_dpm_id)
     {
+        if($this->telahMemilihDpm())
+            return false;
+
         try{
             $calon = CalonDPM::find($calon_dpm_id);
-            $this->getCalonDpm()->attach($calon);
+            $this->getPemilihanDpm()->attach($calon);
             $this->dpm = true;
             $this->save();
 
             return true;
         }
-        catch (Exception $exception){
+        catch (ModelNotFoundException $exception){
             return false;
         }
     }
@@ -335,15 +338,18 @@ class Mahasiswa extends Authenticatable
      */
     public function doPilihBem($calon_bem_id)
     {
+        if($this->telahMemilihBem())
+            return false;
+
         try{
             $calon = CalonDPM::find($calon_bem_id);
-            $this->getCalonBem()->attach($calon);
+            $this->getPemilihanBem()->attach($calon);
             $this->bem = true;
             $this->save();
 
             return true;
         }
-        catch (Exception $exception){
+        catch (ModelNotFoundException $exception){
             return false;
         }
     }

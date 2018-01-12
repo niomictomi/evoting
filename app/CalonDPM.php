@@ -74,4 +74,22 @@ class CalonDPM extends Model
             return Mahasiswa::whereIn('id', CalonDPM::getAllIdAnggota());
         return Mahasiswa::whereIn('id', CalonDPM::getAllIdAnggota($jurusan_id));
     }
+
+    /**
+     * Mendapatkan daftar calon anggota dpm pada jurusan tertentu
+     *
+     * @param int $jurusan_id
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function getDaftarCalon($jurusan_id)
+    {  
+        $calonDPM = CalonDPM::whereHas('getRelasiAnggota', function ($query) use($jurusan_id) {
+            $query->whereHas('getRelasiProdi', function ($query) use ($jurusan_id) {
+                $query->where('jurusan_id', $jurusan_id);
+            });
+        });
+
+        return $calonDPM;
+    }
+
 }
