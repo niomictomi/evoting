@@ -263,6 +263,9 @@ class Mahasiswa extends Authenticatable
             ->where('bem', false);
     }
 
+    /**
+     * @return mixed
+     */
     public static function getYangBelumMemilihBemViaRelation()
     {
         $id_mhs = Array();
