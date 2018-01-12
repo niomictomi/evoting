@@ -63,21 +63,48 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if ($request->password == Carbon::today()->toDateString()){
-            try {
-                $mahasiswa = Mahasiswa::findOrFail($request->id);
-            }
-            catch(ModelNotFoundException $err) {
-                return back()->with('message', 'NIM Salah');
-            }
+        try {
+            $mahasiswa = Mahasiswa::findOrFail($request->id);
 
-            if(!$mahasiswa->bisa_memilih)
-                return back()->with('message', 'Akun anda belum diaktivasi !');
+            // jika akun mahasiswa telah diaktivasi
+            if($mahasiswa->login) {
+                // jika mahasiswa belum pernah login
+                if(!$mahasiswa->telah_login) {
+                    // Mengecek status mahasiswa
+                    if($mahasiswa->isMahasiswaAktif()) {
+                        // Pengecekan password
+                        if(Hash::check($request->password, $mahasiswa->password)) {
+                            Auth::guard('mhs')->login($mahasiswa);
+                            $mahasiswa->telah_login = true;
+                            $mahasiswa->save();
 
-            Auth::guard('mhs')->login($mahasiswa);
-            return redirect()->route('mahasiswa.halaman.voting');
-        } else {
-            return back()->with('message', 'Password salah!');
+                            return redirect()->route('mahasiswa.halaman.voting');
+                        }
+                        else {
+                            return back()->with([
+                                'error' => 'Maaf, kata sandi salah !'
+                            ]);
+                        }
+                    }
+                    else {
+                        return back()->with([
+                            'error' => 'Maaf, anda bukan mahasiswa aktif !'
+                        ]);
+                    }
+                }
+                else {
+                    return back()->with([
+                        'error' => 'Maaf, anda tidak bisa login kembali !'
+                    ]);
+                }
+            }
+            else {
+                return back()->with([
+                    'error' => 'Akun anda belum diaktivasi !'
+                ]);
+            }
+        } catch(ModelNotFoundException $e) {
+
         }
     }
 
