@@ -24,12 +24,23 @@ class CalonDPM extends Model
     }
 
     /**
+     * Mendapatkan relasi ke tabel mahasiswa berdasarkan
+     * id anggota
+     *
+     * @return void
+     */
+    public function getRelasiAnggota()
+    {
+        return $this->belongsTo('App\Mahasiswa', 'anggota_id');
+    }
+
+    /**
      * mengambil data anggota
      * @return Model|null|static
      */
     public function getAnggota()
     {
-        return $this->belongsTo('App\Mahasiswa','ketua_id')->first();
+        return $this->belongsTo('App\Mahasiswa', 'anggota_id')->first();
     }
 
     /**

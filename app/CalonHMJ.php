@@ -29,7 +29,7 @@ class CalonHMJ extends Model
      *
      * @return BelongsTo
      */
-    public function relasiKetua()
+    public function getRelasiKetua()
     {
         return $this->belongsTo('App\Mahasiswa','ketua_id');
     }
