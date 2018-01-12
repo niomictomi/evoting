@@ -300,7 +300,7 @@ class Mahasiswa extends Authenticatable
     }
 
     /**
-     * @param $calon_hmj_id
+     * @param $calon_dpm_id
      * @return bool
      */
     public function doPilihDpm($calon_dpm_id)
@@ -309,6 +309,25 @@ class Mahasiswa extends Authenticatable
             $calon = CalonDPM::find($calon_dpm_id);
             $this->getCalonDpm()->attach($calon);
             $this->dpm = true;
+            $this->save();
+
+            return true;
+        }
+        catch (Exception $exception){
+            return false;
+        }
+    }
+
+    /**
+     * @param $calon_bem_id
+     * @return bool
+     */
+    public function doPilihBem($calon_bem_id)
+    {
+        try{
+            $calon = CalonDPM::find($calon_bem_id);
+            $this->getCalonBem()->attach($calon);
+            $this->bem = true;
             $this->save();
 
             return true;
