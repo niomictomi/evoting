@@ -34,6 +34,17 @@ class Mahasiswa extends Authenticatable
     ];
 
     /**
+     * Mendapatkan relasi ke tabel prodi
+     * gunanya untuk bisa menggunakan whereHas
+     *
+     * @return BelongsTo
+     */
+    public function relasiProdi()
+    {
+        return $this->belongsTo('App\Prodi', 'prodi_id');
+    }
+
+    /**
      * Mendapatkan data prodi dari salah satu mahasiswa
      * @return Model|null|static
      */

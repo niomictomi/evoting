@@ -24,6 +24,17 @@ class CalonHMJ extends Model
     }
 
     /**
+     * Mendapatkan relasi ke tabel Mahasiswa dilihat
+     * dari id calon ketua
+     *
+     * @return BelongsTo
+     */
+    public function relasiKetua()
+    {
+        return $this->belongsTo('App\Mahasiswa','ketua_id');
+    }
+
+    /**
      * mengambil data ketua
      * @return Model|null|static
      */
