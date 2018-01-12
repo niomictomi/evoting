@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{asset('modular/css/vendor.css')}}">
     <link rel="stylesheet" href="{{asset('modular/css/app.css')}}">
     <link rel="stylesheet" href="{{asset('modular/css/app-blue.css')}}">
+    <link href="{{ asset('css/dataTables.bootstrap.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/dataTables.responsive.css') }}" rel="stylesheet"/>
     @if(Auth::guard('mhs')->check())
         <style>
             .app {
@@ -306,6 +308,9 @@
 <script src="{{asset('modular/js/vendor.js')}}"></script>
 <script src="{{asset('modular/js/app.js')}}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.responsive.js') }}"></script>
 @stack('js')
 </body>
 </html>
