@@ -83,4 +83,22 @@ class CalonHMJ extends Model
             return Mahasiswa::whereIn('id', CalonHMJ::getAllIdCalon());
         return Mahasiswa::whereIn('id', CalonHMJ::getAllIdCalon($jurusan_id));
     }
+
+    /**
+     * Mendapatkan daftar calon pada jurusan tertentu
+     *
+     * @param int $jurusan_id
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function getDaftarCalon($jurusan_id)
+    {
+        $calonHMJ = CalonHMJ::whereHas('getRelasiKetua', function ($query) {
+            $query->whereHas('getRelasiProdi', function($query) {
+                $query->where('jurusan_id', $jurusan_id);
+            });
+        });
+
+        return $calonHMJ;
+    }
+
 }
