@@ -1,5 +1,5 @@
 <template>
-    <div class="card col-sm">
+    <div class="card col-sm card-calon">
         <img class="card-img-top" :src="foto" alt="Card image cap">
         <div class="card-body">
             <div class="row">
@@ -12,7 +12,11 @@
                     <h4>{{ namaWakil }}</h4>
                 </div>
             </div>
-            <button @click.prevent="submit" type="submit" class="btn btn-primary">Pilih</button>
+            <div class="row justify-content-sm-center">
+                <div class="col-sm-auto">
+                    <button @click.prevent="submit" type="submit" class="btn btn-primary">Pilih</button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -29,12 +33,37 @@ export default {
     },
     methods: {
         submit() {
-            if(this.jenis === 'hmj') {
-                voteHmj.$refs.form.submit(this.id)
-            }
-            else if(this.jenis === 'bem') {
-                voteBem.$refs.form.submit(this.id)
-            }
+            let that = this
+            $.ajax({
+                url: that.href,
+                method: 'post',
+                data: 'terpilih=' + that.id,
+                success: function (response) {
+                    if(that.jenis == 'bem')
+                        bem.voted = true;
+                    else if(that.jenis == 'hmj')
+                        hmj.voted = true
+                    // menampilkan pesan
+                    swal({
+                        title: response.error ? 'Gagal !' : 'Berhasil !',
+                        icon: response.error ? 'error' : 'success',
+                        text: response.message
+                    }).then((response) => {
+                        if(that.isVotedAll()) {
+                            swal('Peringatan', 'Anda akan keluar secara otomatis')
+                            setTimeout(function () {
+                                $('#keluar').submit()
+                            }, 1000)
+                        }
+                    })
+                },
+                error: function(error) {
+                    console.log(error)
+                }
+            })
+        },
+        isVotedAll() {
+            return (hmj.voted && bem.voted && dpm.voted)
         }
     }
 }

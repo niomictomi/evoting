@@ -1,16 +1,18 @@
 <template>
-    <div class="card">
-        <div class="card-body">
-            <h6>Waktu anda</h6>
-            <div class="row">
-                <div class="col">
-                    <span class="time">{{ menit | duaDigit }}</span>
-                    Menit
-                </div>
-                <div class="col">
-                    <span class="time">{{ detik | duaDigit }}</span>
-                    Detik
-                </div>
+    <div>
+        <h6>Waktu anda</h6>
+        <div class="row">
+            <div class="col">
+                <span class="time">{{ menit | duaDigit }}</span>
+                <span class="type">Menit</span>
+            </div>
+            <div class="col">
+                <span class="time">:</span>
+                <span class="type"></span>
+            </div>
+            <div class="col">
+                <span class="time">{{ detik | duaDigit }}</span>
+                <span class="type">Detik</span>
             </div>
         </div>
     </div>

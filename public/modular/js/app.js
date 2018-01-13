@@ -1412,3 +1412,9 @@ NProgress.start();
 
 // end loading bar 
 NProgress.done();
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
