@@ -18,33 +18,36 @@
 
 <script>
     export default {
+        props: [
+            'waktu', 'tambahan'
+        ],
         data() {
             return {
-                waktu: 180,
-                tambahan: 120
+                datawaktu: this.waktu,
+                datatambahan: this.tambahan
             }
         },
         mounted() {
             let interval = window.setInterval(() => {
-                if (this.waktu == 0) {
-                    if (this.tambahan > 0) {
-                        this.waktu = this.tambahan
-                        this.tambahan = 0
+                if (this.datawaktu == 0) {
+                    if (this.datatambahan > 0) {
+                        this.datawaktu = this.datatambahan
+                        this.datatambahan = 0
                     } else {
                         clearInterval(interval)
                         $('#keluar').submit()
                     }
                 } else {
-                    this.waktu = --this.waktu
+                    this.datawaktu = --this.datawaktu
                 }
             }, 1000)
         },
         computed: {
             menit() {
-                return Math.floor(this.waktu / 60)
+                return Math.floor(this.datawaktu / 60)
             },
             detik() {
-                return this.waktu - (Math.floor(this.waktu / 60) * 60)
+                return this.datawaktu - (Math.floor(this.datawaktu / 60) * 60)
             }
         },
         filters: {

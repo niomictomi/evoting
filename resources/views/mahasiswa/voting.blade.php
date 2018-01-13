@@ -6,7 +6,10 @@
 
     <div class="row justify-content-md-center">
         <div class="col-md-auto" id="timer">
-            <timer></timer>
+            <timer
+                waktu="{{ $waktu }}"
+                tambahan="{{ $tambahan }}"
+            ></timer>
         </div>
     </div>
 
@@ -118,7 +121,8 @@
         el: '#paslonhmj',
         data: {
             daftarPaslon: {!! $calonHMJ !!},
-            href: '{{ route('mahasiswa.vote.hmj') }}'
+            href: '{{ route('mahasiswa.vote.hmj') }}',
+            mask: false
         }
     })
     
@@ -126,7 +130,8 @@
         el: '#paslonbem',
         data: {
             daftarPaslon: {!! $calonBEM !!},
-            href: '{{ route('mahasiswa.vote.bem') }}'
+            href: '{{ route('mahasiswa.vote.bem') }}',
+            mask: false
         }
     })
     
@@ -134,7 +139,8 @@
         el: '#paslondpm',
         data: {
             daftarPaslon: {!! $calonDPM !!},
-            href: '{{ route('mahasiswa.vote.dpm') }}'
+            href: '{{ route('mahasiswa.vote.dpm') }}',
+            mask: false
         }
     })
     
