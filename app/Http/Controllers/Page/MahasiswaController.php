@@ -66,8 +66,8 @@ class MahasiswaController extends Controller
 
         // pengaturan untuk timer
         $selisihDetik = Carbon::now()->diffInSeconds(Carbon::parse(session()->get('timer-end')));
-        $waktu = $selisihDetik > 180 ? $selisihDetik - 120 : 0;
-        $tambahan = $selisihDetik < 180 ? $selisihDetik : 120;
+        $waktu = $selisihDetik > 120 ? $selisihDetik - 120 : 0;
+        $tambahan = $selisihDetik < 120 ? $selisihDetik : 120;
 
         return view('mahasiswa.voting', [
             'calonHMJ' => $calonHMJ,
