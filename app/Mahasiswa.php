@@ -342,7 +342,7 @@ class Mahasiswa extends Authenticatable
             return false;
 
         try{
-            $calon = CalonDPM::find($calon_bem_id);
+            $calon = CalonBEM::find($calon_bem_id);
             $this->getPemilihanBem()->attach($calon);
             $this->bem = true;
             $this->save();
