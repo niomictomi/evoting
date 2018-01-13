@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Page;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -63,10 +64,17 @@ class MahasiswaController extends Controller
             $item['nama'] = $item->getAnggota()->nama;
         }
 
+        // pengaturan untuk timer
+        $selisihDetik = Carbon::now()->diffInSeconds(Carbon::parse(session()->get('timer-end')));
+        $waktu = $selisihDetik > 180 ? $selisihDetik - 120 : 0;
+        $tambahan = $selisihDetik < 180 ? $selisihDetik : 120;
+
         return view('mahasiswa.voting', [
             'calonHMJ' => $calonHMJ,
             'calonBEM' => $calonBEM,
-            'calonDPM' => $calonDPM
+            'calonDPM' => $calonDPM,
+            'waktu' => $waktu,
+            'tambahan' => $tambahan
         ]);
     }
 
