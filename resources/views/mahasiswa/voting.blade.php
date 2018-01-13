@@ -95,18 +95,6 @@
 
 </div>
 
-<div id="vote-hmj">
-    <form-vote ref="form" action="{{ route('mahasiswa.vote.hmj') }}"></form-vote>
-</div>
-
-<div id="vote-bem">
-    <form-vote ref="form" action="{{ route('mahasiswa.vote.bem') }}"></form-vote>
-</div>
-
-<div id="vote-dpm">
-    <form-vote ref="form" action="{{ route('mahasiswa.vote.dpm') }}"></form-vote>
-</div>
-
 @endsection
 
 @push('js')
@@ -137,18 +125,6 @@
             href: '{{ route('mahasiswa.vote.dpm') }}',
             voted: {{ Auth::guard('mhs')->user()->telahMemilihDpm() ? 'true' : 'false' }}
         }
-    })
-    
-    let voteHmj = new Vue({
-        el: '#vote-hmj'
-    })
-    
-    let voteBem = new Vue({
-        el: '#vote-bem'
-    })
-    
-    let voteDpm = new Vue({
-        el: '#vote-dpm'
     })
     
     const timer = new Vue({
