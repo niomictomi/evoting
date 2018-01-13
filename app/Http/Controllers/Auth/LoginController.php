@@ -78,6 +78,9 @@ class LoginController extends Controller
                             $mahasiswa->telah_login = true;
                             $mahasiswa->save();
 
+                            // mengeset timer
+                            session()->put('timer-end', Carbon::now()->addMinutes(5));
+
                             return redirect()->route('mahasiswa.halaman.voting');
                         }
                         else {
@@ -121,6 +124,8 @@ class LoginController extends Controller
             return redirect()->route('admin.login.form');
         }
         else if(Auth::guard('mhs')->check()) {
+            // menghapus timer
+            session()->forget('timer-end');
             Auth::guard('mhs')->logout();
             return redirect()->route('mahasiswa.login');
         }
