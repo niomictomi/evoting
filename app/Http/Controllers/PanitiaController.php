@@ -24,6 +24,16 @@ class PanitiaController extends Controller
         return view('admin.panitia.dashboard');
     }
 
+    public function paslon()
+    {
+        return view('admin.panitia.paslon');
+    }
+
+    public function paslonform()
+    {
+        return view('admin.panitia.form');
+    }
+
     public function resepsionis()
     {
         $result = Mahasiswa::orderBy('id', 'DESC')->get();
