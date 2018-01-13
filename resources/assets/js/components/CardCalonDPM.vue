@@ -39,10 +39,16 @@ export default {
                         text: response.message
                     }).then((response) => {
                         if(that.isVotedAll()) {
-                            swal('Peringatan', 'Anda akan keluar secara otomatis')
+                            swal({
+                                title: 'Terima kasih telah mengikuti pemilihan', 
+                                text: 'Anda akan keluar secara otomatis',
+                                button: false,
+                                icon: 'info',
+                                closeOnClickOutside: false
+                                })
                             setTimeout(function () {
                                 $('#keluar').submit()
-                            }, 1000)
+                            }, 1500)
                         }
                     })
                 },
