@@ -31,13 +31,13 @@
         padding: 0;
     }
     #daftar-calon-hmj {
-        background-color: red;
+        background: $hmjContent;
     }
     #daftar-calon-bem {
-        background-color: green;
+        background: $bemContent;
     }
     #daftar-calon-dpm {
-        background-color: blue;
+        background: $dpmContent;
     }
     .nav-pills {
         .nav-link {
@@ -47,6 +47,21 @@
                 text-align: center;
                 display: block;
                 font-size: 12px;
+            }
+            &.nav-hmj {
+                &.active {
+                    background: $hmj;
+                }
+            }
+            &.nav-bem {
+                &.active {
+                    background: $bem;
+                }
+            }
+            &.nav-dpm {
+                &.active {
+                    background: $dpm;
+                }
             }
         }
     }

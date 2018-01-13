@@ -1,11 +1,13 @@
 @extends('layouts.global')
 
+@section('activity', 'Voting')
+
 @section('content')
 
 <div class="container">
-    
+
     <div class="card" id="card-vote">
-        
+
         <div class="card-body">
             <div class="row">
                 <div class="col">
@@ -15,13 +17,13 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                            <a href="" class="nav-link active" data-target="#daftar-calon-hmj" aria-controls="home-pills" data-toggle="tab" role="tab">Hima <span class="desc">{{ $calonHMJ->count() }} calon</span></a>
+                            <a href="" class="nav-link nav-hmj active" data-target="#daftar-calon-hmj" aria-controls="home-pills" data-toggle="tab" role="tab">Hima <span class="desc">{{ $calonHMJ->count() }} calon</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link" data-target="#daftar-calon-bem" aria-controls="profile-pills" data-toggle="tab" role="tab">BEM <span class="desc">{{ $calonBEM->count() }} calon</span></a>
+                            <a href="" class="nav-link nav-bem" data-target="#daftar-calon-bem" aria-controls="profile-pills" data-toggle="tab" role="tab">BEM <span class="desc">{{ $calonBEM->count() }} calon</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link" data-target="#daftar-calon-dpm" aria-controls="messages-pills" data-toggle="tab" role="tab">DPM <span class="desc">{{ $calonDPM->count() }} calon</span></a>
+                            <a href="" class="nav-link nav-dpm" data-target="#daftar-calon-dpm" aria-controls="messages-pills" data-toggle="tab" role="tab">DPM <span class="desc">{{ $calonDPM->count() }} calon</span></a>
                         </li>
                     </ul>
                 </div>
