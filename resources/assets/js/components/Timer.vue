@@ -37,7 +37,15 @@
                         this.datatambahan = 0
                     } else {
                         clearInterval(interval)
-                        $('#keluar').submit()
+                        swal({
+                            title: 'Peringatan !',
+                            text: 'Waktu untuk pemilihan telah habis. Anda akan keluar secara otomatis',
+                            button: false,
+                            closeOnClickOutside: false,
+                        })
+                        setTimeout(function () {
+                            $('#keluar').submit()
+                        }, 1500)
                     }
                 } else {
                     this.datawaktu = --this.datawaktu
