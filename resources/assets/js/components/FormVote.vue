@@ -27,6 +27,12 @@ export default {
                     if(!response.error) {
                         that.voted = true
                     }
+                    // menampilkan pesan
+                    swal({
+                        title: response.error ? 'Gagal !' : 'Berhasil !',
+                        icon: response.error ? 'error' : 'success',
+                        message: response.message
+                    })
                 },
                 error: function(error) {
                     console.log(error)

@@ -1,6 +1,6 @@
 <template>
      <div class="card col-sm">
-        <img class="card-img-top" :src="foto" alt="Card image cap">
+        <img class="card-img-top" :src="foto" :alt="nama">
         <div class="card-body">
             <h6>Calon Anggota DPM</h6>
             <h4>{{ nama }}</h4>
@@ -12,7 +12,7 @@
 <script>
 export default {
     props: [
-        'nama', 'foto'
+        'nama', 'foto', 'id'
     ],
     data() {
         return {
@@ -21,7 +21,7 @@ export default {
     },
     methods: {
         submit() {
-            
+            voteDpm.$refs.form.submit(this.id)
         }
     }
 }
