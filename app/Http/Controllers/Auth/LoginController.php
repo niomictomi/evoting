@@ -17,7 +17,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest:web')->only(['login', 'form']);
-        $this->middleware('guest:mhs')->only('loginMahassiwa');
+        $this->middleware('guest:mhs')->only('loginMahasiswa');
     }
 
     /**
