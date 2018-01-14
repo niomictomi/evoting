@@ -11,7 +11,7 @@
                 <h3 class="title">Daftar panitia</h3>
             </div>
             <div class="header-block pull-right">
-                <a href="#tambah" class="btn btn-primary btn-sm rounded pull-right" data-toggle="modal">Tambah Panitia</a>
+                <button data-target="#tambah" class="btn btn-primary btn-sm rounded pull-right" data-toggle="modal">Tambah Panitia</button>
                 <div class="modal fade" id="tambah" tabindex="-1" role="dialog"
                      aria-hidden="true">
                     <div class="modal-dialog" role="document">
