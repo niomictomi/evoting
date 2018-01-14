@@ -48,6 +48,24 @@ class Pengaturan extends Model
     }
 
     /**
+     * mengecek apakah voting telah berlangsung atau tidak
+     * @return bool
+     */
+    public static function isVotingTelahBerlangsung()
+    {
+        return Carbon::now()->greaterThan(self::getWaktuSelesai());
+    }
+
+    /**
+     * mengecek apakah voting akan berlangsung atau tidak
+     * @return bool
+     */
+    public static function isVotingAkanBerlangsung()
+    {
+        return Carbon::now()->lessThan(self::getWaktuMulai());
+    }
+
+    /**
      * mendapatkan status voting
      * @return string
      */
@@ -55,7 +73,7 @@ class Pengaturan extends Model
     {
         if (self::isVotingSedangBerlangsung())
             return 'Voting sedang berlangsung.';
-        if (Carbon::now()->lessThan(self::getWaktuMulai()))
+        if (self::isVotingAkanBerlangsung())
             return 'Voting akan dimulai '.self::getWaktuMulai()->diffForHumans().'.';
         return 'Voting telah berlangsung '.self::getWaktuSelesai()->diffForHumans().'.';
     }
