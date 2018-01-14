@@ -65,7 +65,7 @@
                                 </a>
                             @endunless
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="" onclick="event.preventDefault(); $('#keluar').submit()">
+                            <a class="dropdown-item" href="/" onclick="event.preventDefault(); $('#keluar').submit()">
                                 <i class="fa fa-power-off icon"></i>
                                 Keluar
                             </a>
@@ -107,10 +107,10 @@
                                     @include('layouts.admin')
                                 @elseif(Auth::user()->isKetuaKPU())
                                     @include('layouts.kakpu')
-                                @elseif(Auth::user()->isDosen()||Auth::user()->isWD1())
+                                @elseif(Auth::user()->isDosen()||Auth::user()->isWD3())
                                     @include('layouts.dosenwd')
                                 @elseif(Auth::user()->isRoot())
-                                    @include('layouts.dosenwd')
+                                    @include('layouts.root')
                                 @endif
                             </ul>
                         @endif
