@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- Place favicon.ico in the root directory -->
     <!-- Theme initialization -->
     <link rel="stylesheet" href="{{ asset('modular/css/vendor.css') }}">
