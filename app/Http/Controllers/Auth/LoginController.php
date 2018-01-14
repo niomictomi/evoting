@@ -14,6 +14,12 @@ use App\Mahasiswa;
 class LoginController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('guest:web')->only(['login', 'form']);
+        $this->middleware('guest:mhs')->only('loginMahassiwa');
+    }
+
     /**
      * Melakukan proses login untuk seluruh user, kecuali
      * mahasiswa
