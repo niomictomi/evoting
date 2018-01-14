@@ -1,3 +1,13 @@
+a:visited,
+a:link {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  font-size: 30px;
+}
+
 #timer {
   background-color: #888;
   color: #fff;
@@ -34,15 +44,18 @@
 }
 
 #card-vote #daftar-calon-hmj {
-  background-color: red;
+  background: -webkit-gradient(linear, left top, left bottom, from(#e74a47), to(#e53935));
+  background: linear-gradient(#e74a47, #e53935);
 }
 
 #card-vote #daftar-calon-bem {
-  background-color: green;
+  background: -webkit-gradient(linear, left top, left bottom, from(#58af5c), to(#43a047));
+  background: linear-gradient(#58af5c, #43a047);
 }
 
 #card-vote #daftar-calon-dpm {
-  background-color: blue;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fc9f15), to(#fb8c00));
+  background: linear-gradient(#fc9f15, #fb8c00);
 }
 
 #card-vote .nav-pills .nav-link {
@@ -54,6 +67,21 @@
   text-align: center;
   display: block;
   font-size: 12px;
+}
+
+#card-vote .nav-pills .nav-link.nav-hmj.active {
+  background: -webkit-gradient(linear, left top, left bottom, from(#ef5350), to(#e74a47));
+  background: linear-gradient(#ef5350, #e74a47);
+}
+
+#card-vote .nav-pills .nav-link.nav-bem.active {
+  background: -webkit-gradient(linear, left top, left bottom, from(#66bb6a), to(#58af5c));
+  background: linear-gradient(#66bb6a, #58af5c);
+}
+
+#card-vote .nav-pills .nav-link.nav-dpm.active {
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffa726), to(#fc9f15));
+  background: linear-gradient(#ffa726, #fc9f15);
 }
 
 #card-vote .tab-pane {

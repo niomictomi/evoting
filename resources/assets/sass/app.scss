@@ -1,5 +1,16 @@
 @import 'variables.scss';
 
+a {
+    &:visited,
+    &:link {
+        text-decoration: none;
+    }
+    &:hover {
+        text-decoration: underline;
+        font-size: 30px;
+    }
+}
+
 #timer {
     background-color: #888;
     color: #fff;
