@@ -1,5 +1,17 @@
 @import 'variables.scss';
 
+a {
+    &:visited,
+    &:link {
+        transition: all ease 0.2s;
+        text-decoration: none;
+    }
+    &:hover {
+        transform: rotate(360deg);
+        text-decoration: underline;
+    }
+}
+
 #timer {
     background-color: #888;
     color: #fff;
