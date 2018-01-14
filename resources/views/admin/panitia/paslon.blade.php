@@ -1,5 +1,6 @@
 @extends('layouts.global')
 @section('activity')
+    Daftar Paslon
 @endsection
 
 @section('content')

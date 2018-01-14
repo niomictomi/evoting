@@ -34,7 +34,6 @@
                                 <div class="col-9">
                                     <label class="control-label">NIM Calon Ketua Ketua</label>
                                     <input type="text" class="form-control underlined" name="ketua_id" maxlength="11" required>
-                                    <input type="text" hidden="" class="form-control underlined" name="nomor" value="1" maxlength="11" required>
                                     <input type="file" class="form-control underlined" name="dir" required>
                                     <label class="control-label">NIM Calon Ketua Wakil Ketua</label>
                                     <input type="text" class="form-control underlined" name="wakil_id" maxlength="11" required>
