@@ -65,7 +65,7 @@
                                 </a>
                             @endunless
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/" onclick="event.preventDefault(); $('#keluar').submit()">
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); $('#keluar').submit()">
                                 <i class="fa fa-power-off icon"></i>
                                 Keluar
                             </a>
