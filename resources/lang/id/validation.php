@@ -100,15 +100,18 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-            'nim' => [
-                'required' => 'NIM dibutuhkan!',
-                'numeric' => 'NIM hanya boleh berisi angka!',
-                'min' => 'NIM harus 11 angka',
-                'max' => 'NIM harus 11 angka',
-            ]
+        'nim' => [
+            'required' => 'NIM dibutuhkan!',
+            'numeric' => 'NIM hanya boleh berisi angka!',
+            'min' => 'NIM harus 11 angka!',
+            'max' => 'NIM harus 11 angka!',
         ],
+        'nama' => [
+            'required' => 'Nama dibutuhkan!'
+        ],
+        'role' => [
+            'required' => 'Hak akses dibutuhkan!'
+        ]
     ],
 
     /*
