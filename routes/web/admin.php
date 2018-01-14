@@ -10,4 +10,11 @@ Route::group(['prefix' => 'admin'], function (){
         'uses' => 'AdminController@panitia',
         'as' => 'admin.panitia'
     ]);
+
+    Route::group(['prefix' => 'tambah'], function (){
+        Route::put('panitia', [
+            'uses' => 'AdminController@tambahPanitia',
+            'as' => 'admin.tambah.panitia'
+        ]);
+    });
 });

@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="title-block">
-        <h3 class="title"> Form Paslon HMJ
+        <h3 class="title"> Form Paslon BEM
             <span class="sparkline bar" data-type="bar"></span>
         </h3>
     </div>
-    <form role="form" method="post" action="{{route('hmj.save')}}" enctype="multipart/form-data">
+    <form role="form" method="post" action="{{route('bem.save')}}" enctype="multipart/form-data">
         {{ csrf_field() }}
         <section class="section ">
             <div class="row sameheight-container">

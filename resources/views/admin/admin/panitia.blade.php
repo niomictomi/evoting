@@ -5,13 +5,29 @@
 @endsection
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-warning">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if(session()->has('message'))
+        <div class="alert alert-info">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-header bordered">
             <div class="header-block">
                 <h3 class="title">Daftar panitia</h3>
             </div>
             <div class="header-block pull-right">
-                <a href="#tambah" class="btn btn-primary btn-sm rounded pull-right" data-toggle="modal">Tambah Panitia</a>
+                <button data-target="#tambah" class="btn btn-primary btn-sm rounded pull-right" data-toggle="modal">Tambah Panitia</button>
                 <div class="modal fade" id="tambah" tabindex="-1" role="dialog"
                      aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -27,15 +43,16 @@
                                 </div>
                             </div>
                             <div class="card-block">
-                                <form method="post">
+                                <form action="{{ route('admin.tambah.panitia') }}" method="post">
                                     {{ csrf_field() }}
+                                    {{ method_field('put') }}
                                     <fieldset class="form-group">
-                                        <label class="control-label">NIM</label>
-                                        <input type="number" class="form-control underlined" minlength="11" maxlength="11" required>
+                                        <label class="control-label">NIM/NIP/NIDN</label>
+                                        <input type="number" name="nim" class="form-control underlined" minlength="11" maxlength="11" required>
                                     </fieldset>
                                     <fieldset class="form-group">
                                         <label class="control-label">Nama</label>
-                                        <input type="text" class="form-control underlined" required>
+                                        <input type="text" name="nama" class="form-control underlined" required>
                                     </fieldset>
                                     <fieldset class="form-group">
                                         <label class="control-label">Hak Akses</label>

@@ -1,5 +1,6 @@
 @extends('layouts.global')
 @section('activity')
+    Daftar Paslon
 @endsection
 
 @section('content')
@@ -10,8 +11,16 @@
                     <h3 class="title">Daftar Paslon</h3>
                 </div>
                 <div class="header-block pull-right">
-                    <a href="{{route('panitia.paslon.form')}}" class="btn btn-primary btn-sm rounded pull-right" >Tambah
-                        Panitia</a>
+                    {{--<a href="{{route('panitia.paslon.form')}}" class="btn btn-primary btn-sm rounded pull-right" >Tambah--}}
+                        {{--Paslon</a>--}}
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm rounded pull-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> Tambah Paslon </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{route('form.hmj')}}">HMJ</a>
+                            <a class="dropdown-item" href="{{route('form.dpm')}}">DPM</a>
+                            <a class="dropdown-item" href="{{route('form.bem')}}">BEMF</a>
+                        </div>
+                    </div>
                     <div class="modal fade" id="tambah" tabindex="-1" role="dialog"
                          aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -69,10 +78,9 @@
                         <thead>
                         <tr>
                             <td><b>Nomor</b></td>
-                            <td><b>Nama </b></td>
-                            <td><b>Hak Akses</b></td>
-                            <td><b>Aksi</b></td>
-                            <td><b>Aksi</b></td>
+                            <td><b>Nama Ketua</b></td>
+                            <td><b>Nama Wakil Ketua</b></td>
+                            <td><b>Foto</b></td>
                         </tr>
                         </thead>
                         <tbody>
