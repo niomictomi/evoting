@@ -11,6 +11,13 @@ Route::group(['prefix' => 'admin'], function (){
         'as' => 'admin.panitia'
     ]);
 
+    Route::group(['prefix' => 'voting'], function (){
+        Route::get('hmj', [
+            'uses' => 'PublicController@votingHmj',
+            'as' => 'admin.voting.hmj'
+        ]);
+    });
+
     Route::group(['prefix' => 'tambah'], function (){
         Route::put('panitia', [
             'uses' => 'AdminController@tambahPanitia',

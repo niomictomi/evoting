@@ -10,8 +10,8 @@
         Panitia
     </a>
 </li>
-<li @if(Route::currentRouteName() == 'admin.paniti') class="active" @endif>
-    <a href="{{ route('admin.panitia') }}">
+<li @if(Route::currentRouteName() == 'admin.voting.hmj') class="active" @endif>
+    <a href="{{ route('admin.voting.hmj') }}">
         <i class="fa fa-thermometer-half"></i>&nbsp;&nbsp;
         Voting HMJ
     </a>
