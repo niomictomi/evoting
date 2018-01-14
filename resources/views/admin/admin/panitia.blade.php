@@ -103,11 +103,16 @@
                                 @endif
                             </td>
                             <td>
+                                <form id="hapus-{{ $user->id }}" action="{{ route('admin.hapus.panitia') }}" method="post">
+                                    {{ csrf_field() }}
+                                    {{ method_field('delete') }}
+                                    <input type="hidden" name="id" value="{{ $user->id }}">
+                                </form>
                                 <div class="btn-group">
                                     <button class="btn btn-primary btn-sm btn-pill-left" data-toggle="modal"
                                             data-target="#edit-{{ $user->id }}">Edit
                                     </button>
-                                    <button class="btn btn-danger btn-sm btn-pill-right" onclick="$('#')">Hapus</button>
+                                    <button class="btn btn-danger btn-sm btn-pill-right" onclick="$('#hapus-{{ $user->id }}').submit()">Hapus</button>
                                 </div>
                             </td>
                         </tr>

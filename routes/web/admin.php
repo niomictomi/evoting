@@ -31,4 +31,11 @@ Route::group(['prefix' => 'admin'], function (){
             'as' => 'admin.edit.panitia'
         ]);
     });
+
+    Route::group(['prefix' => 'hapus'], function (){
+        Route::delete('panitia', [
+            'uses' => 'AdminController@hapusPanitia',
+            'as' => 'admin.hapus.panitia'
+        ]);
+    });
 });

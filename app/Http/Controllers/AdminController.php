@@ -118,4 +118,16 @@ class AdminController extends Controller
         $request->role = str_replace(';', ' - ', $request->role);
         return back()->withErrors(['Hak akses "' . strtoupper($request->role) . '" tidak tersedia!']);
     }
+
+    public function hapusPanitia(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|regex:/[0-9]{11}/'
+        ]);
+
+        $user = User::find($request->id);
+        $user->delete();
+
+        return back()->with('message', 'Berhasil menghapus '.$user->nama.'.');
+    }
 }
