@@ -46,4 +46,17 @@ class Pengaturan extends Model
         $sekarang = Carbon::now();
         return $sekarang->greaterThanOrEqualTo(self::getWaktuMulai()) && $sekarang->lessThanOrEqualTo(self::getWaktuSelesai());
     }
+
+    /**
+     * mendapatkan status voting
+     * @return string
+     */
+    public static function getStatusVoting()
+    {
+        if (self::isVotingSedangBerlangsung())
+            return 'Voting sedang berlangsung.';
+        if (Carbon::now()->lessThan(self::getWaktuMulai()))
+            return 'Voting akan dimulai '.self::getWaktuMulai()->diffForHumans().'.';
+        return 'Voting telah berlangsung '.self::getWaktuSelesai()->diffForHumans().'.';
+    }
 }
