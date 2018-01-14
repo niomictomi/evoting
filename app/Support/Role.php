@@ -9,6 +9,8 @@
 namespace App\Support;
 
 
+use App\User;
+
 class Role
 {
     const ROOT = 'root';
@@ -66,5 +68,23 @@ class Role
         }
 
         return false;
+    }
+
+    /**
+     * mengecek apakah ketua kpu telah ada tau tidak
+     * @return bool
+     */
+    public function checkIfKetuaKpuExists()
+    {
+        return User::whereIn('role', [Role::KETUA_KPU])->count() > 0;
+    }
+
+    /**
+     * mengecek apakah wd3 telah ada tau tidak
+     * @return bool
+     */
+    public function checkIfWd3Exists()
+    {
+        return User::whereIn('role', [Role::WD3])->count() > 0;
     }
 }
