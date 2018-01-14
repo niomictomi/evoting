@@ -53,13 +53,16 @@ class Role
     public static function check($role_name, $delimitter = null)
     {
         if (is_null($delimitter)){
-            if (in_array($role_name, Role::ALL))
+            if (in_array($role_name, Role::ALL)){
                 return true;
+            }
         }
         else{
-            if (in_array(explode($delimitter, $role_name)[0], Role::ALL))
-                if (in_array(explode($delimitter, $role_name)[0], Role::PANITIA_ALL))
+            if (in_array(explode($delimitter, $role_name)[0], Role::ALL)){
+                if (in_array(explode($delimitter, $role_name)[1], Role::PANITIA_ALL)){
                     return true;
+                }
+            }
         }
 
         return false;
