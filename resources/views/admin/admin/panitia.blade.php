@@ -143,25 +143,29 @@
                                                 <label class="control-label">Hak Akses</label>
                                                 <select name="role" class="form-control underlined" required>
                                                     @if($user->role == \App\Support\Role::PANITIA)
-                                                        <option value="{{ $user->role.';'.$user->helper }}">
+                                                        <option value="{{ $userrole = $user->role.';'.$user->helper }}">
                                                             {{ strtoupper($user->role.' - '.$user->helper) }}
                                                         </option>
                                                     @else
-                                                        <option value="{{ $user->role }}">
+                                                        <option value="{{ $userrole = $user->role }}">
                                                             {{ strtoupper($user->role) }}
                                                         </option>
                                                     @endif
                                                     @foreach(\App\Support\Role::ALL as $role)
                                                         @if($role == \App\Support\Role::PANITIA)
                                                             @foreach(\App\Support\Role::PANITIA_ALL as $p)
-                                                                <option value="{{ $role.';'.$p }}">
-                                                                    {{ strtoupper($role.' - '.$p) }}
-                                                                </option>
+                                                                @if($userrole != $role.';'.$p)
+                                                                    <option value="{{ $role.';'.$p }}">
+                                                                        {{ strtoupper($role.' - '.$p) }}
+                                                                    </option>
+                                                                @endif
                                                             @endforeach
                                                         @elseif($role != \App\Support\Role::ADMIN && $role != \App\Support\Role::ROOT)
-                                                            <option value="{{ $role }}">
-                                                                {{ strtoupper($role) }}
-                                                            </option>
+                                                            @if($userrole != $role)
+                                                                <option value="{{ $role }}">
+                                                                    {{ strtoupper($role) }}
+                                                                </option>
+                                                            @endif
                                                         @endif
                                                     @endforeach
                                                 </select>
