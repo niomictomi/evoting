@@ -36,4 +36,14 @@ class Pengaturan extends Model
     {
         return Carbon::parse(Pengaturan::find('selesai')->value);
     }
+
+    /**
+     * mengecek apakah voting sedang berlangsung atau tidak
+     * @return bool
+     */
+    public static function isVotingSedangBerlangsung()
+    {
+        $sekarang = Carbon::now();
+        return $sekarang->greaterThanOrEqualTo(self::getWaktuMulai()) && $sekarang->lessThanOrEqualTo(self::getWaktuSelesai());
+    }
 }
