@@ -17,4 +17,11 @@ Route::group(['prefix' => 'admin'], function (){
             'as' => 'admin.tambah.panitia'
         ]);
     });
+
+    Route::group(['prefix' => 'edit'], function (){
+        Route::patch('panitia', [
+            'uses' => 'AdminController@editPanitia',
+            'as' => 'admin.edit.panitia'
+        ]);
+    });
 });

@@ -48,7 +48,7 @@
                                     {{ method_field('put') }}
                                     <fieldset class="form-group">
                                         <label class="control-label">NIM/NIP/NIDN</label>
-                                        <input type="number" name="nim" class="form-control underlined" minlength="11" maxlength="11" required>
+                                        <input type="number" name="id" class="form-control underlined" minlength="11" maxlength="11" required>
                                     </fieldset>
                                     <fieldset class="form-group">
                                         <label class="control-label">Nama</label>
@@ -107,7 +107,7 @@
                                     <button class="btn btn-primary btn-sm btn-pill-left" data-toggle="modal"
                                             data-target="#edit-{{ $user->id }}">Edit
                                     </button>
-                                    <button class="btn btn-danger btn-sm btn-pill-right">Hapus</button>
+                                    <button class="btn btn-danger btn-sm btn-pill-right" onclick="$('#')">Hapus</button>
                                 </div>
                             </td>
                         </tr>
@@ -126,15 +126,17 @@
                                         </div>
                                     </div>
                                     <div class="card-block">
-                                        <form method="post">
+                                        <form action="{{ route('admin.edit.panitia') }}" method="post">
                                             {{ csrf_field() }}
+                                            {{ method_field('patch') }}
+                                            <input type="hidden" name="id_lama" value="{{ $user->id }}">
                                             <fieldset class="form-group">
                                                 <label class="control-label">NIM</label>
-                                                <input type="number" value="{{ $user->id }}" class="form-control underlined" minlength="11" maxlength="11" required>
+                                                <input name="id" type="number" value="{{ $user->id }}" class="form-control underlined" minlength="11" maxlength="11" required>
                                             </fieldset>
                                             <fieldset class="form-group">
                                                 <label class="control-label">Nama</label>
-                                                <input type="text" value="{{ $user->nama }}"
+                                                <input type="text" value="{{ $user->nama }}" name="nama"
                                                        class="form-control underlined" required>
                                             </fieldset>
                                             <fieldset class="form-group">
@@ -163,6 +165,10 @@
                                                         @endif
                                                     @endforeach
                                                 </select>
+                                            </fieldset>
+                                            <fieldset class="form-group">
+                                                <label class="control-label">Password (kosongi jika password tidak diubah)</label>
+                                                <input type="password" name="password" class="form-control underlined">
                                             </fieldset>
                                             <button type="submit" class="btn btn-success" style="color: white">Simpan</button>
                                         </form>

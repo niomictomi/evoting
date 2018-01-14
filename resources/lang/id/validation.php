@@ -100,7 +100,11 @@ return [
     */
 
     'custom' => [
-        'nim' => [
+        'id' => [
+            'required' => 'NIM dibutuhkan!',
+            'regex' => 'NIM harus angka dengan panjang 11 angka!'
+        ],
+        'id_lama' => [
             'required' => 'NIM dibutuhkan!',
             'regex' => 'NIM harus angka dengan panjang 11 angka!'
         ],
