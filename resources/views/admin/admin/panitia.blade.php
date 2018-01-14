@@ -5,6 +5,22 @@
 @endsection
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-warning">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if(session()->has('message'))
+        <div class="alert alert-info">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-header bordered">
             <div class="header-block">
@@ -27,15 +43,16 @@
                                 </div>
                             </div>
                             <div class="card-block">
-                                <form method="post">
+                                <form action="{{ route('admin.tambah.panitia') }}" method="post">
                                     {{ csrf_field() }}
+                                    {{ method_field('put') }}
                                     <fieldset class="form-group">
-                                        <label class="control-label">NIM</label>
-                                        <input type="number" class="form-control underlined" minlength="11" maxlength="11" required>
+                                        <label class="control-label">NIM/NIP/NIDN</label>
+                                        <input type="number" name="nim" class="form-control underlined" minlength="11" maxlength="11" required>
                                     </fieldset>
                                     <fieldset class="form-group">
                                         <label class="control-label">Nama</label>
-                                        <input type="text" class="form-control underlined" required>
+                                        <input type="text" name="nama" class="form-control underlined" required>
                                     </fieldset>
                                     <fieldset class="form-group">
                                         <label class="control-label">Hak Akses</label>
