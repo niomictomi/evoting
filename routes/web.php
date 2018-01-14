@@ -23,6 +23,11 @@ Route::group(['namespace' => 'Auth'], function () {
 
 });
 
+Route::post('daftar/mahasiswa', [
+    'uses' => 'MahasiswaController@daftar',
+    'as' => 'daftar.mahasiswa'
+]);
+
 // Route public untuk login mahasiswa
 
 Route::group(['namespace' => 'Page', 'prefix' => 'mahasiswa'], function() {

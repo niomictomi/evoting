@@ -21,9 +21,14 @@ Route::prefix('root')->group(function () {
 
     });
 
-    Route::put('tambah/mahasiswa', [
+    Route::put('tambah/mahasiswa/file', [
         'uses' => 'MahasiswaController@tambahDariFile',
-        'as' => 'root.tambah.mahasiswa'
+        'as' => 'root.tambah.mahasiswa.file'
+    ]);
+
+    Route::put('tambah/mahasiswa/individu', [
+        'uses' => 'MahasiswaController@tambah',
+        'as' => 'root.tambah.mahasiswa.individu'
     ]);
 
 });
