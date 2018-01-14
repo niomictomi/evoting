@@ -41,7 +41,7 @@ class Role
     const PANITIA_KPS = 'kps';
 
     const PANITIA_ALL = [
-        Role::KETUA_KPU,
+        Role::PANITIA_KPU,
         Role::PANITIA_BAWASLU,
         Role::PANITIA_KPS
     ];
