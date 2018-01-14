@@ -3,11 +3,12 @@
 a {
     &:visited,
     &:link {
+        transition: all ease 0.2s;
         text-decoration: none;
     }
     &:hover {
+        transform: rotate(360deg);
         text-decoration: underline;
-        font-size: 30px;
     }
 }
 

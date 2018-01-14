@@ -1,11 +1,14 @@
 a:visited,
 a:link {
+  -webkit-transition: all ease 0.2s;
+  transition: all ease 0.2s;
   text-decoration: none;
 }
 
 a:hover {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
   text-decoration: underline;
-  font-size: 30px;
 }
 
 #timer {
