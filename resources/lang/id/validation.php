@@ -102,9 +102,7 @@ return [
     'custom' => [
         'nim' => [
             'required' => 'NIM dibutuhkan!',
-            'numeric' => 'NIM hanya boleh berisi angka!',
-            'min' => 'NIM harus 11 angka!',
-            'max' => 'NIM harus 11 angka!',
+            'regex' => 'NIM harus angka dengan panjang 11 angka!'
         ],
         'nama' => [
             'required' => 'Nama dibutuhkan!'
