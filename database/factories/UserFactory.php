@@ -28,6 +28,8 @@ $factory->define(Mahasiswa::class, function (Faker $faker) {
     $status = Mahasiswa::STATUS[array_rand(Mahasiswa::STATUS, 1)];
     if ($status == Mahasiswa::NONAKTIF || $status == Mahasiswa::CUTI)
         $status = Mahasiswa::STATUS[array_rand(Mahasiswa::STATUS, 1)];
+    if ($status == Mahasiswa::NONAKTIF || $status == Mahasiswa::CUTI)
+        $status = Mahasiswa::STATUS[array_rand(Mahasiswa::STATUS, 1)];
     return [
         'id' => rand(11, 17).$faker->unique()->numerify('#########'),
         'prodi_id' => rand(1, Prodi::all()->count()),
