@@ -74,7 +74,7 @@ class Role
      * mengecek apakah ketua kpu telah ada tau tidak
      * @return bool
      */
-    public function checkIfKetuaKpuExists()
+    public static function checkIfKetuaKpuExists()
     {
         return User::whereIn('role', [Role::KETUA_KPU])->count() > 0;
     }
@@ -83,7 +83,7 @@ class Role
      * mengecek apakah wd3 telah ada tau tidak
      * @return bool
      */
-    public function checkIfWd3Exists()
+    public static function checkIfWd3Exists()
     {
         return User::whereIn('role', [Role::WD3])->count() > 0;
     }
