@@ -38,9 +38,8 @@ class PublicController extends Controller
         else
             $data = $jurusan->getMahasiswa()->where('status', 'A');
 
-        $data = $data->leftJoin('prodi', 'mahasiswa.prodi_id', '=', 'prodi.id')
-            ->select('mahasiswa.id as mahasiswa_id', 'mahasiswa.nama as mahasiswa_nama', 'prodi.nama as prodi_nama');
-
-        return DataTables::of($data)->make(true);
+        return DataTables::of($data)->editColumn('prodi_id', function (Mahasiswa $mahasiswa){
+            return $mahasiswa->getProdi()->nama;
+        })->make(true);
     }
 }

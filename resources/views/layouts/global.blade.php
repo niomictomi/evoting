@@ -321,45 +321,54 @@
         processing: true,
         serverSide: true,
         responsive: true,
+        language: {
+            searchPlaceholder: "Ketik NIM atau nama..."
+        },
         "lengthMenu": [[5, 10, 20, 40, 80, 100, -1], [5, 10, 20, 40, 80, 100, "Semua data"]],
         ajax: {
             url: '{{ url("hmj/".md5($jurusan->id).'/'.md5('semua')) }}'
         },
         columns: [
             {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }},
-            {data: 'mahasiswa_id', name: 'mahasiswa_id'},
-            {data: 'mahasiswa_nama', name: 'mahasiswa_nama'},
-            {data: 'prodi_nama', name: 'prodi_nama'}
+            {data: 'id', name: 'id'},
+            {data: 'nama', name: 'nama'},
+            {data: 'prodi_id', name: 'prodi_id'}
         ]
         });
     $('#hmj-telah-{{ $jurusan->id }}').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
+        language: {
+            searchPlaceholder: "Ketik NIM atau nama..."
+        },
         "lengthMenu": [[5, 10, 20, 40, 80, 100, -1], [5, 10, 20, 40, 80, 100, "Semua data"]],
         ajax: {
             url: '{{ url("hmj/".md5($jurusan->id).'/'.md5('telah')) }}'
         },
         columns: [
             {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }, orderable: false, searchable: false},
-            {data: 'mahasiswa_id', name: 'mahasiswa_id'},
-            {data: 'mahasiswa_nama', name: 'mahasiswa_nama'},
-            {data: 'prodi_nama', name: 'prodi_nama'}
+            {data: 'id', name: 'id'},
+            {data: 'nama', name: 'nama'},
+            {data: 'prodi_id', name: 'prodi_id'}
         ]
     });
     $('#hmj-belum-{{ $jurusan->id }}').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
+        language: {
+            searchPlaceholder: "Ketik NIM atau nama..."
+        },
         "lengthMenu": [[5, 10, 20, 40, 80, 100, -1], [5, 10, 20, 40, 80, 100, "Semua data"]],
         ajax: {
             url: '{{ url("hmj/".md5($jurusan->id).'/'.md5('belum')) }}'
         },
         columns: [
             {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }},
-            {data: 'mahasiswa_id', name: 'mahasiswa_id'},
-            {data: 'mahasiswa_nama', name: 'mahasiswa_nama'},
-            {data: 'prodi_nama', name: 'prodi_nama'}
+            {data: 'id', name: 'id'},
+            {data: 'nama', name: 'nama'},
+            {data: 'prodi_id', name: 'prodi_id'}
         ]
     });
     @endforeach

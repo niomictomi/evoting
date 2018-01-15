@@ -32,11 +32,11 @@
                 <div class="header-block pull-right">
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">{{ $jurusan }}
+                                aria-haspopup="true" aria-expanded="false">Jurusan {{ $jurusan }}
                         </button>
                         <div class="dropdown-menu">
                             @foreach($jurusans as $item)
-                                <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $item->nama]) }}">{{ $item->nama }}</a>
+                                <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $item->nama]) }}">Jurusan {{ $item->nama }}</a>
                             @endforeach
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                 </ul>
                 <br>
                 <div class="tab-content">
-                    <div class="tab-pane fade in active" id="semua-{{ $jurusanobject->id }}">
+                    <div class="tab-pane active" id="semua-{{ $jurusanobject->id }}">
                         <table class="table" id="hmj-semua-{{ $jurusanobject->id }}">
                             <thead>
                                 <tr>
@@ -68,7 +68,7 @@
                             </thead>
                         </table>
                     </div>
-                    <div class="tab-pane fade" id="telah-{{ $jurusanobject->id }}">
+                    <div class="tab-pane" id="telah-{{ $jurusanobject->id }}">
                         <table class="table" id="hmj-telah-{{ $jurusanobject->id }}">
                             <thead>
                             <tr>
@@ -80,7 +80,7 @@
                             </thead>
                         </table>
                     </div>
-                    <div class="tab-pane fade" id="belum-{{ $jurusanobject->id }}">
+                    <div class="tab-pane" id="belum-{{ $jurusanobject->id }}">
                         <table class="table" id="hmj-belum-{{ $jurusanobject->id }}">
                             <thead>
                             <tr>
