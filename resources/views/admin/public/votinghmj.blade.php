@@ -54,9 +54,9 @@
                         <a class="nav-link" href="#belum-{{ $jurusanobject->id }}" aria-controls="home-pilss" data-toggle="tab">Belum voting</a>
                     </li>
                 </ul>
+                <br>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="semua-{{ $jurusanobject->id }}">
-                        <br>
                         <table class="table" id="tabel-semua-{{ $jurusanobject->id }}">
                             <thead>
                                 <tr>
@@ -69,10 +69,28 @@
                         </table>
                     </div>
                     <div class="tab-pane fade" id="telah-{{ $jurusanobject->id }}">
-
+                        <table class="table" id="tabel-telah-{{ $jurusanobject->id }}">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>NIM</th>
+                                <th>Nama</th>
+                                <th>Prodi</th>
+                            </tr>
+                            </thead>
+                        </table>
                     </div>
                     <div class="tab-pane fade" id="belum-{{ $jurusanobject->id }}">
-
+                        <table class="table" id="tabel-belum-{{ $jurusanobject->id }}">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>NIM</th>
+                                <th>Nama</th>
+                                <th>Prodi</th>
+                            </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>

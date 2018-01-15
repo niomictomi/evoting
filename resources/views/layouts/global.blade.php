@@ -317,7 +317,7 @@
 <script src="{{ asset('js/datatables-setting.js') }}"></script>
 <script>
     @foreach(\App\Jurusan::all() as $jurusan)
-    var semua_{{ $jurusan->id }} = $('#tabel-semua-{{ $jurusan->id }}').DataTable({
+    $('#tabel-semua-{{ $jurusan->id }}').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
@@ -332,6 +332,36 @@
             {data: 'prodi_nama', name: 'prodi_nama'}
         ]
         });
+    $('#tabel-telah-{{ $jurusan->id }}').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        "lengthMenu": [[5, 10, 20, 40, 80, 100, -1], [5, 10, 20, 40, 80, 100, "Semua data"]],
+        ajax: {
+            url: '{{ url("hmj/".md5($jurusan->id).'/'.md5('telah')) }}'
+        },
+        columns: [
+            {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }, orderable: false, searchable: false},
+            {data: 'mahasiswa_id', name: 'mahasiswa_id'},
+            {data: 'mahasiswa_nama', name: 'mahasiswa_nama'},
+            {data: 'prodi_nama', name: 'prodi_nama'}
+        ]
+    });
+    $('#tabel-belum-{{ $jurusan->id }}').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        "lengthMenu": [[5, 10, 20, 40, 80, 100, -1], [5, 10, 20, 40, 80, 100, "Semua data"]],
+        ajax: {
+            url: '{{ url("hmj/".md5($jurusan->id).'/'.md5('belum')) }}'
+        },
+        columns: [
+            {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }},
+            {data: 'mahasiswa_id', name: 'mahasiswa_id'},
+            {data: 'mahasiswa_nama', name: 'mahasiswa_nama'},
+            {data: 'prodi_nama', name: 'prodi_nama'}
+        ]
+    });
     @endforeach
 </script>
 @stack('js')
