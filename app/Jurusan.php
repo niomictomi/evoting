@@ -18,7 +18,7 @@ class Jurusan extends Model
      * Mendapatkan, memasukkan dan menghapus data prodi
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function prodi()
+    public function getProdi()
     {
         return $this->hasMany('App\Prodi', 'jurusan_id');
     }
