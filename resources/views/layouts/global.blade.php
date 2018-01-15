@@ -317,7 +317,7 @@
 <script src="{{ asset('js/datatables-setting.js') }}"></script>
 <script>
     @foreach(\App\Jurusan::all() as $jurusan)
-    $('#tabel-semua-{{ $jurusan->id }}').DataTable({
+    $('#hmj-semua-{{ $jurusan->id }}').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
@@ -332,7 +332,7 @@
             {data: 'prodi_nama', name: 'prodi_nama'}
         ]
         });
-    $('#tabel-telah-{{ $jurusan->id }}').DataTable({
+    $('#hmj-telah-{{ $jurusan->id }}').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
@@ -347,7 +347,7 @@
             {data: 'prodi_nama', name: 'prodi_nama'}
         ]
     });
-    $('#tabel-belum-{{ $jurusan->id }}').DataTable({
+    $('#hmj-belum-{{ $jurusan->id }}').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,

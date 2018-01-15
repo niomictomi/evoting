@@ -57,7 +57,7 @@
                 <br>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="semua-{{ $jurusanobject->id }}">
-                        <table class="table" id="tabel-semua-{{ $jurusanobject->id }}">
+                        <table class="table" id="hmj-semua-{{ $jurusanobject->id }}">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -69,7 +69,7 @@
                         </table>
                     </div>
                     <div class="tab-pane fade" id="telah-{{ $jurusanobject->id }}">
-                        <table class="table" id="tabel-telah-{{ $jurusanobject->id }}">
+                        <table class="table" id="hmj-telah-{{ $jurusanobject->id }}">
                             <thead>
                             <tr>
                                 <th>No</th>
@@ -81,7 +81,7 @@
                         </table>
                     </div>
                     <div class="tab-pane fade" id="belum-{{ $jurusanobject->id }}">
-                        <table class="table" id="tabel-belum-{{ $jurusanobject->id }}">
+                        <table class="table" id="hmj-belum-{{ $jurusanobject->id }}">
                             <thead>
                             <tr>
                                 <th>No</th>
