@@ -38,4 +38,26 @@ class Jurusan extends Model
 
         return Mahasiswa::whereIn('id', $id_mhs);
     }
+
+    /**
+     * mengecek apakah jurusan dengan nama tersebut ada atau tidak
+     * @param $nama
+     * @return bool
+     */
+    public static function checkByName($name)
+    {
+        if (Jurusan::where('nama', $name)->count() > 0)
+            return true;
+        return false;
+    }
+
+    /**
+     * mendapatkan jurusan dengan nama
+     * @param $name
+     * @return mixed
+     */
+    public static function findByName($name)
+    {
+        return Jurusan::where('nama', $name)->first();
+    }
 }
