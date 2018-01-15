@@ -8,6 +8,7 @@ use App\CalonHMJ;
 use App\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Yajra\DataTables\DataTables;
 
 
 class PanitiaController extends Controller
@@ -25,11 +26,14 @@ class PanitiaController extends Controller
      */
     public function index()
     {
-        return view('admin.panitia.dashboard');
+        $test=CalonHMJ::find(13);
+        return view('admin.panitia.dashboard',compact('test'));
     }
 
     public function paslon()
     {
+
+
         return view('admin.panitia.paslon');
     }
 
@@ -147,10 +151,24 @@ class PanitiaController extends Controller
         return redirect('panitia/paslon')->with('message', 'Paslon Berhasil Ditambahkan');
     }
 
+    public function api()
+    {
+
+        //$result = Mahasiswa::orderBy('id', 'DESC')->get();
+//        return view('admin.panitia.resepsionis', compact('result'));
+        $mhs = Mahasiswa::all();
+
+        return DataTables::of($mhs)
+            ->addcolumn('aksi',function ($mhs){
+               return;
+            })->make(true);
+
+    }
+
     public function resepsionis()
     {
-        $result = Mahasiswa::orderBy('id', 'DESC')->get();
-        return view('admin.panitia.resepsionis', compact('result'));
+        return view('admin.panitia.resepsionis');
+
     }
 
     public function carimhs(Request $request)

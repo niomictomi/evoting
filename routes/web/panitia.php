@@ -28,6 +28,10 @@ Route::group(['prefix' => 'panitia'], function() {
 
     Route::post('paslon/add', 'PanitiaController@paslonform');
 
+    Route::resource('resepsionis', 'PanitiaController');
+
+    Route::get('api', 'PanitiaController@api')->name('api.resepsionis');
+
     Route::get('resepsionis', 'PanitiaController@resepsionis')->name('panitia.resepsionis');
 
     Route::get('resepsionis/search', 'PanitiaController@carimhs');
