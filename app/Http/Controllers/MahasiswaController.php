@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Validation\Rule;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Mahasiswa;
 use App\Prodi;
 
@@ -33,25 +35,42 @@ class MahasiswaController extends Controller
         try {
             $files = $excel->load($request->file('berkas')->getRealPath())->get();
         } catch(\Exception $e) {
-            return 'Tidak dapat membaca file !';
+            return back()->with('error', 'Tidak dapat membaca file !');
         }
+
+        $jumlahDitambah = 0;
 
         foreach($files as $row) {
-            Mahasiswa::create([
-                'id' => $row['nim'],
-                'nama' => $row['nama'],
-                'status' => $row['status'],
-                'prodi_id' => Prodi::where('nama', $row['prodi'])->first()->id,
-            ]);
+            try {
+                $mahasiswa = Mahasiswa::findOrFail($row['nim']);
+            }
+            catch(ModelNotFoundException $e) {
+                Mahasiswa::create([
+                    'id' => $row['nim'],
+                    'nama' => $row['nama'],
+                    'status' => $row['status'],
+                    'prodi_id' => Prodi::where('nama', $row['prodi'])->first()->id,
+                ]);
+                $jumlahDitambah++;
+            }
         }
 
-        return 'Berhasil menambah data !';
+        if($jumlahDitambah > 0)
+            return back()->with('success', 'Berhasil menambah ' . $jumlahDitambah . ' data !');
+        else
+            return back()->with('error', 'Tidak ada data yang ditambah !');
     }
 
+    /**
+     * Menambah satu data mahasiswa baru
+     *
+     * @param Request $request
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function tambah(Request $request)
     {
         $this->validate($request, [
-            'nim' => 'required|numeric|digits:11|unique:mahasiswa',
+            'nim' => 'required|numeric|digits:11|unique:mahasiswa,id',
             'nama' => 'required|unique:mahasiswa',
             'status' => 'required|in:A,C,N',
             'prodi' => [
@@ -72,6 +91,12 @@ class MahasiswaController extends Controller
         ]);
     }
 
+    /**
+     * Mendapatkan daftar mahasiswa untuk data table
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function daftar(Request $request)
     {
         return dataTables()->eloquent(Mahasiswa::query())
