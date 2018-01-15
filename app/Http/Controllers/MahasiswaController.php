@@ -13,6 +13,7 @@ class MahasiswaController extends Controller
     public function __construct()
     {
         $this->middleware('hakakses:root')->only('tambahDariFile');
+        $this->middleware('ajax')->only('daftar');
     }
 
     /**
@@ -73,38 +74,10 @@ class MahasiswaController extends Controller
 
     public function daftar(Request $request)
     {
-        
-        // return $request->all();
-        $daftar = [];
-
-        $daftarMahasiswa = Mahasiswa::skip($request->get('start'))->take($request->get('length'));
-
-        if($request->get('order')[0]['column'] == 0)
-            $daftarMahasiswa->orderBy('id', $request->get('order')[0]['dir']);
-
-        if($request->get('order')[0]['column'] == 1)
-            $daftarMahasiswa->orderBy('nama', $request->get('order')[0]['dir']);
-
-        if($request->get('order')[0]['column'] == 2)
-            $daftarMahasiswa->orderBy('status', $request->get('order')[0]['dir']);
-
-        if(!is_null($request->get('search')['value'])) {
-            $daftarMahasiswa->whereRaw('lower(nama) LIKE \'%'. strtolower($request->get('search')['value']) .'%\'');
-        }
-
-        foreach($daftarMahasiswa->get() as $mahasiswa) {
-            array_push($daftar, [
-                $mahasiswa->id,
-                $mahasiswa->nama,
-                $mahasiswa->status
-            ]);
-        }
-
-        return response()->json([
-            "draw" => $request->get('data'),
-            "data" => $daftar,
-            "request" => $request->all()
-        ]);
+        return dataTables()->eloquent(Mahasiswa::query())
+                ->editColumn('prodi_id', function (Mahasiswa $mahasiswa) {
+                    return $mahasiswa->getProdi()->nama;
+                })->make(true);
     }
 
 }

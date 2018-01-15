@@ -53,12 +53,13 @@
             <h4 class="title">Daftar Mahasiswa</h4>
         </div>
 
-        <table style="width: 100%" id="daftar-mahasiswa">
+        <table style="width: 100%" id="daftar-mahasiswa" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>NIM</th>
                     <th>Nama</th>
                     <th>Status</th>
+                    <th>Prodi</th>
                 </tr>
             </thead>
             <tfoot>
@@ -66,6 +67,7 @@
                     <th>NIM</th>
                     <th>Nama</th>
                     <th>Status</th>
+                    <th>Prodi</th>
                 </tr>
             </tfoot>
         </table>
@@ -87,7 +89,13 @@
                 request.setRequestHeader('X-CSRF-TOKEN',  $('meta[name="csrf-token"]').attr('content'))
             }
         },
-        'responsive': true
+        'responsive': true,
+        'columns' : [
+            {'data': 'id', 'name': 'id'},
+            {'data': 'nama', 'name': 'nama'},
+            {'data': 'status', 'name': 'status'},
+            {'data': 'prodi_id', 'name': 'prodi_id'}
+        ]
     })
 
     $('#tombolpilihfile').click(function (e) {
