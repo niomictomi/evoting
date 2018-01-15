@@ -4,6 +4,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('hmj/{id}/{status}', [
+    'uses' => 'PublicController@getDataPemilihHmj',
+    'as' => 'hmj.data.pemilih'
+]);
+
 Route::group(['namespace' => 'Auth'], function () {
 
     Route::get('login', [

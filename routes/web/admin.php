@@ -12,7 +12,7 @@ Route::group(['prefix' => 'admin'], function (){
     ]);
 
     Route::group(['prefix' => 'voting'], function (){
-        Route::get('hmj', [
+        Route::get('hmj/{jurusan}', [
             'uses' => 'PublicController@votingHmj',
             'as' => 'admin.voting.hmj'
         ]);
@@ -28,7 +28,7 @@ Route::group(['prefix' => 'admin'], function (){
     Route::group(['prefix' => 'edit'], function (){
         Route::patch('panitia', [
             'uses' => 'AdminController@editPanitia',
-            'as' => 'admin.edit.panitia'
+            'as' => 'admin.edit.panitia',
         ]);
     });
 

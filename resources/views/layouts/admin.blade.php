@@ -11,7 +11,7 @@
     </a>
 </li>
 <li @if(Route::currentRouteName() == 'admin.voting.hmj') class="active" @endif>
-    <a href="{{ route('admin.voting.hmj') }}">
+    <a href="{{ route('admin.voting.hmj', ['jurusan' => \App\Jurusan::all()->first()->nama]) }}">
         <i class="fa fa-thermometer-half"></i>&nbsp;&nbsp;
         Voting HMJ
     </a>
