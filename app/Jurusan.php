@@ -36,7 +36,7 @@ class Jurusan extends Model
             })));
         }
 
-        return Mahasiswa::whereIn('id', $id_mhs);
+        return Mahasiswa::whereIn('mahasiswa.id', $id_mhs);
     }
 
     /**
@@ -59,5 +59,18 @@ class Jurusan extends Model
     public static function findByName($name)
     {
         return Jurusan::where('nama', $name)->first();
+    }
+
+    /**
+     * mendapatkan data jurusan dengan md5(id)
+     * @param $jurusan_id_md5
+     * @return \___PHPSTORM_HELPERS\static|mixed|null
+     */
+    public static function findByMd5Id($jurusan_id_md5)
+    {
+        foreach (Jurusan::all() as $item)
+            if (md5($item->id) == $jurusan_id_md5)
+                return $item;
+        return null;
     }
 }
