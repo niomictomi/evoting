@@ -7,11 +7,12 @@ use App\Mahasiswa;
 use App\Pengaturan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Yajra\DataTables\DataTables;
 
 class PublicController extends Controller
 {
-    public function votingHmj(Request $request)
+    public function votingHmjDpm(Request $request)
     {
         if (!Jurusan::checkByName($request->jurusan))
             return back()->withErrors([
@@ -21,7 +22,8 @@ class PublicController extends Controller
         if (!in_array($request->tipe, ['Memiliki hak suara', 'Telah memberikan hak suara', 'Belum memberikan hak suara']))
             $request->tipe = 'Memiliki hak suara';
         $cek = Pengaturan::isVotingSedangBerlangsung() || Pengaturan::isVotingTelahBerlangsung();
-        return view('admin.public.votinghmj', [
+        $blade = (\Route::currentRouteName() == 'admin.voting.hmj') ? 'admin.public.votinghmj' : 'admin.public.votingdpm';
+        return view($blade, [
             'cek' => $cek,
             'jurusanobject' => Jurusan::findByName($request->jurusan),
             'jurusans' => Jurusan::all(),
@@ -30,7 +32,7 @@ class PublicController extends Controller
         ]);
     }
 
-    public function getDataPemilihHmj(Request $request)
+    public function getDataPemilihHmjDpm(Request $request)
     {
         $data = null;
         $jurusan = Jurusan::findByMd5Id($request->id);

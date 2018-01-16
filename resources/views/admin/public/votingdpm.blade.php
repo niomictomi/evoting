@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Voting HMJ
+    Voting DPM
 @endsection
 
 @section('content')

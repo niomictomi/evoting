@@ -4,9 +4,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('hmj/{id}/{status}', [
-    'uses' => 'PublicController@getDataPemilihHmj',
-    'as' => 'hmj.data.pemilih'
+Route::get('hmjdpm/{id}/{status}', [
+    'uses' => 'PublicController@getDataPemilihHmjDpm',
+    'as' => 'hmjdpm.data.hakpilih'
 ]);
 
 Route::group(['namespace' => 'Auth'], function () {
