@@ -114,6 +114,11 @@
                                 @elseif(Auth::user()->isRoot())
                                     @include('layouts.root')
                                 @endif
+                                <li @if (Route::currentRouteName() == 'pengaturan') class="active" @endif>
+                                        <a href="{{ route('admin.pengaturan') }}">
+                                            <i class="fa fa-gear"></i> Pengaturan
+                                        </a>
+                                    </li>
                             </ul>
                         @endif
                     </nav>
