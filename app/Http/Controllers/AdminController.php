@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Support\Role;
 use App\User;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -130,4 +131,31 @@ class AdminController extends Controller
 
         return back()->with('message', 'Berhasil menghapus '.$user->nama.'.');
     }
+
+    /**
+     * Menambah admin
+     *
+     * @param Request $request
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function tambahAdmin(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|numeric|unique:users',
+            'nama' => 'required',
+            'password' => 'required|confirmed'
+        ]);
+
+        User::create([
+            'id' => $request->id,
+            'nama' => $request->nama,
+            'role' => Role::ADMIN,
+            'password' => bcrypt($request->password)
+        ]);
+
+        return back()->with([
+            'success' => 'Berhasil menambah admin'
+        ]);
+    }
+
 }

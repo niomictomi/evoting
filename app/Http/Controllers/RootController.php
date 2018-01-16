@@ -51,6 +51,12 @@ class RootController extends Controller
         ]);
     }
 
+    /**
+     * Melakukan pengecekan password untuk konfirmasi reset database
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function passwordCheck(Request $request)
     {
         if(Hash::check($request->password, Auth::user()->password)) {

@@ -18,6 +18,11 @@ Route::prefix('root')->group(function () {
             'uses' => 'RootController@reset',
             'as' => 'root.reset'
         ]);
+        
+        Route::get('admin', [
+            'uses' => 'RootController@admin',
+            'as' => 'root.admin'
+        ]);
 
     });
 
@@ -39,6 +44,11 @@ Route::prefix('root')->group(function () {
     Route::put('tambah/mahasiswa/individu', [
         'uses' => 'MahasiswaController@tambah',
         'as' => 'root.tambah.mahasiswa.individu'
+    ]);
+
+    Route::put('tambah/admin', [
+        'uses' => 'AdminController@tambahAdmin',
+        'as' => 'root.tambah.admin'
     ]);
 
 });
