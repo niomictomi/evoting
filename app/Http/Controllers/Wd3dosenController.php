@@ -21,4 +21,9 @@ class Wd3dosenController extends Controller
     {
       return view('admin.wd3dosen.dashboard');
     }
+
+    public function buka()
+    {
+      return view('admin.wd3dosen.bukasuara');
+    }
 }
