@@ -36,7 +36,7 @@ Route::group(['prefix' => 'panitia'], function() {
 
     Route::get('resepsionis/search', 'PanitiaController@carimhs');
 
-    Route::post('resepsionis/{id}/update', 'PanitiaController@updatestatus');
+    Route::post('resepsionis/{id}/update', 'PanitiaController@updatestatus')->name('resepsionis.update');
 
 });
 

@@ -1,6 +1,4 @@
 @extends('layouts.global')
-@section('activity','Dashboard ')
-
+@section('activity','Buka Kotak Suara')
 @section('content')
-    jlk
 @endsection

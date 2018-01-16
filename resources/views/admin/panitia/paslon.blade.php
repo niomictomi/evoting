@@ -12,9 +12,11 @@
                 </div>
                 <div class="header-block pull-right">
                     {{--<a href="{{route('panitia.paslon.form')}}" class="btn btn-primary btn-sm rounded pull-right" >Tambah--}}
-                        {{--Paslon</a>--}}
+                    {{--Paslon</a>--}}
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-sm rounded pull-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> Tambah Paslon </button>
+                        <button type="button" class="btn btn-primary btn-sm rounded pull-right" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> Tambah Paslon
+                        </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{route('form.hmj')}}">HMJ</a>
                             <a class="dropdown-item" href="{{route('form.dpm')}}">DPM</a>
@@ -35,63 +37,40 @@
                                         </button>
                                     </div>
                                 </div>
-                                {{--<div class="card-block">--}}
-                                {{--<form method="post">--}}
-                                {{--{{ csrf_field() }}--}}
-                                {{--<fieldset class="form-group">--}}
-                                {{--<label class="control-label">NIM</label>--}}
-                                {{--<input type="number" class="form-control underlined" minlength="11" maxlength="11" required>--}}
-                                {{--</fieldset>--}}
-                                {{--<fieldset class="form-group">--}}
-                                {{--<label class="control-label">Nama</label>--}}
-                                {{--<input type="text" class="form-control underlined" required>--}}
-                                {{--</fieldset>--}}
-                                {{--<fieldset class="form-group">--}}
-                                {{--<label class="control-label">Hak Akses</label>--}}
-                                {{--<select name="role" class="form-control underlined" required>--}}
-                                {{--@foreach(\App\Support\Role::ALL as $role)--}}
-                                {{--@if($role == \App\Support\Role::PANITIA)--}}
-                                {{--@foreach(\App\Support\Role::PANITIA_ALL as $p)--}}
-                                {{--<option value="{{ $role.';'.$p }}">--}}
-                                {{--{{ strtoupper($role.' - '.$p) }}--}}
-                                {{--</option>--}}
-                                {{--@endforeach--}}
-                                {{--@elseif($role != \App\Support\Role::ADMIN && $role != \App\Support\Role::ROOT)--}}
-                                {{--<option value="{{ $role }}">--}}
-                                {{--{{ strtoupper($role) }}--}}
-                                {{--</option>--}}
-                                {{--@endif--}}
-                                {{--@endforeach--}}
-                                {{--</select>--}}
-                                {{--</fieldset>--}}
-                                {{--<button type="submit" class="btn btn-success" style="color: white">Simpan</button>--}}
-                                {{--</form>--}}
-                                {{--</div>--}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-block">
+
                 <div class="table-responsive">
+
                     <table class="table table-hover" id="panitia">
                         <thead>
                         <tr>
-                            <td><b>Nomor</b></td>
-                            <td><b>Nama Ketua</b></td>
-                            <td><b>Nama Wakil Ketua</b></td>
-                            <td><b>Foto</b></td>
+                            <td width="100"><b>Nomor</b></td>
+                            <td width="20"><b>Nama Ketua</b></td>
+                            <td width="20"><b>Nama Wakil Ketua</b></td>
+                            <td width="50"><b>Foto</b></td>
                         </tr>
                         </thead>
                         <tbody>
-
+                                @foreach($hmj as $hmj)
+                                    <tr>
+                                    <td></td>
+                                    <td><b>{{$hmj->ketua_id}}</b></td>
+                                    <td><b>{{$hmj->wakil_id}}</b></td>
+                                    <td><img src="{{asset('storage/'.$hmj->dir)}}" style="width: 80%;height: 30%;"></td>
+                                    </tr>
+                                @endforeach
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('js')
@@ -101,6 +80,7 @@
                 icon: "success",
                 title: "{{ session()->get('message') }}"
             });
+
         </script>
 
     @endif
