@@ -12,7 +12,7 @@ Route::group(['prefix' => 'admin'], function (){
     ]);
 
     Route::group(['prefix' => 'voting'], function (){
-        Route::get('hmj/{jurusan}', [
+        Route::get('hmj/{jurusan}/{tipe}', [
             'uses' => 'PublicController@votingHmj',
             'as' => 'admin.voting.hmj'
         ]);
