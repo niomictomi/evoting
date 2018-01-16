@@ -28,6 +28,25 @@ Route::group(['namespace' => 'Auth'], function () {
 
 });
 
+
+Route::group(['namespace' => 'Page'], function () {
+
+    Route::get('pengaturan', function () {
+        return view('admin.pengaturan');
+    })->name('admin.pengaturan')->middleware('bukanmhs');
+
+});
+
+Route::post('pengaturan', [
+    'uses' => 'UserController@pengaturan',
+    'as' => 'admin.pengaturan'
+]);
+
+Route::post('ubah/password', [
+    'uses' => 'UserController@ubahPassword',
+    'as' => 'admin.ubah.password'
+]);
+
 Route::post('daftar/mahasiswa', [
     'uses' => 'MahasiswaController@daftar',
     'as' => 'daftar.mahasiswa'

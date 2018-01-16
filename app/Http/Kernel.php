@@ -61,6 +61,8 @@ class Kernel extends HttpKernel
         // Middleware dibawah ini berfungsi untuk mengecek apakah user adalah
         // dosen atau wd3
         'dosen' => \App\Http\Middleware\CekHakAksesDosenWD3::class,
-        'ajax' => \App\Http\Middleware\AjaxRequest::class
+        'ajax' => \App\Http\Middleware\AjaxRequest::class,
+        'votingselesai' => \App\Http\Middleware\RedirectIfVotingTimeFinished::class,
+        'bukanmhs' => \App\Http\Middleware\RedirectIfMahasiswa::class
     ];
 }
