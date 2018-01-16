@@ -8,9 +8,18 @@ use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Mahasiswa;
 use App\Prodi;
+use App\Jurusan;
 
 class MahasiswaController extends Controller
 {
+
+    private $excelColumnName = [
+        'nim' => 'nipd',
+        'nama' => 'nm_pd',
+        'prodi' => 'prodi',
+        'jurusan' => 'jurusan',
+        'status' => 'status'
+    ];
     
     public function __construct()
     {
@@ -40,16 +49,41 @@ class MahasiswaController extends Controller
 
         $jumlahDitambah = 0;
 
+        $daftarJurusan = Jurusan::all()->pluck('nama')->toArray();
+
         foreach($files as $row) {
+            // Mengecek apakah jurusan sudah ada di dalam array
+            // jika tidak ada, maka ditambah ke database
+            $jurusan = null;
+            if(Jurusan::where('nama', str_replace('Jurusan ', '', $row[$this->excelColumnName['jurusan']]))->count() == 0) {
+                $jurusan = Jurusan::create([
+                    'nama' => str_replace('Jurusan ', '', $row[$this->excelColumnName['jurusan']])
+                ]);
+            }
+            else {
+                $jurusan = Jurusan::where('nama', str_replace('Jurusan ', '', $row[$this->excelColumnName['jurusan']]))->first();
+            }
+
+            $prodi = null;
+            if(Prodi::where('nama', $row[$this->excelColumnName['prodi']])->count() == 0) {
+                $prodi = Prodi::create([
+                    'nama' => $row[$this->excelColumnName['prodi']],
+                    'jurusan_id' => $jurusan->id
+                ]);
+            }
+            else {
+                $prodi = Prodi::where('nama', $row[$this->excelColumnName['prodi']])->first();
+            }
+
             try {
-                $mahasiswa = Mahasiswa::findOrFail($row['nim']);
+                $mahasiswa = Mahasiswa::findOrFail($row[$this->excelColumnName['nim']]);
             }
             catch(ModelNotFoundException $e) {
                 Mahasiswa::create([
-                    'id' => $row['nim'],
-                    'nama' => $row['nama'],
-                    'status' => $row['status'],
-                    'prodi_id' => Prodi::where('nama', $row['prodi'])->first()->id,
+                    'id' => $row[$this->excelColumnName['nim']],
+                    'nama' => $row[$this->excelColumnName['nama']],
+                    'status' => $row[$this->excelColumnName['status']],
+                    'prodi_id' => $prodi->id,
                 ]);
                 $jumlahDitambah++;
             }
