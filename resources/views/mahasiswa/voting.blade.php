@@ -2,6 +2,8 @@
 
 @section('activity', 'Voting')
 
+@section('title', 'Mahasiswa')
+
 @section('content')
 
 <div class="container">
