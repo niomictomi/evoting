@@ -18,12 +18,15 @@ class PublicController extends Controller
                 'Jurusan '.$request->jurusan.' tidak ada!',
                 'Coba klik lagi menu yang anda inginkan'
             ]);
+        if (!in_array($request->tipe, ['Memiliki hak suara', 'Telah memberikan hak suara', 'Belum memberikan hak suara']))
+            $request->tipe = 'Memiliki hak suara';
         $cek = Pengaturan::isVotingSedangBerlangsung() || Pengaturan::isVotingTelahBerlangsung();
         return view('admin.public.votinghmj', [
             'cek' => $cek,
             'jurusanobject' => Jurusan::findByName($request->jurusan),
             'jurusans' => Jurusan::all(),
-            'jurusan' => $request->jurusan
+            'jurusan' => $request->jurusan,
+            'tipe' => $request->tipe
         ]);
     }
 
@@ -31,9 +34,9 @@ class PublicController extends Controller
     {
         $data = null;
         $jurusan = Jurusan::findByMd5Id($request->id);
-        if ($request->status == md5('telah'))
+        if ($request->status == md5('Telah memberikan hak suara'))
             $data = Mahasiswa::getYangTelahMemilihHmjViaFlag($jurusan->id);
-        elseif ($request->status == md5('belum'))
+        elseif ($request->status == md5('Belum memberikan hak suara'))
             $data = Mahasiswa::getYangBelumMemilihHmjViaFlag($jurusan->id);
         else
             $data = $jurusan->getMahasiswa()->where('status', 'A');
