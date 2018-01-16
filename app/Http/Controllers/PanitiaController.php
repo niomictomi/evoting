@@ -184,15 +184,17 @@ class PanitiaController extends Controller
             })
             ->addcolumn('action', function ($mhs) {
                 if ($mhs->login == 0 && $mhs->telah_login == 0) {
-                    return '<a onclick="editForm(' . $mhs->id . ')"><button type="button" class="btn btn-danger btn-sm btn-pill-right">Belum Aktif</button></a>';
-
+                    $r = '<form method="post" action="' . url('panitia/resepsionis/'.$mhs->id.'/update') . '"><input type="hidden" name="_token" value="'.csrf_token().'"/>';
+                    return $r . '<button type="submit" class="btn btn-danger btn-sm btn-pill-right">Belum Aktif</button>' .
+                        '<input hidden="" value="1" name="login">'.'</form>';
                 } elseif ($mhs->login == 0 && $mhs->telah_login == 1) {
                     return '<button type="button" class="btn btn-primary btn-sm btn-pill-right">Telah Login</button>';
                 } elseif ($mhs->login == 1 && $mhs->telah_login == 1) {
                     return '<button type="button" class="btn btn-primary btn-sm btn-pill-right">Aktif</button>';
+                } elseif ($mhs->login == 1 && $mhs->telah_login == 0) {
+                    return '<button type="button" class="btn btn-primary btn-sm btn-pill-right">Aktif</button>';
                 }
-            })
-            ->make(true);
+            })->make(true);
 
     }
 
@@ -223,7 +225,6 @@ class PanitiaController extends Controller
     public function updatestatus(Request $request)
     {
         $this->validate($request, [
-            'id' => 'required',
             'login' => 'required',
         ]);
         $mahasiswa = Mahasiswa::find($request->id);

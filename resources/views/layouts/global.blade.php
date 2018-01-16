@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/dataTables.responsive.css') }}" rel="stylesheet"/>
+
+
     @if(Auth::guard('mhs')->check())
         <style>
             .app {
@@ -110,7 +112,7 @@
                                 @elseif(Auth::user()->isKetuaKPU())
                                     @include('layouts.kakpu')
                                 @elseif(Auth::user()->isDosen()||Auth::user()->isWD3())
-                                    @include('layouts.dosenwd')
+                                    @include('layouts.wd3dosen')
                                 @elseif(Auth::user()->isRoot())
                                     @include('layouts.root')
                                 @endif
