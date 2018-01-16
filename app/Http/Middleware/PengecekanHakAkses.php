@@ -26,7 +26,7 @@ class PengecekanHakAkses
 
         if(Auth::guard('mhs')->check()) {
             if($hakakses !== 'mhs')
-                return redirect()->route('mahasiswa.login');                
+                return redirect()->route('mahasiswa.login');
         }
         else if(Auth::guard('web')->check()) {
             $user = Auth::guard('web')->user();

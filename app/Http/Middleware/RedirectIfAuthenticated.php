@@ -18,10 +18,18 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            if($guard == 'mahasiswa')
+            if($guard == 'mhs')
                 return redirect()->route('mahasiswa.halaman.voting');
-            else if($guard == 'web')
-                return redirect('/home');
+            else if($guard == 'web') {
+                if(Auth::user()->isAdmin())
+                    return redirect()->route('admin.dashboard');
+                else if(Auth::user()->isDosen())
+                    return redirect()->route('admin.dashboard');
+                else if(Auth::user()->isPanitia())
+                    return redirect()->route('admin.dashboard');
+                else if(Auth::user()->isRoot())
+                    return redirect()->route('root.dashboard');
+            }
                 
             return abort(403, 'Forbidden Access !');
         }
