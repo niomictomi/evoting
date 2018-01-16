@@ -21,6 +21,16 @@ Route::prefix('root')->group(function () {
 
     });
 
+    Route::delete('reset', [
+        'uses' => 'RootController@reset',
+        'as' => 'root.reset'
+    ]);
+
+    Route::post('passwordcheck', [
+        'uses' => 'RootController@passwordCheck',
+        'as' => 'root.password.check'
+    ]);
+
     Route::put('tambah/mahasiswa/file', [
         'uses' => 'MahasiswaController@tambahDariFile',
         'as' => 'root.tambah.mahasiswa.file'
