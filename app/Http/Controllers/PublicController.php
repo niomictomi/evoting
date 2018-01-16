@@ -38,7 +38,7 @@ class PublicController extends Controller
         else
             $data = $jurusan->getMahasiswa()->where('status', 'A');
 
-        return DataTables::of($data)->editColumn('prodi_id', function (Mahasiswa $mahasiswa){
+        return DataTables::of($data)->addColumn('prodi', function (Mahasiswa $mahasiswa){
             return $mahasiswa->getProdi()->nama;
         })->make(true);
     }

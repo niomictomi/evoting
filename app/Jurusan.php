@@ -30,7 +30,7 @@ class Jurusan extends Model
     public function getMahasiswa()
     {
         $id_mhs = Array();
-        foreach ($this->prodi()->get() as $prodi){
+        foreach ($this->getProdi()->get() as $prodi){
             $id_mhs = array_merge($id_mhs, array_flatten($prodi->mahasiswa()->get()->map(function ($mhs){
                 return collect($mhs->toArray())->only(['id'])->all();
             })));

@@ -45,13 +45,13 @@
             <div class="card-block">
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#semua-{{ $jurusanobject->id }}" aria-controls="home-pilss" data-toggle="tab">Semua</a>
+                        <a href="" class="nav-link active" data-target="#semua-{{ $jurusanobject->id }}" aria-controls="home-pilss" data-toggle="tab">Semua</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#telah-{{ $jurusanobject->id }}" aria-controls="home-pilss" data-toggle="tab">Telah voting</a>
+                        <a href="" class="nav-link" data-target="#telah-{{ $jurusanobject->id }}" aria-controls="home-pilss" data-toggle="tab">Telah voting</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#belum-{{ $jurusanobject->id }}" aria-controls="home-pilss" data-toggle="tab">Belum voting</a>
+                        <a href="" class="nav-link" data-target="#belum-{{ $jurusanobject->id }}" aria-controls="home-pilss" data-toggle="tab">Belum voting</a>
                     </li>
                 </ul>
                 <br>
@@ -97,3 +97,64 @@
         </div>
     @endif
 @endsection
+
+@push('js')
+    <script>
+        @foreach(\App\Jurusan::all() as $jurusan)
+        $('#hmj-semua-{{ $jurusan->id }}').DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            language: {
+                searchPlaceholder: "Ketik NIM atau nama..."
+            },
+            "lengthMenu": [[5, 10, 20, 40, 80, 100, -1], [5, 10, 20, 40, 80, 100, "Semua data"]],
+            ajax: {
+                url: '{{ url("hmj/".md5($jurusan->id).'/'.md5('semua')) }}'
+            },
+            columns: [
+                {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }},
+                {data: 'id', name: 'id'},
+                {data: 'nama', name: 'nama'},
+                {data: 'prodi', name: 'prodi'}
+            ]
+        });
+        $('#hmj-telah-{{ $jurusan->id }}').DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            language: {
+                searchPlaceholder: "Ketik NIM atau nama..."
+            },
+            "lengthMenu": [[5, 10, 20, 40, 80, 100, -1], [5, 10, 20, 40, 80, 100, "Semua data"]],
+            ajax: {
+                url: '{{ url("hmj/".md5($jurusan->id).'/'.md5('telah')) }}'
+            },
+            columns: [
+                {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }, orderable: false, searchable: false},
+                {data: 'id', name: 'id'},
+                {data: 'nama', name: 'nama'},
+                {data: 'prodi', name: 'prodi'}
+            ]
+        });
+        $('#hmj-belum-{{ $jurusan->id }}').DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            language: {
+                searchPlaceholder: "Ketik NIM atau nama..."
+            },
+            "lengthMenu": [[5, 10, 20, 40, 80, 100, -1], [5, 10, 20, 40, 80, 100, "Semua data"]],
+            ajax: {
+                url: '{{ url("hmj/".md5($jurusan->id).'/'.md5('belum')) }}'
+            },
+            columns: [
+                {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }},
+                {data: 'id', name: 'id'},
+                {data: 'nama', name: 'nama'},
+                {data: 'prodi', name: 'prodi'}
+            ]
+        });
+        @endforeach
+    </script>
+@endpush
