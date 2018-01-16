@@ -26,7 +26,7 @@ class PengecekanHakAkses
 
         if(Auth::guard('mhs')->check()) {
             if($hakakses !== 'mhs')
-                return abort(403, 'Anda bukan mahasiswa !');
+                return redirect()->route('mahasiswa.login');                
         }
         else if(Auth::guard('web')->check()) {
             $user = Auth::guard('web')->user();
@@ -38,10 +38,13 @@ class PengecekanHakAkses
             (!$user->isDosen() && $hakakses === Role::DOSEN) ||
             (!$user->isWD3() && $hakakses === Role::WD3)
             )
-                return abort(403, 'Anda bukan ' . $hakakses);
+                return redirect()->route('admin.login.form');
         }
         else {
-            return abort(403, 'Anda tidak punya hak akses !');
+            if($hakakses === 'mhs')
+                return redirect()->route('mahasiswa.login');
+            else
+                return redirect()->route('admin.login.form');
         }
 
         return $next($request);
