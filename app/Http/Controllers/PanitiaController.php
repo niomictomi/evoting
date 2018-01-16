@@ -26,15 +26,17 @@ class PanitiaController extends Controller
      */
     public function index()
     {
-        $test=CalonHMJ::find(13);
-        return view('admin.panitia.dashboard',compact('test'));
+        $test = CalonHMJ::find(13);
+        return view('admin.panitia.dashboard', compact('test'));
     }
 
     public function paslon()
     {
+        $hmj = CalonHMJ::all();
+        $dpm = CalonDPM::all();
+        $bem = CalonBEM::all();
 
-
-        return view('admin.panitia.paslon');
+        return view('admin.panitia.paslon', compact('hmj', 'dpm', 'bem'));
     }
 
     public function formhmj()
@@ -158,15 +160,45 @@ class PanitiaController extends Controller
 //        return view('admin.panitia.resepsionis', compact('result'));
         $mhs = Mahasiswa::all();
 
-        return DataTables::of($mhs)
-            ->addcolumn('aksi',function ($mhs){
-               return;
-            })->make(true);
+        return DataTables::of($mhs)->escapeColumns([])
+            ->addcolumn('prodi', function ($mhs) {
+                if ($mhs->prodi_id == 1) {
+                    return 'S1 Pendidikan Ekonomi';
+                } elseif ($mhs->prodi_id == 2) {
+                    return 'S1 Pendidikan Administrasi Perkantoran';
+                } elseif ($mhs->prodi_id == 3) {
+                    return 'S1 Pendidikan Akutansi';
+                } elseif ($mhs->prodi_id == 4) {
+                    return 'S1 Pendidikan Tata Niaga';
+                } elseif ($mhs->prodi_id == 5) {
+                    return 'S1 Manajemen';
+                } elseif ($mhs->prodi_id == 6) {
+                    return 'S1 Akutansi';
+                } elseif ($mhs->prodi_id == 7) {
+                    return 'D3 Akutansi';
+                } elseif ($mhs->prodi_id == 8) {
+                    return 'S1 Ekonomi Islam';
+                } elseif ($mhs->prodi_id == 9) {
+                    return 'S1 Ilmu Ekonomi';
+                }
+            })
+            ->addcolumn('action', function ($mhs) {
+                if ($mhs->login == 0 && $mhs->telah_login == 0) {
+                    return '<a onclick="editForm(' . $mhs->id . ')"><button type="button" class="btn btn-danger btn-sm btn-pill-right">Belum Aktif</button></a>';
+
+                } elseif ($mhs->login == 0 && $mhs->telah_login == 1) {
+                    return '<button type="button" class="btn btn-primary btn-sm btn-pill-right">Telah Login</button>';
+                } elseif ($mhs->login == 1 && $mhs->telah_login == 1) {
+                    return '<button type="button" class="btn btn-primary btn-sm btn-pill-right">Aktif</button>';
+                }
+            })
+            ->make(true);
 
     }
 
     public function resepsionis()
     {
+
         return view('admin.panitia.resepsionis');
 
     }
@@ -182,9 +214,16 @@ class PanitiaController extends Controller
         return view('admin.panitia.resepsionis', compact('result'));
     }
 
+    public function edit($id)
+    {
+        $mhs = Mahasiswa::find($id);
+        return $mhs;
+    }
+
     public function updatestatus(Request $request)
     {
         $this->validate($request, [
+            'id' => 'required',
             'login' => 'required',
         ]);
         $mahasiswa = Mahasiswa::find($request->id);
