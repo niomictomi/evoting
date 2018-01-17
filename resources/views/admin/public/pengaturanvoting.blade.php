@@ -57,6 +57,7 @@
             inline: true,
             locale: 'id',
             sideBySide: true,
+            useCurrent: false,
             format: 'YYYY-MM-DD HH:mm'
         });
         $('#selesai').datetimepicker({

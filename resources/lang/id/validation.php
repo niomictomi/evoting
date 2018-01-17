@@ -113,6 +113,12 @@ return [
         ],
         'role' => [
             'required' => 'Hak akses dibutuhkan!'
+        ],
+        'mulai' => [
+            'required' => 'Atur waktu mulai terlebih dahulu!'
+        ],
+        'selesai' => [
+            'required' => 'Atur waktu selesai terlebih dahulu!'
         ]
     ],
 
