@@ -50,6 +50,7 @@ class MahasiswaController extends Controller
         foreach($calonHMJ as $item) {
             $item['nama_ketua'] = $item->getKetua()->nama;
             $item['nama_wakil'] = $item->getWakil()->nama;
+            $item['dir'] = asset('storage/' . $item['dir']);
         }
         
         $calonBEM = CalonBEM::all();
@@ -57,18 +58,15 @@ class MahasiswaController extends Controller
         foreach($calonBEM as $item) {
             $item['nama_ketua'] = $item->getKetua()->nama;
             $item['nama_wakil'] = $item->getWakil()->nama;
+            $item['dir'] = asset('storage/' . $item['dir']);            
         }
 
         $calonDPM = CalonDPM::getDaftarCalon(Auth::guard('mhs')->user()->getProdi()->jurusan_id)->get();
 
         foreach($calonDPM as $item) {
             $item['nama'] = $item->getAnggota()->nama;
+            $item['dir'] = asset('storage/' . $item['dir']);            
         }
-
-        // pengaturan untuk timer
-        $selisihDetik = Carbon::now()->diffInSeconds(Carbon::parse(session()->get('timer-end')));
-        $waktu = $selisihDetik > 120 ? $selisihDetik - 120 : 0;
-        $tambahan = $selisihDetik < 120 ? $selisihDetik : 120;
 
         return view('mahasiswa.voting', [
             'calonHMJ' => $calonHMJ,
