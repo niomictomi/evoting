@@ -42,7 +42,7 @@ Route::group(['namespace' => 'Auth'], function () {
 Route::group(['namespace' => 'Page'], function () {
 
     Route::get('pengaturan', function () {
-        return view('admin.pengaturan');
+        return view('admin.public.pengaturan');
     })->name('admin.pengaturan')->middleware('bukanmhs');
 
 });
