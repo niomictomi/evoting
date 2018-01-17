@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\CalonBEM;
 use App\Mahasiswa;
+use Carbon\Carbon;
 
 class PemilihanBemSeeder extends Seeder
 {
@@ -17,7 +18,11 @@ class PemilihanBemSeeder extends Seeder
         foreach (Mahasiswa::all() as $mhs){
             $memilih = rand(0,1);
             if ($memilih){
-                $mhs->getPemilihanBem()->attach($calon[rand(0, $calon->count() - 1)]);
+                $waktu = Carbon::today()->addHours(rand(0,23))->addMinutes(rand(0,59));
+                $mhs->getPemilihanBem()->attach($calon[rand(0, $calon->count() - 1)], [
+                    'created_at' => $waktu->toDateTimeString(),
+                    'updated_at' => $waktu->toDateTimeString()
+                ]);
                 $mhs->bem = true;
                 $mhs->telah_login = true;
                 $mhs->password = bcrypt('12345');

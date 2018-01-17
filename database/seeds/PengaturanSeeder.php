@@ -20,7 +20,7 @@ class PengaturanSeeder extends Seeder
 
         Pengaturan::create([
             'key' => 'selesai',
-            'value' => Carbon::today()->addHours(23)->toDateTimeString()
+            'value' => Carbon::today()->addHours(23)->addMinutes(59)->addSeconds(59)->toDateTimeString()
         ]);
 
         Pengaturan::create([
