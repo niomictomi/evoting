@@ -9,6 +9,6 @@ Route::group(['prefix' => 'kakpu'], function() {
 
     Route::get('buka', 'KakpuController@buka')->name('kakpu.buka');
 
-    Route::post('buka/save', 'KakpuController@save')->name('kakpu.buka.save');
+    Route::post('buka/{id}/save', 'KakpuController@save')->name('kakpu.buka.save');
 
 });
