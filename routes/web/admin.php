@@ -11,21 +11,6 @@ Route::group(['prefix' => 'admin'], function (){
         'as' => 'admin.panitia'
     ]);
 
-    Route::group(['prefix' => 'voting'], function (){
-        Route::get('hmj/{jurusan}/{tipe}', [
-            'uses' => 'PublicController@votingHmjDpm',
-            'as' => 'admin.voting.hmj'
-        ]);
-        Route::get('dpm/{jurusan}/{tipe}', [
-            'uses' => 'PublicController@votingHmjDpm',
-            'as' => 'admin.voting.dpm'
-        ]);
-        Route::get('bem/{tipe}', [
-            'uses' => 'PublicController@votingBem',
-            'as' => 'admin.voting.bem'
-        ]);
-    });
-
     Route::group(['prefix' => 'tambah'], function (){
         Route::put('panitia', [
             'uses' => 'AdminController@tambahPanitia',

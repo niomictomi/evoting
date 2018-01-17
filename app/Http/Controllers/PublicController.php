@@ -89,4 +89,23 @@ class PublicController extends Controller
             return $mahasiswa->getProdi()->nama;
         })->make(true);
     }
+
+    public function pengaturanVoting()
+    {
+        $mulai = Carbon::parse(Pengaturan::getWaktuMulai())->toDateTimeString();
+        $selesai = Carbon::parse(Pengaturan::getWaktuSelesai())->toDateTimeString();
+        if ($mulai == $selesai){
+            $mulai = null;
+            $selesai = null;
+        }
+        return view('admin.public.pengaturanvoting', [
+            'mulai' => $mulai,
+            'selesai' => $selesai
+        ]);
+    }
+
+    public function updatePengaturanVoting(Request $request)
+    {
+        
+    }
 }

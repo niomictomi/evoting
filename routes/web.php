@@ -4,20 +4,52 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('hmj/{id}/{status}', [
-    'uses' => 'PublicController@getDataPemilihHmj',
-    'as' => 'hmj.data.hakpilih'
-]);
+Route::group(['middleware' => 'bukanmhs'], function (){
 
-Route::get('dpm/{id}/{status}', [
-    'uses' => 'PublicController@getDataPemilihDpm',
-    'as' => 'dpm.data.hakpilih'
-]);
+    Route::get('hmj/{id}/{status}', [
+        'uses' => 'PublicController@getDataPemilihHmj',
+        'as' => 'hmj.data.hakpilih'
+    ]);
 
-Route::get('bem/{status}', [
-    'uses' => 'PublicController@getDataPemilihBem',
-    'as' => 'bem.data.hakpilih'
-]);
+    Route::get('dpm/{id}/{status}', [
+        'uses' => 'PublicController@getDataPemilihDpm',
+        'as' => 'dpm.data.hakpilih'
+    ]);
+
+    Route::get('bem/{status}', [
+        'uses' => 'PublicController@getDataPemilihBem',
+        'as' => 'bem.data.hakpilih'
+    ]);
+
+    Route::group(['prefix' => 'voting'], function (){
+
+        Route::get('hmj/{jurusan}/{tipe}', [
+            'uses' => 'PublicController@votingHmjDpm',
+            'as' => 'admin.voting.hmj'
+        ]);
+
+        Route::get('dpm/{jurusan}/{tipe}', [
+            'uses' => 'PublicController@votingHmjDpm',
+            'as' => 'admin.voting.dpm'
+        ]);
+
+        Route::get('bem/{tipe}', [
+            'uses' => 'PublicController@votingBem',
+            'as' => 'admin.voting.bem'
+        ]);
+
+        Route::get('pengaturan', [
+            'uses' => 'PublicController@pengaturanVoting',
+            'as' => 'admin.voting.pengaturan'
+        ]);
+
+        Route::patch('pengaturan/update', [
+            'uses' => 'PublicController@updatePengaturanVoting',
+            'as' => 'admin.voting.pengaturan.update'
+        ]);
+
+    });
+});
 
 Route::group(['namespace' => 'Auth'], function () {
 
