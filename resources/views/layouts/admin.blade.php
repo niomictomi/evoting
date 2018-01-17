@@ -16,8 +16,8 @@
         Voting HMJ
     </a>
 </li>
-<li @if(Route::currentRouteName() == 'admin.paniti') class="active" @endif>
-    <a href="{{ route('admin.panitia') }}">
+<li @if(Route::currentRouteName() == 'admin.voting.dpm') class="active" @endif>
+    <a href="{{ route('admin.voting.dpm', ['jurusan' => \App\Jurusan::all()->first()->nama, 'tipe' => 'Memiliki hak suara']) }}}">
         <i class="fa fa-thermometer-three-quarters"></i>&nbsp;&nbsp;
         Voting DPM
     </a>
