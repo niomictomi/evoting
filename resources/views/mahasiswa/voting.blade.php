@@ -31,8 +31,10 @@
                 </div>
                 <div class="col-md-auto" id="timer">
                     <timer
-                    waktu="{{ $waktu }}"
-                    tambahan="{{ $tambahan }}"
+                    :waktu="queue"
+                    :use-hari="useHari"
+                    :use-jam="useJam"
+                    :header="Waktu Anda"
                     ></timer>
                 </div>
             </div>
@@ -132,7 +134,28 @@
     })
     
     const timer = new Vue({
-        el: '#timer'
+        el: '#timer',
+        data: {
+            queue: [
+                '{{ $waktu }}',
+                '{{ $tambahan }}'
+            ],
+            useHari: false,
+            useJam: false
+        },
+        methods: {
+            timerCallback() {
+                swal({
+                    title: 'Peringatan !',
+                    text: 'Waktu untuk pemilihan telah habis. Anda akan keluar secara otomatis',
+                    button: false,
+                    closeOnClickOutside: false,
+                })
+                setTimeout(function () {
+                    $('#keluar').submit()
+                }, 1500)
+            }
+        }
     })
 </script>
 @endpush

@@ -1,7 +1,23 @@
 <template>
     <div>
-        <h6>Waktu anda</h6>
+        <h6>{{ header }}</h6>
         <div class="row">
+            <div v-if="useHari" class="col">
+                <span class="time">{{ hari | duaDigit }}</span>
+                <span class="type">Hari</span>
+            </div>
+            <div v-if="useHari" class="col">
+                <span class="time">:</span>
+                <span class="type"></span>
+            </div>
+            <div v-if="useJam" class="col">
+                <span class="time">{{ jam | duaDigit }}</span>
+                <span class="type">Jam</span>
+            </div>
+            <div v-if="useJam" class="col">
+                <span class="time">:</span>
+                <span class="type"></span>
+            </div>
             <div class="col">
                 <span class="time">{{ menit | duaDigit }}</span>
                 <span class="type">Menit</span>
@@ -20,44 +36,71 @@
 
 <script>
     export default {
-        props: [
-            'waktu', 'tambahan'
-        ],
+        props: {
+            waktu: {
+                type: Array
+            }, 
+            useHari: {
+                type: Boolean
+            },
+            useJam: {
+                type: Boolean
+            },
+            header: {
+                type: String
+            }
+        },
         data() {
             return {
-                datawaktu: this.waktu,
-                datatambahan: this.tambahan
+                queueWaktu: this.waktu,
+                datawaktu: Math.trunc(Date.parse(this.waktu[0]) / 1000),
+                now: Math.trunc((new Date()).getTime() / 1000)
             }
         },
         mounted() {
+            this.checkQueue()
             let interval = window.setInterval(() => {
-                if (this.datawaktu == 0) {
-                    if (this.datatambahan > 0) {
-                        this.datawaktu = this.datatambahan
-                        this.datatambahan = 0
+                if (this.datawaktu - this.now == 0) {
+                    // Jika array, maka index pertama akan dimasukkan ke datawaktu
+                    if(this.queueWaktu.length > 1) {
+                        this.removeFirstElement()
+                        this.datawaktu = Math.trunc(Date.parse(this.queueWaktu[0]) / 1000)
+                        this.now = Math.trunc((new Date()).getTime() / 1000)
                     } else {
                         clearInterval(interval)
-                        swal({
-                            title: 'Peringatan !',
-                            text: 'Waktu untuk pemilihan telah habis. Anda akan keluar secara otomatis',
-                            button: false,
-                            closeOnClickOutside: false,
-                        })
-                        setTimeout(function () {
-                            $('#keluar').submit()
-                        }, 1500)
+                        // menjalankan callback dari root
+                        this.$root.timerCallback()
                     }
                 } else {
                     this.datawaktu = --this.datawaktu
                 }
             }, 1000)
         },
-        computed: {
-            menit() {
-                return Math.floor(this.datawaktu / 60)
+        methods: {
+            removeFirstElement() {
+                this.queueWaktu = this.queueWaktu.slice(1, this.queueWaktu.length)
             },
+            checkQueue() {
+                console.log(this.datawaktu + " " + this.now)
+                while(this.datawaktu - this.now <= 0) {
+                    this.removeFirstElement()
+                    this.datawaktu = Math.trunc(Date.parse(this.queueWaktu[0]) / 1000)
+                }
+            }
+        },
+        computed: {
             detik() {
-                return this.datawaktu - (Math.floor(this.datawaktu / 60) * 60)
+                return (this.datawaktu - this.now) % 60;
+            },
+            menit() {
+                return Math.trunc((this.datawaktu - this.now) / 60) % 60;
+            },
+
+            jam() {
+                return Math.trunc((this.datawaktu - this.now) / 60 / 60) % 24;
+            },
+            hari() {
+                return Math.trunc((this.datawaktu - this.now) / 60 / 60 / 24);
             }
         },
         filters: {

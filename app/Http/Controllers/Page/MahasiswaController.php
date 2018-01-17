@@ -23,6 +23,7 @@ class MahasiswaController extends Controller
     public function __construct()
     {
         $this->middleware('guest:mhs')->only('login');
+        $this->middleware('votingselesai')->except('login');
     }
 
     /**
@@ -73,8 +74,8 @@ class MahasiswaController extends Controller
             'calonHMJ' => $calonHMJ,
             'calonBEM' => $calonBEM,
             'calonDPM' => $calonDPM,
-            'waktu' => $waktu,
-            'tambahan' => $tambahan
+            'waktu' => Carbon::parse(session()->get('timer-end'))->addMinutes(-2),
+            'tambahan' => Carbon::parse(session()->get('timer-end'))
         ]);
     }
 
