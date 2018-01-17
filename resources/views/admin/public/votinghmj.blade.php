@@ -1,8 +1,6 @@
 @extends('layouts.global')
 
-@section('title')
-    Voting HMJ
-@endsection
+@section('title', 'Voting HMJ')
 
 @section('content')
     @if ($errors->any())

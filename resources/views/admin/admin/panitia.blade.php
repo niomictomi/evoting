@@ -1,8 +1,6 @@
 @extends('layouts.global')
 
-@section('title')
-    Panitia
-@endsection
+@section('title', 'Panitia')
 
 @section('content')
     @if ($errors->any())

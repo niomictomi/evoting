@@ -1,8 +1,6 @@
 @extends('layouts.global')
 
-@section('title')
-    Voting BEM
-@endsection
+@section('title', 'Pengaturan voting')
 
 @section('content')
     @if ($errors->any())
