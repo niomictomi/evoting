@@ -22,5 +22,10 @@ class PengaturanSeeder extends Seeder
             'key' => 'selesai',
             'value' => Carbon::today()->addHours(23)->toDateTimeString()
         ]);
+
+        Pengaturan::create([
+            'key' => 'buka_hasil',
+            'value' => 0
+        ]);
     }
 }
