@@ -15,7 +15,7 @@ class PengaturanTable extends Migration
     {
         Schema::create('pengaturan', function (Blueprint $table){
             $table->string('key')->unique()->primary();
-            $table->text('value');
+            $table->text('value')->default('');
         });
     }
 
