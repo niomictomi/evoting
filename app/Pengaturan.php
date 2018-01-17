@@ -71,6 +71,8 @@ class Pengaturan extends Model
      */
     public static function getStatusVoting()
     {
+        if (Pengaturan::find('mulai')->value == '' || Pengaturan::find('selesai')->value == '')
+            return 'Anda belum mengatur waktu voting.';
         if (self::isVotingSedangBerlangsung())
             return 'Voting sedang berlangsung.';
         if (self::isVotingAkanBerlangsung())
