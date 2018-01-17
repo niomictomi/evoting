@@ -92,13 +92,24 @@ a:hover {
 #card-vote .card-calon {
   border-radius: 5px;
   margin-right: 20px;
-  margin-top: 20px;
+  margin-top: 50px;
   margin-bottom: 20px;
   padding: 0;
+  position: relative;
 }
 
 #card-vote .card-calon:first-child {
   margin-left: 20px;
+}
+
+#card-vote .card-calon > .nomor-urut {
+  padding: 15px;
+  left: 30px;
+  top: -30px;
+  text-align: center;
+  background-color: #fff;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 #card-vote .card-calon button {

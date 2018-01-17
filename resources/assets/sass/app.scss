@@ -85,9 +85,19 @@ a {
         }
         border-radius: 5px;
         margin-right: 20px;
-        margin-top: 20px;
+        margin-top: 50px;
         margin-bottom: 20px;
         padding: 0;
+        position: relative;
+        > .nomor-urut {
+            padding: 15px;
+            left: 30px;
+            top: -30px;
+            text-align: center;
+            background-color: #fff;
+            font-size: 25px;
+            font-weight: bold;
+        }
         button {
             padding: 15px 30px;
             border-radius: 3px;

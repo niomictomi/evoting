@@ -43726,9 +43726,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['foto', 'nama-ketua', 'nama-wakil', 'id', 'href', 'jenis'],
+    props: ['foto', 'nama-ketua', 'nama-wakil', 'id', 'href', 'jenis', 'no-urut'],
     data: function data() {
         return {
             csrf: document.head.querySelector('meta[name="csrf-token"]').content
@@ -43784,6 +43785,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card col-sm card-calon" }, [
+    _c("div", { staticClass: "nomor-urut" }, [_vm._v(_vm._s(_vm.noUrut))]),
+    _vm._v(" "),
     _c("img", {
       staticClass: "card-img-top",
       attrs: { src: _vm.foto, alt: "Card image cap" }
@@ -43903,9 +43906,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['nama', 'foto', 'id', 'href'],
+    props: ['nama', 'foto', 'id', 'href', 'no-urut'],
     data: function data() {
         return {
             csrf: document.head.querySelector('meta[name="csrf-token"]').content
@@ -43961,6 +43965,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card col-sm card-calon" }, [
+    _c("div", { staticClass: "nomor-urut" }, [_vm._v(_vm._s(_vm.noUrut))]),
+    _vm._v(" "),
     _c("img", {
       staticClass: "card-img-top",
       attrs: { src: _vm.foto, alt: _vm.nama }

@@ -1,5 +1,6 @@
 <template>
      <div class="card col-sm card-calon">
+        <div class="nomor-urut">{{ noUrut }}</div>
         <img class="card-img-top" :src="foto" :alt="nama">
         <div class="card-body">
             <h6>Calon Anggota DPM</h6>
@@ -16,7 +17,7 @@
 <script>
 export default {
     props: [
-        'nama', 'foto', 'id', 'href'
+        'nama', 'foto', 'id', 'href', 'no-urut'
     ],
     data() {
         return {

@@ -34,7 +34,7 @@
                     :waktu="queue"
                     :use-hari="useHari"
                     :use-jam="useJam"
-                    :header="Waktu Anda"
+                    header="Waktu Anda"
                     ></timer>
                 </div>
             </div>
@@ -48,7 +48,8 @@
                         <div :class="{row: true, blur: voted}">
                             <card-paslon 
                             v-for="paslon in daftarPaslon" 
-                            :key="paslon.id" 
+                            :key="paslon.id"
+                            :no-urut="paslon.nomor" 
                             :id="paslon.id"
                             :foto="paslon.dir" 
                             :nama-ketua="paslon.nama_ketua" 
@@ -69,6 +70,7 @@
                             :key="paslon.id" 
                             jenis="bem"
                             :id="paslon.id"
+                            :no-urut="paslon.nomor"                             
                             :foto="paslon.dir" 
                             :nama-ketua="paslon.nama_ketua" 
                             :nama-wakil="paslon.nama_wakil"
@@ -87,6 +89,7 @@
                             :key="paslon.id" 
                             ref="satu" 
                             :id="paslon.id" 
+                            :no-urut="paslon.nomor"                             
                             :foto="paslon.dir" 
                             :nama="paslon.nama"
                             :href="href"></card-calon-dpm>
