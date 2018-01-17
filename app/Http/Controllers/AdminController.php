@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Support\Role;
@@ -11,7 +12,16 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.admin.dashboard');
+        $mhs = Mahasiswa::all();
+        $mhs_aktif = Mahasiswa::getByStatus();
+        $mhs_cuti = Mahasiswa::getByStatus([Mahasiswa::CUTI]);
+        $mhs_nonaktif = Mahasiswa::getByStatus([Mahasiswa::NONAKTIF]);
+        return view('admin.admin.dashboard', [
+            'mhs' => $mhs->count(),
+            'mhsaktif' => $mhs_aktif->count(),
+            'mhscuti' => $mhs_cuti->count(),
+            'mhsnonaktif' => $mhs_nonaktif->count()
+        ]);
     }
 
     public function panitia()

@@ -11,7 +11,6 @@
     <!-- Place favicon.ico in the root directory -->
     <!-- Theme initialization -->
     <link rel="stylesheet" href="{{ asset('modular/css/vendor.css') }}">
-    <link rel="stylesheet" href="{{ asset('modular/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('modular/css/app-blue.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"/>
