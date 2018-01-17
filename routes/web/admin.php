@@ -20,6 +20,10 @@ Route::group(['prefix' => 'admin'], function (){
             'uses' => 'PublicController@votingHmjDpm',
             'as' => 'admin.voting.dpm'
         ]);
+        Route::get('bem/{tipe}', [
+            'uses' => 'PublicController@votingBem',
+            'as' => 'admin.voting.bem'
+        ]);
     });
 
     Route::group(['prefix' => 'tambah'], function (){

@@ -4,9 +4,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('hmjdpm/{id}/{status}', [
-    'uses' => 'PublicController@getDataPemilihHmjDpm',
-    'as' => 'hmjdpm.data.hakpilih'
+Route::get('hmj/{id}/{status}', [
+    'uses' => 'PublicController@getDataPemilihHmj',
+    'as' => 'hmj.data.hakpilih'
+]);
+
+Route::get('dpm/{id}/{status}', [
+    'uses' => 'PublicController@getDataPemilihDpm',
+    'as' => 'dpm.data.hakpilih'
+]);
+
+Route::get('bem/{status}', [
+    'uses' => 'PublicController@getDataPemilihBem',
+    'as' => 'bem.data.hakpilih'
 ]);
 
 Route::group(['namespace' => 'Auth'], function () {

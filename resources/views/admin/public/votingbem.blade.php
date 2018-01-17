@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Voting DPM
+    Voting BEM
 @endsection
 
 @section('content')
@@ -36,26 +36,16 @@
                                     aria-haspopup="true" aria-expanded="false">{{ $tipe }}
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Memiliki hak suara']) }}">Memiliki hak suara</a>
-                                <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Telah memberikan hak suara']) }}">Telah memberikan hak suara</a>
-                                <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Belum memberikan hak suara']) }}">Belum memberikan hak suara</a>
-                            </div>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-warning btn-sm btn-pill-right dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">Jurusan {{ $jurusan }}
-                            </button>
-                            <div class="dropdown-menu">
-                                @foreach($jurusans as $item)
-                                    <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $item->nama, 'tipe' => $tipe]) }}">Jurusan {{ $item->nama }}</a>
-                                @endforeach
+                                <a class="dropdown-item" href="{{ route('admin.voting.bem', ['tipe' => 'Memiliki hak suara']) }}">Memiliki hak suara</a>
+                                <a class="dropdown-item" href="{{ route('admin.voting.bem', ['tipe' => 'Telah memberikan hak suara']) }}">Telah memberikan hak suara</a>
+                                <a class="dropdown-item" href="{{ route('admin.voting.bem', ['tipe' => 'Belum memberikan hak suara']) }}">Belum memberikan hak suara</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-block">
-                <table class="table" id="hmj-{{ str_replace(' ', '_', $tipe) }}-{{ $jurusanobject->id }}">
+                <table class="table" id="bem-{{ str_replace(' ', '_', $tipe) }}">
                     <thead>
                     <tr>
                         <th>No</th>
@@ -72,7 +62,7 @@
 
 @push('js')
     <script>
-        $("#hmj-{{ str_replace(' ', '_', $tipe) }}-{{ \App\Jurusan::findByName($jurusan)->id }}").DataTable({
+        $("#bem-{{ str_replace(' ', '_', $tipe) }}").DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
@@ -81,7 +71,7 @@
             },
             "lengthMenu": [[5, 10, 20, 40, 80, 100, -1], [5, 10, 20, 40, 80, 100, "Semua data"]],
             ajax: {
-                url: '{{ route('dpm.data.hakpilih', ['id' => md5(\App\Jurusan::findByName($jurusan)->id), 'status' => md5($tipe)]) }}'
+                url: '{{ route('bem.data.hakpilih', ['status' => md5($tipe)]) }}'
             },
             columns: [
                 {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }},

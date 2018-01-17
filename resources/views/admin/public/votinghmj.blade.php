@@ -81,7 +81,7 @@
             },
             "lengthMenu": [[5, 10, 20, 40, 80, 100, -1], [5, 10, 20, 40, 80, 100, "Semua data"]],
             ajax: {
-                url: '{{ route('hmjdpm.data.hakpilih', ['id' => md5(\App\Jurusan::findByName($jurusan)->id), 'status' => md5($tipe)]) }}'
+                url: '{{ route('hmj.data.hakpilih', ['id' => md5(\App\Jurusan::findByName($jurusan)->id), 'status' => md5($tipe)]) }}'
             },
             columns: [
                 {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }},
