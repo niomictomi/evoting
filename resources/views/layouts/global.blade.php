@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/dataTables.responsive.css') }}" rel="stylesheet"/>
-
+    <link href="{{ asset('css/tempusdominus-bootstrap-4.css') }}" rel="stylesheet">
 
     @if(Auth::guard('mhs')->check())
         <style>
@@ -117,10 +117,10 @@
                                     @include('layouts.root')
                                 @endif
                                 <li @if (Route::currentRouteName() == 'pengaturan') class="active" @endif>
-                                        <a href="{{ route('admin.pengaturan') }}">
-                                            <i class="fa fa-gear"></i> Pengaturan
-                                        </a>
-                                    </li>
+                                    <a href="{{ route('admin.pengaturan') }}">
+                                        <i class="fa fa-gear"></i> Pengaturan
+                                    </a>
+                                </li>
                             </ul>
                         @endif
                     </nav>
@@ -315,13 +315,15 @@
     ga('send', 'pageview');
 </script>
 
-<script src="{{asset('modular/js/vendor.js')}}"></script>
-<script src="{{asset('modular/js/app.js')}}"></script>
+<script src="{{ asset('modular/js/vendor.js') }}"></script>
+<script src="{{ asset('modular/js/app.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.responsive.js') }}"></script>
 <script src="{{ asset('js/datatables-setting.js') }}"></script>
+<script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
+<script src="{{ asset('js/tempusdominus-bootstrap-4.js') }}"></script>
 @stack('js')
 </body>
 </html>

@@ -1,8 +1,6 @@
 @extends('layouts.global')
 
-@section('title')
-    Voting DPM
-@endsection
+@section('title', 'Voting DPM')
 
 @section('content')
     @if ($errors->any())
@@ -36,9 +34,9 @@
                                     aria-haspopup="true" aria-expanded="false">{{ $tipe }}
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Memiliki hak suara']) }}">Memiliki hak suara</a>
-                                <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Telah memberikan hak suara']) }}">Telah memberikan hak suara</a>
-                                <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Belum memberikan hak suara']) }}">Belum memberikan hak suara</a>
+                                <a class="dropdown-item" href="{{ route('admin.voting.dpm', ['jurusan' => $jurusan, 'tipe' => 'Memiliki hak suara']) }}">Memiliki hak suara</a>
+                                <a class="dropdown-item" href="{{ route('admin.voting.dpm', ['jurusan' => $jurusan, 'tipe' => 'Telah memberikan hak suara']) }}">Telah memberikan hak suara</a>
+                                <a class="dropdown-item" href="{{ route('admin.voting.dpm', ['jurusan' => $jurusan, 'tipe' => 'Belum memberikan hak suara']) }}">Belum memberikan hak suara</a>
                             </div>
                         </div>
                         <div class="btn-group">
@@ -47,7 +45,7 @@
                             </button>
                             <div class="dropdown-menu">
                                 @foreach($jurusans as $item)
-                                    <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $item->nama, 'tipe' => $tipe]) }}">Jurusan {{ $item->nama }}</a>
+                                    <a class="dropdown-item" href="{{ route('admin.voting.dpm', ['jurusan' => $item->nama, 'tipe' => $tipe]) }}">Jurusan {{ $item->nama }}</a>
                                 @endforeach
                             </div>
                         </div>
@@ -62,6 +60,9 @@
                         <th>NIM</th>
                         <th>Nama</th>
                         <th>Prodi</th>
+                        @if ($tipe == 'Telah memberikan hak suara')
+                            <th>Waktu</th>
+                        @endif
                     </tr>
                     </thead>
                 </table>
@@ -87,7 +88,10 @@
                 {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }},
                 {data: 'id', name: 'id'},
                 {data: 'nama', name: 'nama'},
-                {data: 'prodi', name: 'prodi'}
+                {data: 'prodi', name: 'prodi'},
+                @if ($tipe == 'Telah memberikan hak suara')
+                {data: 'created_at', name: 'created_at', searchable: false}
+                @endif
             ]
         });
     </script>

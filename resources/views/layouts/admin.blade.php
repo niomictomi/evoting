@@ -22,14 +22,14 @@
         Voting DPM
     </a>
 </li>
-<li @if(Route::currentRouteName() == 'admin.panita') class="active" @endif>
-    <a href="{{ route('admin.panitia') }}">
+<li @if(Route::currentRouteName() == 'admin.voting.bem') class="active" @endif>
+    <a href="{{ route('admin.voting.bem', ['tipe' => 'Memiliki hak suara']) }}">
         <i class="fa fa-thermometer-full"></i>&nbsp;&nbsp;
         Voting BEM
     </a>
 </li>
-<li @if(Route::currentRouteName() == 'admin.paniia') class="active" @endif>
-    <a href="{{ route('admin.panitia') }}">
+<li @if(Route::currentRouteName() == 'admin.voting.pengaturan') class="active" @endif>
+    <a href="{{ route('admin.voting.pengaturan') }}">
         <i class="fa fa-gears"></i>
         Pengaturan Voting
     </a>

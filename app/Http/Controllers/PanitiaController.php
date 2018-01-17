@@ -6,9 +6,13 @@ use App\CalonBEM;
 use App\CalonDPM;
 use App\CalonHMJ;
 use App\Mahasiswa;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Yajra\DataTables\DataTables;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\Printer;
 
 
 class PanitiaController extends Controller
@@ -26,8 +30,10 @@ class PanitiaController extends Controller
      */
     public function index()
     {
-        $test = CalonHMJ::find(13);
-        return view('admin.panitia.dashboard', compact('test'));
+
+
+        //$test = CalonHMJ::find(13);
+        return view('admin.panitia.dashboard');
     }
 
     public function paslon()
@@ -224,15 +230,47 @@ class PanitiaController extends Controller
 
     public function updatestatus(Request $request)
     {
+
+
         $this->validate($request, [
             'login' => 'required',
         ]);
         $mahasiswa = Mahasiswa::find($request->id);
-
+        $pass = random_int(10000,99999);
+        $password = bcrypt($pass);
         if ($mahasiswa->status == 'A') {
             $mahasiswa->update([
                 'login' => $request->login,
+                'password' =>$password,
             ]);
+
+            // set printer
+            $date = Carbon::now();
+            try {
+                // Enter the share name for your USB printer here
+                $connector = null;
+                $connector = new WindowsPrintConnector("POS-58");
+                /* Print a "Hello world" receipt" */
+                $printer = new Printer($connector);
+                $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+                $printer -> text("E-Voting !\n");
+                $printer -> selectPrintMode();
+                $printer -> text("UserName :  ".$mahasiswa->id."\n");
+                $printer -> text("\n");
+                $printer -> text("Password :  ".$pass."\n");
+                $printer -> text("\n");
+                $printer -> text("\n");
+                $printer -> text("\n");
+                $printer -> text($date);
+                $printer -> text("\n");
+                $printer -> text("\n");
+                $printer -> cut();
+
+                /* Close printer */
+                $printer -> close();
+            } catch (\Exception $e) {
+                echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
+            }
             return back()->with('message', 'Akun Mahasiswa ' . $mahasiswa->id . ' berhasil diaktifkan');
         } else {
             return back()->with('message', 'Mahasiswa Berstatus Cuti / Non-aktir');

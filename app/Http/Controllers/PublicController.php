@@ -89,4 +89,41 @@ class PublicController extends Controller
             return $mahasiswa->getProdi()->nama;
         })->make(true);
     }
+
+    public function pengaturanVoting()
+    {
+        $mulai = Carbon::parse(Pengaturan::getWaktuMulai())->toDateTimeString();
+        $selesai = Carbon::parse(Pengaturan::getWaktuSelesai())->toDateTimeString();
+        if ($mulai == $selesai){
+            $mulai = null;
+            $selesai = null;
+        }
+        return view('admin.public.pengaturanvoting', [
+            'mulai' => $mulai,
+            'selesai' => $selesai
+        ]);
+    }
+
+    public function updatePengaturanVoting(Request $request)
+    {
+        $this->validate($request, [
+            'mulai' => 'required',
+            'selesai' => 'required'
+        ]);
+
+        if ($request->mulai == $request->selesai)
+            return back()->withErrors(['Waktu mulai dan waktu selesai tidak boleh sama!']);
+        $mulai = Carbon::parse($request->mulai);
+        $selesai = Carbon::parse($request->selesai);
+        if (!$mulai->lessThan($selesai))
+            return back()->withErrors(['Waktu mulai harus sebelum waktu selesai!']);
+        Pengaturan::find('mulai')->update([
+            'value' => $mulai
+        ]);
+        Pengaturan::find('selesai')->update([
+            'value' => $selesai
+        ]);
+
+        return back()->with('message', 'Waktu mulai dan selesai telah berhasil diatur.');
+    }
 }

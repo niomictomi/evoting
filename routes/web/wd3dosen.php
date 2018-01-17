@@ -11,7 +11,7 @@ Route::group(['prefix' => 'dosen'], function() {
 
     Route::get('buka', 'Wd3dosenController@buka')->name('dosen.buka');
 
-
+    Route::post('buka/{id}/save', 'Wd3dosenController@save')->name('dosen.buka.save');
 });
 
 

@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Mahasiswa;
 use App\Jurusan;
+use Carbon\Carbon;
 
 class PemilihanHmjSeeder extends Seeder
 {
@@ -21,7 +22,11 @@ class PemilihanHmjSeeder extends Seeder
             foreach ($mahasiswa as $mhs){
                 $memilih = rand(0,1);
                 if ($memilih){
-                    $mhs->getPemilihanHmj()->attach($calon[rand(0, $calon->count() - 1)]);
+                    $waktu = Carbon::today()->addHours(rand(0,23))->addMinutes(rand(0,59));
+                    $mhs->getPemilihanHmj()->attach($calon[rand(0, $calon->count() - 1)], [
+                        'created_at' => $waktu->toDateTimeString(),
+                        'updated_at' => $waktu->toDateTimeString()
+                    ]);
                     $mhs->hmj = true;
                     $mhs->telah_login = true;
                     $mhs->password = bcrypt('12345');
