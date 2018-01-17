@@ -50,6 +50,9 @@
                         <th>NIM</th>
                         <th>Nama</th>
                         <th>Prodi</th>
+                        @if ($tipe == 'Telah memberikan hak suara')
+                            <th>Waktu</th>
+                        @endif
                     </tr>
                     </thead>
                 </table>
@@ -75,7 +78,10 @@
                 {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }},
                 {data: 'id', name: 'id'},
                 {data: 'nama', name: 'nama'},
-                {data: 'prodi', name: 'prodi'}
+                {data: 'prodi', name: 'prodi'},
+                @if ($tipe == 'Telah memberikan hak suara')
+                {data: 'created_at', name: 'created_at', searchable: false}
+                @endif
             ]
         });
     </script>
