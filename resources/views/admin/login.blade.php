@@ -29,15 +29,15 @@
                     </div> Admin & Panitia</h1>
             </header>
             <div class="auth-content">
-                <p class="text-center">LOGIN TO CONTINUE</p>
+                <p class="text-center"></p>
                 <form id="login-form" action="{{ route('admin.login.process') }}" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="username">NIP/NIM</label>
-                        <input type="text" class="form-control underlined" name="id" id="username" placeholder="Your email address" required> </div>
+                        <input type="text" class="form-control underlined" name="id" id="username" placeholder="Masukkan NIM Anda" required> </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control underlined" name="password" id="password" placeholder="Your password" required> </div>
+                        <input type="password" class="form-control underlined" name="password" id="password" placeholder="Masukan Password Anda" required> </div>
                     <div class="form-group">
                         <label for="remember">
                             <input class="checkbox" name="remember" id="remember" type="checkbox">

@@ -31,23 +31,55 @@
             </div>
         </div>
         <div class="card-block">
-            <div class="table-responsive">
-                <table class="table table-hover" id="mahasiswa">
-                    <thead>
-                    <tr>
-                        <td><b>NIM</b></td>
-                        <td><b>Nama</b></td>
-                        <td><b>Prodi</b></td>
-                        <td><b>Status</b></td>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {{ csrf_field() }}
-                    </tbody>
-                </table>
-            </div>
+            <center>
+                <form action="{{route('cari')}}" method="get">
+                    <div class="input-group col-6">
+                        <input type="text" class="form-control boxed rounded-s" placeholder="NIM Mahasiswa..."
+                               name="id">
+                        <span class="input-group-btn">
+                            <button class="btn btn-danger rounded-s" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </center>
         </div>
+    </div>
+    <div class="card-block">
+        <center>
+            @if(is_null($result))
+            @else
+                <div class="col-xl-4">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <div class="header-block">
+                                <p class="title"> {{$result->nama}} </p>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            <p></p>
+                        </div>
+                        <div class="card-footer">
+                            @if ($result->login == 0 && $result->telah_login == 0)
+                                <form action="{{url('panitia/resepsionis/'.$result->id.'/update')}}">
+                                    <button type="submit" class="btn btn-danger btn-sm rounded">Belum Aktif
+                                    </button>
+                                    <input hidden="" value="1" name="login">'.
+                                </form>
+                            @elseif($result->login == 0 && $result->telah_login == 1)
+                                <button type="button" class="btn btn-primary btn-sm rounded">Telah Login</button>
+                            @elseif ($result->login == 1 && $result->telah_login == 1)
+                                <button type="button" class="btn btn-primary btn-sm rounded">Aktif</button>
+                            @elseif ($result->login == 1 && $result->telah_login == 0)
+                                <button type="button" class="btn btn-primary btn-sm rounded">Aktif</button>
+
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </center>
     </div>
 
 @endsection
@@ -63,17 +95,21 @@
 
     @endif
     <script type="text/javascript">
-        $('#mahasiswa').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{route('api.resepsionis')}}",
-            columns: [
-                {data: 'id', name: 'id'},
-                {data: 'nama', name: 'nama'},
-                {data: 'prodi', name: 'prodi_id'},
-                {data: 'action', name: 'action', orderable: false, searchable: false},
-            ]
-        });
+        {{--$('#mahasiswa').DataTable({--}}
+        {{--processing: true,--}}
+        {{--serverSide: true,--}}
+        {{--ajax: "{{route('api.resepsionis')}}",--}}
+        {{--columns: [--}}
+        {{--{data: 'id', name: 'id'},--}}
+        {{--{data: 'nama', name: 'nama'},--}}
+        {{--{data: 'prodi', name: 'prodi_id'},--}}
+        {{--{data: 'action', name: 'action', orderable: false, searchable: false},--}}
+        {{--],--}}
+        {{--columnDefs: [--}}
+        {{--{"visible": false, "targets": 0}--}}
+        {{--]--}}
+
+        {{--});--}}
 
         function addForm() {
             save_method = "add";
@@ -82,6 +118,7 @@
             $('#modal-form form')[0].reset();
             $('.modal-title').text('Add Contact');
         }
+
         function editForm(id) {
             save_method = 'edit';
             $('input[name=_method]').val('PATCH');
@@ -90,19 +127,20 @@
                 url: "{{ url('contact') }}" + '/' + id + "/edit",
                 type: "GET",
                 dataType: "JSON",
-                success: function(data) {
+                success: function (data) {
                     $('#modal-form').modal('show');
                     $('.modal-title').text('Edit Contact');
                     $('#id').val(data.id);
                     $('#name').val(data.name);
                     $('#email').val(data.email);
                 },
-                error : function() {
+                error: function () {
                     alert("Nothing Data");
                 }
             });
         }
-        function deleteData(id){
+
+        function deleteData(id) {
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
             swal({
                 title: 'Are you sure?',
@@ -114,10 +152,10 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then(function () {
                 $.ajax({
-                    url : "{{ url('contact') }}" + '/' + id,
-                    type : "POST",
-                    data : {'_method' : 'DELETE', '_token' : csrf_token},
-                    success : function(data) {
+                    url: "{{ url('contact') }}" + '/' + id,
+                    type: "POST",
+                    data: {'_method': 'DELETE', '_token': csrf_token},
+                    success: function (data) {
                         table.ajax.reload();
                         swal({
                             title: 'Success!',
@@ -126,7 +164,7 @@
                             timer: '1500'
                         })
                     },
-                    error : function () {
+                    error: function () {
                         swal({
                             title: 'Oops...',
                             text: data.message,
@@ -137,20 +175,21 @@
                 });
             });
         }
-        $(function(){
+
+        $(function () {
             $('#modal-form form').validator().on('submit', function (e) {
-                if (!e.isDefaultPrevented()){
+                if (!e.isDefaultPrevented()) {
                     var id = $('#id').val();
                     if (save_method == 'add') url = "{{ url('contact') }}";
                     else url = "{{ url('contact') . '/' }}" + id;
                     $.ajax({
-                        url : url,
-                        type : "POST",
+                        url: url,
+                        type: "POST",
 //                        data : $('#modal-form form').serialize(),
                         data: new FormData($("#modal-form form")[0]),
                         contentType: false,
                         processData: false,
-                        success : function(data) {
+                        success: function (data) {
                             $('#modal-form').modal('hide');
                             table.ajax.reload();
                             swal({
@@ -160,7 +199,7 @@
                                 timer: '1500'
                             })
                         },
-                        error : function(data){
+                        error: function (data) {
                             swal({
                                 title: 'Oops...',
                                 text: data.message,

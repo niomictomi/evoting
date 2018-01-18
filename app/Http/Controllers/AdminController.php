@@ -49,19 +49,30 @@ class AdminController extends Controller
             }
             if (count($role) > 1) {
                 User::create([
-                    'id' => $request->nim,
+                    'id' => $request->id,
                     'nama' => $request->nama,
                     'role' => $role[0],
                     'helper' => $role[1],
-                    'password' => bcrypt($request->nim)
+                    'password' => bcrypt($request->id)
                 ]);
             } else {
-                User::create([
-                    'id' => $request->nim,
-                    'nama' => $request->nama,
-                    'role' => $role[0],
-                    'password' => bcrypt($request->nim)
-                ]);
+                if ($role[0] == Role::KETUA_KPU){
+                    User::create([
+                        'id' => $request->id,
+                        'nama' => $request->nama,
+                        'role' => $role[0],
+                        'password' => bcrypt($request->id)
+                    ]);
+                }
+                else{
+                    User::create([
+                        'id' => $request->id,
+                        'nama' => $request->nama,
+                        'role' => $role[0],
+                        'password' => bcrypt($request->id),
+                        'helper' => bcrypt($request->id)
+                    ]);
+                }
             }
 
             return back()->with('message', 'Berhasil menambahkan panitia.');

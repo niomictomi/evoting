@@ -206,16 +206,18 @@ class PanitiaController extends Controller
 
     public function resepsionis()
     {
+        $result = null;
 
-        return view('admin.panitia.resepsionis');
+        return view('admin.panitia.resepsionis',compact('result'));
 
     }
 
     public function carimhs(Request $request)
     {
+
         if ($request->has('id')) {
             $key = $request->id;
-            $result = Mahasiswa::whereRaw('("id" LIKE \'%' . $key . '%\')')->get();
+            $result = Mahasiswa::whereRaw('("id" LIKE \'%' . $key . '%\')')->first();
         }
         //$mhscari = Mahasiswa::where('id','=',$request->id)->get();
         //dd($result);
@@ -253,11 +255,16 @@ class PanitiaController extends Controller
                 /* Print a "Hello world" receipt" */
                 $printer = new Printer($connector);
                 $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-                $printer -> text("E-Voting !\n");
+                $printer -> text("E-Voting Pemira!\n");
                 $printer -> selectPrintMode();
-                $printer -> text("UserName :  ".$mahasiswa->id."\n");
+                $printer -> text("Fakultas Ekonomi");
                 $printer -> text("\n");
-                $printer -> text("Password :  ".$pass."\n");
+                $printer -> text("\n");
+                $printer -> text("UserName : ".$mahasiswa->id."\n");
+                $printer -> text("Password : ");
+                $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+                $printer -> text($pass);
+                $printer -> selectPrintMode();
                 $printer -> text("\n");
                 $printer -> text("\n");
                 $printer -> text("\n");

@@ -4,5 +4,5 @@
 </li>
 <li @if (Route::currentRouteName() == 'dosen.buka') class="active" @endif>
     <a href="{{route('dosen.buka')}}">
-        <i class="fa fa-key"></i> Buka Kotak Suara </a>
+        <i class="fa fa-key"></i> Set Password </a>
 </li>
