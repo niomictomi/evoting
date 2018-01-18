@@ -8,6 +8,7 @@
     </div>
     <form role="form" method="post" action="{{route('hmj.save')}}" enctype="multipart/form-data">
         {{ csrf_field() }}
+
         <section class="section ">
             <div class="row sameheight-container">
                 <div class="col-md-6">
