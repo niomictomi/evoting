@@ -44147,11 +44147,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.queueWaktu = this.queueWaktu.slice(1, this.queueWaktu.length);
         },
         checkQueue: function checkQueue() {
-            console.log(this.datawaktu + " " + this.now);
-            while (this.datawaktu - this.now <= 0) {
+            while (this.datawaktu - this.now <= 0 && this.queueWaktu.length > 0) {
                 this.removeFirstElement();
                 this.datawaktu = Math.trunc(Date.parse(this.queueWaktu[0]) / 1000);
             }
+
+            if (this.queueWaktu.length == 0) this.$root.timerCallback();
         }
     },
     computed: {
