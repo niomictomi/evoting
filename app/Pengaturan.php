@@ -113,10 +113,11 @@ class Pengaturan extends Model
                 return back()->with('error', 'Kata sandi anda salah!');
             }
             if (self::checkPasswordBukaHasil()){
+                Pengaturan::find('buka_hasil')->update(['value' => true]);
                 return back()->with('message', 'Kotak suara telah dibuka!');
             }
             return back()->with('message', 'Password telah sesuai.');
         }
-        return back()->with('message', 'Anda telah menginputkan semua password dan kotak suara telah dibuka.');
+        return back()->with('message', 'Anda telah menginputkan semua password dan kotak suara bisa dibuka.');
     }
 }
