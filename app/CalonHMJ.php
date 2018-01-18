@@ -132,4 +132,16 @@ class CalonHMJ extends Model
         return collect($data);
     }
 
+    public static function getHasilUntukDiagram($jurusan_id)
+    {
+        $data = [];
+        $daftar_calon = static::getDaftarCalon($jurusan_id)->get();
+
+        foreach($daftar_calon as $calon) {
+            $data['Nomor Paslon ' . $calon->nomor] = $calon->getPemilih()->count();
+        }
+
+        return $data;
+    }
+
 }

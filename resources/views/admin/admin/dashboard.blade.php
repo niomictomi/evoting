@@ -57,4 +57,33 @@
             </div>
         </div>
     </div>
+
+    @include('layouts.countdown', [
+        'header' => 'Pemilihan akan dimulai dalam waktu',
+        'waktu' => \App\Pengaturan::getWaktuMulai()
+    ])
+
+    @include('charts.bar', [
+        'data' => \App\CalonHMJ::getJumlahVotingBarChart(5),
+        'id' => 'hello'
+    ])
+    
+    @include('charts.bar', [
+        'data' => Chart::parse(\App\CalonHMJ::getHasilUntukDiagram(5)),
+        'id' => 'hasil'
+    ])
+    
+    @include('charts.pie', [
+        'data' => Chart::parse(\App\CalonHMJ::getHasilUntukDiagram(5)),
+        'id' => 'asdfg'
+    ])
+    
+    @include('charts.pie', [
+        'data' => Chart::parse([
+            'Aktif' => \App\Mahasiswa::aktif()->count(), 
+            'Non aktif' => \App\Mahasiswa::nonAktif()->count(), 
+            'Cuti' => \App\Mahasiswa::cuti()->count()
+            ]),
+        'id' => 'qwerty'
+    ])
 @endsection
