@@ -85,7 +85,7 @@ class Pengaturan extends Model
     /**
      * @return bool
      */
-    public static function checkPasswordBukaHasil()
+    public static function checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu()
     {
         $users = User::whereIn('role', [Role::KETUA_KPU, Role::WD3, Role::DOSEN])->get();
         foreach ($users as $user){
@@ -94,30 +94,5 @@ class Pengaturan extends Model
         }
 
         return true;
-    }
-
-    /**
-     * @param $user_id
-     * @param $password
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public static function bukaHasil($user_id, $password)
-    {
-        if (self::checkPasswordBukaHasil()){
-            $user = User::find($user_id);
-            if (Hash::check($password, $user->helper)){
-                $user->helper = 'secret';
-                $user->save();
-            }
-            else{
-                return back()->with('error', 'Kata sandi anda salah!');
-            }
-            if (self::checkPasswordBukaHasil()){
-                Pengaturan::find('buka_hasil')->update(['value' => true]);
-                return back()->with('message', 'Kotak suara telah dibuka!');
-            }
-            return back()->with('message', 'Password telah sesuai.');
-        }
-        return back()->with('message', 'Anda telah menginputkan semua password dan kotak suara bisa dibuka.');
     }
 }
