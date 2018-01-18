@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header bordered">
                 <div class="header-block">
-                    <h3 class="title">Daftar Paslon HMJ</h3>
+                    <h3 class="title">Daftar Paslon DPM</h3>
                 </div>
                 <div class="header-block pull-right">
                     {{--<a href="{{route('panitia.paslon.form')}}" class="btn btn-primary btn-sm rounded pull-right" >Tambah--}}
@@ -18,7 +18,7 @@
                                 aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> Tambah Paslon
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{route('form.hmj')}}">HMJ</a>
+                            <a class="dropdown-item" href="{{route('form.dpm')}}">DPM</a>
                         </div>
                     </div>
                     <div class="modal fade" id="tambah" tabindex="-1" role="dialog"
@@ -48,18 +48,18 @@
                         <thead>
                         <tr>
                             <td width="100"><b>Nomor</b></td>
-                            <td width="20"><b>Nama Ketua</b></td>
-                            <td width="20"><b>Nama Wakil Ketua</b></td>
+                            <td width="20"><b>NIM</b></td>
+                            <td width="20"><b>Nama Calon anggota</b></td>
                             <td width="50"><b>Foto</b></td>
                         </tr>
                         </thead>
                         <tbody>
-                                @foreach($hmj as $hmj)
+                                @foreach($dpm as $dpm)
                                     <tr>
                                     <td></td>
-                                    <td><b>{{$hmj->ketua_id}}</b></td>
-                                    <td><b>{{$hmj->wakil_id}}</b></td>
-                                    <td><img src="{{asset('storage/'.$hmj->dir)}}" style="width: 80%;height: 30%;"></td>
+                                    <td><b>{{$dpm->anggota_id}}</b></td>
+                                    <td><b></b></td>
+                                    <td><img src="{{asset('storage/'.$dpm->dir)}}" style="width: 80%;height: 30%;"></td>
                                     </tr>
                                 @endforeach
                         </tbody>
