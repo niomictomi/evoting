@@ -18,25 +18,32 @@
 
                     <div class="card-block">
                         @if($user->helper == null || $user->helper == '')
-                            <form action="{{ route('kakpu.simpan') }}" method="post">
-                                {{ csrf_field() }}
-                                <input name="id" value="{{ $user->id }}" type="hidden" disabled>
-                                <div class="form-group">
-                                    <label class="control-label">Password</label>
-                                    <input type="password" placeholder="{{$user->name}} Belum Mengeset Password" name="password" class="form-control" disabled>
-                                </div>
-                                <input type="submit" value="Kirim" class="btn btn-info" disabled>
-                            </form>
+                            <input name="id" value="{{ $user->id }}" type="hidden" disabled>
+                            <div class="form-group">
+                                <label class="control-label">Password</label>
+                                <input type="password" placeholder="{{$user->name}} Belum Mengeset Password"
+                                       name="password" class="form-control" disabled>
+                            </div>
+                            <input type="submit" value="Kirim" class="btn btn-info" disabled>
                         @else
-                            <form action="{{ route('kakpu.simpan') }}" method="post">
-                                {{ csrf_field() }}
-                                <input name="id" value="{{ $user->id }}" type="hidden" >
+                            @if($user->helper == 'secret')
                                 <div class="form-group">
                                     <label class="control-label">Password</label>
-                                    <input type="password" name="password" class="form-control" >
+                                    <div class="alert alert-info">
+                                        Password dari {{ strtoupper($user->role) }} telah dikonfirmasi
+                                    </div>
                                 </div>
-                                <input type="submit" value="Kirim" class="btn btn-info" >
-                            </form>
+                            @else
+                                <form action="{{ route('kakpu.simpan') }}" method="post">
+                                    {{ csrf_field() }}
+                                    <input name="id" value="{{ $user->id }}" type="hidden">
+                                    <div class="form-group">
+                                        <label class="control-label">Password</label>
+                                        <input type="password" name="password" class="form-control">
+                                    </div>
+                                    <input type="submit" value="Kirim" class="btn btn-info">
+                                </form>
+                            @endif
                         @endif
                     </div>
 

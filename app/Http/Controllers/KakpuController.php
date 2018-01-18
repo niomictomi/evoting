@@ -39,7 +39,22 @@ class KakpuController extends Controller
 
     public function save(Request $request)
     {
-        Pengaturan::bukaHasil($request->id, $request->password);
+        if (!Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu()){
+            $user = User::find($request->id);
+            if (Hash::check($request->password, $user->helper)){
+                $user->helper = 'secret';
+                $user->save();
+            }
+            else{
+                return back()->with('error', 'Kata sandi anda salah!');
+            }
+            if (Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu()){
+                Pengaturan::find('buka_hasil')->update(['value' => true]);
+                return back()->with('message', 'Kotak suara telah dibuka!');
+            }
+            return back()->with('message', 'Password telah sesuai.');
+        }
+        return back()->with('message', 'Anda telah menginputkan semua password dan kotak suara bisa dibuka.');
     }
 
 }
