@@ -19,9 +19,10 @@ class UserSeeder extends Seeder
         $id_others = 12345543220;
 
         foreach (Role::ALL as $role){
+            $user = null;
             if ($role == Role::PANITIA){
                 foreach (Role::PANITIA_ALL as $panitia){
-                    User::create([
+                    $user = User::create([
                         'id' => ++$id_panitia,
                         'nama' => $faker->unique()->name,
                         'password' => bcrypt('secret'),
@@ -31,13 +32,17 @@ class UserSeeder extends Seeder
                 }
             }
             else{
-                User::create([
+                $user = User::create([
                     'id' => $id_others,
                     'nama' => $faker->unique()->name,
                     'password' => bcrypt('secret'),
                     'role' => $role,
                 ]);
                 $id_others += 10;
+            }
+            if ($user->isWD3() || $user->isKetuaKPU() || $user->isDosen()){
+                $user->helper = bcrypt('bukahasil');
+                $user->save();
             }
         }
     }
