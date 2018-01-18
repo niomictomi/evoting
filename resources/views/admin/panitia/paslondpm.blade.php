@@ -50,7 +50,7 @@
                             <td width="100"><b>Nomor</b></td>
                             <td width="20"><b>NIM</b></td>
                             <td width="20"><b>Nama Calon anggota</b></td>
-                            <td width="50"><b>Foto</b></td>
+                            <td width="50"><b>aksi</b></td>
                         </tr>
                         </thead>
                         <tbody>
@@ -58,8 +58,22 @@
                                     <tr>
                                     <td></td>
                                     <td><b>{{$dpm->anggota_id}}</b></td>
-                                    <td><b></b></td>
-                                    <td><img src="{{asset('storage/'.$dpm->dir)}}" style="width: 80%;height: 30%;"></td>
+                                    <td><b>{{$dpm->getAnggota()->nama }}</b></td>
+                                    <td>
+                                        <form method="post">
+                                            {{ csrf_field() }}
+                                            {{ method_field('delete') }}
+                                            <input type="hidden" name="id" value="{{ $dpm->id }}">
+                                        </form>
+                                        <div class="btn-group">
+                                            <a href="{{url('panitia/paslon/'.$dpm->id.'/dpm/update')}}">
+                                                <button class="btn btn-primary btn-sm btn-pill-left" data-toggle="modal"
+                                                        data-target="#edit-{{ $dpm->id }}">Edit
+                                                </button>
+                                            </a>
+                                            <a><button class="btn btn-danger btn-sm btn-pill-right">Hapus</button></a>
+                                        </div>
+                                    </td>
                                     </tr>
                                 @endforeach
                         </tbody>

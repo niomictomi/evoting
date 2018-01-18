@@ -59,25 +59,7 @@
                         </div>
                         <div class="card-block">
                             <p>{{$result->id}}</p>
-                            <p> @if($result->prodi_id==1)
-                                    S1 Pendidikan Ekonomi
-                                @elseif($result->prodi_id==2)
-                                    S1 Pendidikan Administrasi Perkantoran
-                                @elseif($result->prodi_id==3)
-                                    S1 Pendidikan Akutansi
-                                @elseif($result->prodi_id==4)
-                                    S1 Pendidikan Tata Niaga
-                                @elseif($result->prodi_id==5)
-                                    S1 Manajemen
-                                @elseif($result->prodi_id==6)
-                                    S1 Akutansi
-                                @elseif($result->prodi_id==7)
-                                    D3 Akutansi
-                                @elseif($result->prodi_id==8)
-                                    S1 Ekonomi Islam
-                                @elseif($result->prodi_id==9)
-                                    S1 Ilmu Ekonomi
-                                @endif</p>
+                            <p>{{ $result->getProdi()->nama }}</p>
                         </div>
                         <div class="card-footer">
                             @if ($result->login == 0 && $result->telah_login == 0)
@@ -108,8 +90,9 @@
     @if(session()->has('message'))
         <script>
             swal({
+                title:"Berhasil !",
                 icon: "success",
-                title: "{{ session()->get('message') }}"
+                text: "{{ session()->get('message') }}"
             });
         </script>
 

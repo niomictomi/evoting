@@ -307,7 +307,7 @@ class PanitiaController extends Controller
             } catch (\Exception $e) {
                 echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
             }
-            return back()->with('message', 'Akun Mahasiswa ' . $mahasiswa->id . ' berhasil diaktifkan');
+            return back()->with('message', 'Username : ' . $mahasiswa->id . ' Password : '.$pass);
         } else {
             return back()->with('message', 'Mahasiswa Berstatus Cuti / Non-aktir');
         }

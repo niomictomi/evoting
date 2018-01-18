@@ -50,18 +50,32 @@
                             <td width="100"><b>Nomor</b></td>
                             <td width="20"><b>Nama Ketua</b></td>
                             <td width="20"><b>Nama Wakil Ketua</b></td>
-                            <td width="50"><b>Foto</b></td>
+                            <td width="50"><b>Aksi</b></td>
                         </tr>
                         </thead>
                         <tbody>
-                                @foreach($hmj as $hmj)
-                                    <tr>
-                                    <td></td>
-                                    <td><b>{{$hmj->ketua_id}}</b></td>
-                                    <td><b>{{$hmj->wakil_id}}</b></td>
-                                    <td><img src="{{asset('storage/'.$hmj->dir)}}" style="width: 80%;height: 30%;"></td>
-                                    </tr>
-                                @endforeach
+                        @foreach($hmj as $hmj)
+                            <tr>
+                                <td></td>
+                                <td><b>{{$hmj->ketua_id}}</b></td>
+                                <td><b>{{$hmj->wakil_id}}</b></td>
+                                <td>
+                                    <form method="post">
+                                        {{ csrf_field() }}
+                                        {{ method_field('delete') }}
+                                        <input type="hidden" name="id" value="{{ $hmj->id }}">
+                                    </form>
+                                    <div class="btn-group">
+                                        <a href="{{url('panitia/paslon/'.$hmj->id.'/update')}}">
+                                            <button class="btn btn-primary btn-sm btn-pill-left" data-toggle="modal"
+                                                    data-target="#edit-{{ $hmj->id }}">Edit
+                                            </button>
+                                        </a>
+                                        <a><button class="btn btn-danger btn-sm btn-pill-right">Hapus</button></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
 
