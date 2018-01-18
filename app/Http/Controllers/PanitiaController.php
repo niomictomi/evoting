@@ -270,7 +270,7 @@ class PanitiaController extends Controller
                 $printer -> text("\n");
                 $printer -> text($date);
                 $printer -> text("\n");
-                $printer -> text("\n");
+                $printer -> text("\n");$printer -> text("\n");$printer -> text("\n");$printer -> text("\n.");
                 $printer -> cut();
 
                 /* Close printer */
