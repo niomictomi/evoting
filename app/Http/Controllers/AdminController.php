@@ -49,7 +49,7 @@ class AdminController extends Controller
             }
             if (count($role) > 1) {
                 User::create([
-                    'id' => $request->nim,
+                    'id' => $request->id,
                     'nama' => $request->nama,
                     'role' => $role[0],
                     'helper' => $role[1],
@@ -57,7 +57,7 @@ class AdminController extends Controller
                 ]);
             } else {
                 User::create([
-                    'id' => $request->nim,
+                    'id' => $request->id,
                     'nama' => $request->nama,
                     'role' => $role[0],
                     'password' => bcrypt($request->nim)
