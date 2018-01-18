@@ -39,10 +39,39 @@ class PanitiaController extends Controller
     public function paslon()
     {
         $hmj = CalonHMJ::all();
+
+
+        return view('admin.panitia.paslon', compact('hmj'));
+    }
+
+    public function paslondpm()
+    {
         $dpm = CalonDPM::all();
+
+        return view('admin.panitia.paslondpm', compact('dpm'));
+    }
+
+    public function paslonbemf()
+    {
         $bem = CalonBEM::all();
 
-        return view('admin.panitia.paslon', compact('hmj', 'dpm', 'bem'));
+        return view('admin.panitia.paslonbem', compact('bem'));
+    }
+
+    public function paslonedit(Request $request)
+    {
+        //hmj
+        $edithmj = CalonHMJ::find($request->id);
+
+        return view('admin.panitia.include.formedit',compact('edithmj'));
+    }
+
+    public function paslondpmedit(Request $request)
+    {
+        //hmj
+        $editdpm = CalonDPM::find($request->id);
+
+        return view('admin.panitia.include.formdpmedit',compact('editdpm'));
     }
 
     public function formhmj()
