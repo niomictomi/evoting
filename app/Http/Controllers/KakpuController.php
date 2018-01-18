@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Pengaturan;
+use App\Support\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class KakpuController extends Controller
@@ -27,29 +30,16 @@ class KakpuController extends Controller
 
     public function buka()
     {
+        $users = User::whereIn('role', [Role::KETUA_KPU, Role::DOSEN, Role::WD3])->get();
 
-        return view('admin.kakpu.bukasuara');
+        return view('admin.kakpu.bukasuara', [
+            'users' => $users
+        ]);
     }
 
-    public function save( Request $request)
+    public function save(Request $request)
     {
-        $this->validate($request, [
-            'helper' => 'required',
-        ]);
-        $user = User::find($request->id);
-        if(!Hash::check($request->helper, Auth::user()->password)) {
-            return back()->with([
-                'error' => 'Kata sandi anda salah !'
-            ]);
-        }else{
-            $user->update([
-                'helper' =>$request->helper,
-            ]);
-            return back()->with([
-                'message' => 'Password telah disimpan'
-            ]);
-        }
-
+        Pengaturan::bukaHasil($request->id, $request->password);
     }
 
 }

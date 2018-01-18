@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header bordered">
                 <div class="header-block">
-                    <h3 class="title">Daftar Paslon HMJ</h3>
+                    <h3 class="title">Daftar Paslon</h3>
                 </div>
                 <div class="header-block pull-right">
                     {{--<a href="{{route('panitia.paslon.form')}}" class="btn btn-primary btn-sm rounded pull-right" >Tambah--}}
@@ -19,6 +19,8 @@
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{route('form.hmj')}}">HMJ</a>
+                            <a class="dropdown-item" href="{{route('form.dpm')}}">DPM</a>
+                            <a class="dropdown-item" href="{{route('form.bem')}}">BEMF</a>
                         </div>
                     </div>
                     <div class="modal fade" id="tambah" tabindex="-1" role="dialog"
@@ -50,32 +52,18 @@
                             <td width="100"><b>Nomor</b></td>
                             <td width="20"><b>Nama Ketua</b></td>
                             <td width="20"><b>Nama Wakil Ketua</b></td>
-                            <td width="50"><b>Aksi</b></td>
+                            <td width="50"><b>Foto</b></td>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($hmj as $hmj)
-                            <tr>
-                                <td></td>
-                                <td><b>{{$hmj->ketua_id}}</b></td>
-                                <td><b>{{$hmj->wakil_id}}</b></td>
-                                <td>
-                                    <form method="post">
-                                        {{ csrf_field() }}
-                                        {{ method_field('delete') }}
-                                        <input type="hidden" name="id" value="{{ $hmj->id }}">
-                                    </form>
-                                    <div class="btn-group">
-                                        <a href="{{url('panitia/paslon/'.$hmj->id.'/update')}}">
-                                            <button class="btn btn-primary btn-sm btn-pill-left" data-toggle="modal"
-                                                    data-target="#edit-{{ $hmj->id }}">Edit
-                                            </button>
-                                        </a>
-                                        <a><button class="btn btn-danger btn-sm btn-pill-right">Hapus</button></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
+                                @foreach($bem as $bem)
+                                    <tr>
+                                    <td></td>
+                                    <td><b>{{$bem->ketua_id}}</b></td>
+                                    <td><b>{{$bem->wakil_id}}</b></td>
+                                    <td><img src="{{asset('storage/'.$bem->dir)}}" style="width: 80%;height: 30%;"></td>
+                                    </tr>
+                                @endforeach
                         </tbody>
                     </table>
 

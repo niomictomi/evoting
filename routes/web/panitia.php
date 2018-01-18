@@ -14,6 +14,10 @@ Route::group(['prefix' => 'panitia'], function() {
 
     Route::get('paslon', 'PanitiaController@paslon')->name('panitia.paslon');
 
+    Route::get('paslon/dpm', 'PanitiaController@paslondpm')->name('panitia.paslon.dpm');
+
+    Route::get('paslon/bem', 'PanitiaController@paslonbemf')->name('panitia.paslon.bem');
+
     Route::get('paslon/form/hmj', 'PanitiaController@formhmj')->name('form.hmj');
 
     Route::post('paslon/form/hmj/save', 'PanitiaController@hmjsave')->name('hmj.save');
@@ -27,6 +31,10 @@ Route::group(['prefix' => 'panitia'], function() {
     Route::post('paslon/form/bem/save', 'PanitiaController@bemsave')->name('bem.save');
 
     Route::post('paslon/add', 'PanitiaController@paslonform');
+
+    Route::get('paslon/{id}/update', 'PanitiaController@paslonedit');
+
+    Route::get('paslon/{id}/dpm/update', 'PanitiaController@paslondpmedit');
 
     //Route::resource('resepsionis', 'PanitiaController');
 

@@ -58,11 +58,13 @@
                             </div>
                         </div>
                         <div class="card-block">
-                            <p></p>
+                            <p>{{$result->id}}</p>
+                            <p>{{ $result->getProdi()->nama }}</p>
                         </div>
                         <div class="card-footer">
                             @if ($result->login == 0 && $result->telah_login == 0)
-                                <form action="{{url('panitia/resepsionis/'.$result->id.'/update')}}">
+                                <form action="{{url('panitia/resepsionis/'.$result->id.'/update')}}" method="post">
+                                    {{ csrf_field() }}
                                     <button type="submit" class="btn btn-danger btn-sm rounded">Belum Aktif
                                     </button>
                                     <input hidden="" value="1" name="login">'.
@@ -88,8 +90,9 @@
     @if(session()->has('message'))
         <script>
             swal({
+                title:"Berhasil !",
                 icon: "success",
-                title: "{{ session()->get('message') }}"
+                text: "{{ session()->get('message') }}"
             });
         </script>
 

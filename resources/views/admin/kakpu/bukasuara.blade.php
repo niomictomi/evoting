@@ -1,111 +1,51 @@
 @extends('layouts.global')
+
 @section('activity','Buka Kotak Suara')
+
 @section('content')
-    <div class="row sameheight-container">
-        @if (\Illuminate\Support\Facades\Auth::user()->role=='ketua kpu')
-            <div class="col">
+    <div class="row">
+        @foreach($users as $user)
+            <div class="col-4">
                 <div class="card">
-                    <div class="card-block">
-                        <div class="title-block">
-                            <h4 class="title">Wakil Dekan 3</h4>
+                    <div class="card-header">
+                        <div class="header-block">
+                            <h3 class="title">{{ $user->nama }}</h3>
                         </div>
-
-                        <form method="post">
-
-                            {{ csrf_field() }}
-
-                            <div class="form-group row">
-                                <label class="col-md-4" for="id">Password</label>
-                                <div class="col-md-8">
-                                    <input type="text" name="helper" class="form-control" disabled=""/>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-4"></label>
-                                <div class="col-md-8">
-                                    <button type="submit" class="btn btn-primary" disabled>Submit</button>
-                                </div>
-                            </div>
-
-                        </form>
+                        <div class="header-block pull-right">
+                            <h3 class="title">{{ strtoupper($user->role) }}</h3>
+                        </div>
                     </div>
+
+                    <div class="card-block">
+                        @if($user->helper == null || $user->helper == '')
+                            <form action="{{ route('kakpu.simpan') }}" method="post">
+                                {{ csrf_field() }}
+                                <input name="id" value="{{ $user->id }}" type="hidden" disabled>
+                                <div class="form-group">
+                                    <label class="control-label">Password</label>
+                                    <input type="password" placeholder="{{$user->name}} Belum Mengeset Password" name="password" class="form-control" disabled>
+                                </div>
+                                <input type="submit" value="Kirim" class="btn btn-info" disabled>
+                            </form>
+                        @else
+                            <form action="{{ route('kakpu.simpan') }}" method="post">
+                                {{ csrf_field() }}
+                                <input name="id" value="{{ $user->id }}" type="hidden" >
+                                <div class="form-group">
+                                    <label class="control-label">Password</label>
+                                    <input type="password" name="password" class="form-control" >
+                                </div>
+                                <input type="submit" value="Kirim" class="btn btn-info" >
+                            </form>
+                        @endif
+                    </div>
+
                 </div>
             </div>
-
-            <div class="col">
-                <div class="card">
-                    <div class="card-block">
-                        <div class="title-block">
-                            <h4 class="title">Dosen</h4>
-                        </div>
-
-                        <form method="post">
-
-                            {{ csrf_field() }}
-
-                            <div class="form-group row">
-                                <label class="col-md-4" for="id">Password</label>
-                                <div class="col-md-8">
-                                    <input type="password" class="form-control" name="passlama" disabled=""/>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-4"></label>
-                                <div class="col-md-8">
-                                    <button type="submit" class="btn btn-primary" disabled="">Submit</button>
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card">
-                    <div class="card-block">
-                        <div class="title-block">
-                            <h4 class="title">Ketua KPU</h4>
-                        </div>
-
-                        <form action="{{ url('kakpu/buka/'.\Illuminate\Support\Facades\Auth::user()->id.'/save') }}"
-                              method="post">
-
-                            {{ csrf_field() }}
-                            @if(\Illuminate\Support\Facades\Auth::user()->helper ==null)
-                                <div class="form-group row">
-                                    <label class="col-md-4" for="id">Password</label>
-                                    <div class="col-md-8">
-                                        <input type="password" class="form-control" name="helper"/>
-                                    </div>
-                                </div>
-                                @else
-                                <div class="alert alert-info">
-                                    Password Telah Disimpan
-                                </div>
-                            @endif
-                            <div class="form-group row">
-                                <label class="col-md-4"></label>
-                                <div class="col-md-8">
-                                    @if(\Illuminate\Support\Facades\Auth::user()->helper ==null)
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                       @else
-                                        <button type="submit" class="btn btn-primary" disabled="">Saved</button>
-                                        @endif
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-        @endif
+        @endforeach
     </div>
-
 @endsection
+
 @push('js')
     @if(session()->has('message'))
         <script>
