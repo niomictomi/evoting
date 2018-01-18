@@ -21,38 +21,65 @@
         @endif
     </div>
 
-    @if($cek)
-        <div class="card">
-            <div class="card-header bordered">
-                <div class="header-block ">
-                    <h3 class="title">Daftar pemilih/mahasiswa</h3>
-                </div>
-                <div class="header-block pull-right">
-                    <div class="btn-group">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary btn-sm btn-pill-left dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">{{ $tipe }}
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Memiliki hak suara']) }}">Memiliki hak suara</a>
-                                <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Telah memberikan hak suara']) }}">Telah memberikan hak suara</a>
-                                <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Belum memberikan hak suara']) }}">Belum memberikan hak suara</a>
-                            </div>
+    <div class="row">
+        @foreach(\App\CalonHMJ::getDaftarCalon(\App\Jurusan::findByName($jurusan)->id)->orderBy('nomor')->get() as $calon)
+            <div class="col">
+                <div class="card">
+                    <div class="card-header bordered">
+                        <div class="header-block">
+                            <h3 class="title">Paslon nomor {{ $calon->nomor }}</h3>
                         </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-warning btn-sm btn-pill-right dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">Jurusan {{ $jurusan }}
-                            </button>
-                            <div class="dropdown-menu">
-                                @foreach($jurusans as $item)
-                                    <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $item->nama, 'tipe' => $tipe]) }}">Jurusan {{ $item->nama }}</a>
-                                @endforeach
-                            </div>
+                    </div>
+                    <img src="{{ $calon->dir }}" class="img-fluid">
+                    <div class="card-block">
+                        <div style="max-height: 200px; overflow: auto">
+                            <label>Ketua</label>
+                            <p>{{ $calon->getKetua()->id }}<br>{{ $calon->getKetua()->nama }}</p>
+                            <label>Wakil</label>
+                            <p>{{ $calon->getWakil()->id }}<br>{{ $calon->getWakil()->nama }}</p>
+                            <label>Visi</label>
+                            <p>{!! $calon->visi !!}</p>
+                            <label>Misi</label>
+                            <p>{!! $calon->misi !!}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card-block">
+        @endforeach
+    </div>
+
+    <div class="card">
+        <div class="card-header bordered">
+            <div class="header-block ">
+                <h3 class="title">Daftar pemilih/mahasiswa</h3>
+            </div>
+            <div class="header-block pull-right">
+                <div class="btn-group">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm btn-pill-left dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">{{ $tipe }}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Memiliki hak suara']) }}">Memiliki hak suara</a>
+                            <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Telah memberikan hak suara']) }}">Telah memberikan hak suara</a>
+                            <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Belum memberikan hak suara']) }}">Belum memberikan hak suara</a>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-warning btn-sm btn-pill-right dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Jurusan {{ $jurusan }}
+                        </button>
+                        <div class="dropdown-menu">
+                            @foreach($jurusans as $item)
+                                <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $item->nama, 'tipe' => $tipe]) }}">Jurusan {{ $item->nama }}</a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-block">
+            @if($cek)
                 <table class="table" id="hmj-{{ str_replace(' ', '_', $tipe) }}-{{ $jurusanobject->id }}">
                     <thead>
                     <tr>
@@ -66,9 +93,13 @@
                     </tr>
                     </thead>
                 </table>
-            </div>
+            @else
+                <div class="alert alert-info">
+                    Daftar mahasiswa yang telah voting atau belum akan ditampilkan saat voting sedang berlangsung.
+                </div>
+            @endif
         </div>
-    @endif
+    </div>
 @endsection
 
 @push('js')
