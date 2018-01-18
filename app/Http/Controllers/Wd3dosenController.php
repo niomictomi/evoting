@@ -22,32 +22,33 @@ class Wd3dosenController extends Controller
      */
     public function index()
     {
-      return view('admin.wd3dosen.dashboard');
+        return view('admin.wd3dosen.dashboard');
     }
 
     public function buka()
     {
-      return view('admin.wd3dosen.bukasuara');
+        $wd3 = User::where('role', '=', 'wd3')->where('helper', '!=', null)->count();
+        //dd($wd3);
+        return view('admin.wd3dosen.bukasuara', compact('wd3'));
     }
 
-    public function save( Request $request)
+    public function save(Request $request)
     {
         $this->validate($request, [
             'helper' => 'required',
         ]);
+        $pass = $request->helper;
+        $password = bcrypt($pass);
+
         $user = User::find($request->id);
-        if(!Hash::check($request->helper, Auth::user()->password)) {
-            return back()->with([
-                'error' => 'Kata sandi anda salah !'
-            ]);
-        }else{
-            $user->update([
-                'helper' =>$request->helper,
-            ]);
-            return back()->with([
-                'message' => 'Password telah disimpan'
-            ]);
-        }
+
+        $user->update([
+            'helper' =>$password,
+        ]);
+        return back()->with([
+            'message' => 'Password : '.$pass
+        ]);
+
 
     }
 }
