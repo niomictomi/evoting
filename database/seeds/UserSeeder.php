@@ -40,8 +40,12 @@ class UserSeeder extends Seeder
                 ]);
                 $id_others += 10;
             }
-            if ($user->isWD3() || $user->isKetuaKPU() || $user->isDosen()){
+            if ($user->isWD3() || $user->isDosen()){
                 $user->helper = bcrypt('bukahasil');
+                $user->save();
+            }
+            if ($user->isKetuaKPU()){
+                $user->helper = bcrypt('secret');
                 $user->save();
             }
         }
