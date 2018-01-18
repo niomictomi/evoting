@@ -23,7 +23,7 @@ class Chart {
         foreach($data as $key => $value) {
             if($withPercent) {
                 array_push($newData, [
-                    $key . ' (' . $this->getPercent($value, $total) . '%)',
+                    $key . ' (' . number_format($this->getPercent($value, $total), 2) . '%)',
                     $value
                 ]);
             }

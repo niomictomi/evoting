@@ -79,6 +79,16 @@
     ])
     
     @include('charts.pie', [
+        'data' => Chart::parse(\App\CalonDPM::getHasilUntukDiagram(5)),
+        'id' => 'iuyt'
+    ])
+    
+    @include('charts.pie', [
+        'data' => Chart::parse(\App\CalonBEM::getHasilUntukDiagram()),
+        'id' => 'hgf'
+    ])
+    
+    @include('charts.pie', [
         'data' => Chart::parse([
             'Aktif' => \App\Mahasiswa::aktif()->count(), 
             'Non aktif' => \App\Mahasiswa::nonAktif()->count(), 

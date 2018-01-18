@@ -92,4 +92,23 @@ class CalonDPM extends Model
         return $calonDPM;
     }
 
+    /**
+     * Mendapatkan hasil dalam bentuk array yang nantinya akan digunakan
+     * untuk diagram
+     *
+     * @param int $jurusan_id
+     * @return array
+     */
+    public static function getHasilUntukDiagram($jurusan_id)
+    {
+        $data = [];
+        $daftar_calon = static::getDaftarCalon($jurusan_id)->get();
+
+        foreach($daftar_calon as $calon) {
+            $data['Nomor Paslon ' . $calon->nomor] = $calon->getPemilih()->count();
+        }
+
+        return $data;
+    }
+
 }

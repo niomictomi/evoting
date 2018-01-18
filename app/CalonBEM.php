@@ -64,4 +64,24 @@ class CalonBEM extends Model
     {
         return Mahasiswa::whereIn('id', CalonBEM::getAllIdCalon());
     }
+
+        /**
+     * Mendapatkan hasil dalam bentuk array yang nantinya akan digunakan
+     * untuk diagram
+     *
+     * @param int $jurusan_id
+     * @return array
+     */
+    public static function getHasilUntukDiagram()
+    {
+        $data = [];
+        $daftar_calon = static::all();
+
+        foreach($daftar_calon as $calon) {
+            $data['Nomor Paslon ' . $calon->nomor] = $calon->getPemilih()->count();
+        }
+
+        return $data;
+    }
+
 }
