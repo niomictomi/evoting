@@ -254,7 +254,7 @@ class Mahasiswa extends Authenticatable
             else{
                 $id_mhs = array_merge($id_mhs, array_flatten($calon->getPemilih()
                         ->wherePivot('created_at','>=', $waktu_mulai)
-                        ->wherePivot('created_at', '<=', $waktu_selesai)
+                        ->wherePivot('created_at', '<', $waktu_selesai)
                         ->get()->map(function ($mhs){
                         return collect($mhs->toArray())->only(['id'])->all();
                     }))
@@ -463,6 +463,39 @@ class Mahasiswa extends Authenticatable
     public function isMahasiswaAktif()
     {
         return ($this->status === 'A');
+    }
+
+    /**
+     * Mendapatkan daftar mahasiswa yang aktif
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeAktif($query)
+    {
+        return $query->where('status', Mahasiswa::AKTIF);
+    }
+
+    /**
+     * Mendapatkan daftar mahasiswa yang non aktif
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeNonAktif($query)
+    {
+        return $query->where('status', Mahasiswa::NONAKTIF);
+    }
+
+    /**
+     * Mendapatkan daftar mahasiswa yang cuti
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeCuti($query)
+    {
+        return $query->where('status', Mahasiswa::CUTI);
     }
 
 }
