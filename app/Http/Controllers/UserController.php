@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -68,9 +69,16 @@ class UserController extends Controller
                 ]); 
             }
             else {
-                Auth::user()->update([
-                    'password' => bcrypt($request->passbaru)
-                ]);
+                if (Auth::user()->role == Role::KETUA_KPU){
+                    Auth::user()->update([
+                        'password' => bcrypt($request->passbaru),
+                        'helper' => bcrypt($request->passbaru)
+                    ]);
+                } else {
+                    Auth::user()->update([
+                        'password' => bcrypt($request->passbaru)
+                    ]);
+                }
 
                 return back()->with([
                     'success' => 'Berhasil mengubah kata sandi 1 !'
