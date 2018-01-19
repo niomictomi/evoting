@@ -18,7 +18,7 @@ class PemilihanBemSeeder extends Seeder
         foreach (Mahasiswa::all() as $mhs){
             $memilih = rand(0,1);
             if ($memilih){
-                $waktu = Carbon::today()->addHours(rand(0,23))->addMinutes(rand(0,59))->addSeconds(rand(0,59));
+                $waktu = Carbon::today()->addHours(rand(7,15))->addMinutes(rand(0,59))->addSeconds(rand(0,59));
                 $mhs->getPemilihanBem()->attach($calon[rand(0, $calon->count() - 1)], [
                     'created_at' => $waktu->toDateTimeString(),
                     'updated_at' => $waktu->toDateTimeString()

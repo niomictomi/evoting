@@ -22,6 +22,31 @@
     </div>
 
     @if($cek)
+        <div class="row">
+            @foreach(\App\CalonDPM::getDaftarCalon(\App\Jurusan::findByName($jurusan)->id)->orderBy('nomor')->get() as $calon)
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header bordered">
+                            <div class="header-block">
+                                <h3 class="title">Anggota nomor {{ $calon->nomor }}</h3>
+                            </div>
+                        </div>
+                        <img src="{{ $calon->dir }}" class="img-fluid">
+                        <div class="card-block">
+                            <div style="max-height: 200px; overflow: auto">
+                                <label>Anggota</label>
+                                <p>{{ $calon->getAnggota()->id }}<br>{{ $calon->getAnggota()->nama }}</p>
+                                <label>Visi</label>
+                                <p>{!! $calon->visi !!}</p>
+                                <label>Misi</label>
+                                <p>{!! $calon->misi !!}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
         <div class="card">
             <div class="card-header bordered">
                 <div class="header-block ">
