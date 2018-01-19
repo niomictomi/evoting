@@ -53,7 +53,7 @@ class LoginController extends Controller
             }
         }
 
-        return back()->with('message', 'NIP/NIM atau password salah!');
+        return back()->with('error', 'NIP/NIM atau password salah!');
     }
 
     /**

@@ -26,7 +26,9 @@
                         <span class="l l3"></span>
                         <span class="l l4"></span>
                         <span class="l l5"></span>
-                    </div> Admin & Panitia</h1>
+                    </div>
+                    Admin & Panitia
+                </h1>
             </header>
             <div class="auth-content">
                 <p class="text-center"></p>
@@ -34,10 +36,12 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="username">NIP/NIM</label>
-                        <input type="text" class="form-control underlined" name="id" id="username" placeholder="Masukkan NIM Anda" required> </div>
+                        <input type="text" class="form-control underlined" name="id" id="username"
+                               placeholder="Masukkan NIM Anda" required></div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control underlined" name="password" id="password" placeholder="Masukan Password Anda" required> </div>
+                        <input type="password" class="form-control underlined" name="password" id="password"
+                               placeholder="Masukan Password Anda" required></div>
                     <div class="form-group">
                         <label for="remember">
                             <input class="checkbox" name="remember" id="remember" type="checkbox">
@@ -62,6 +66,19 @@
         <div class="color-secondary"></div>
     </div>
 </div>
+
+@push('js)
+    @if(session()->has('error'))
+        <script>
+            swal({
+                title:"Oops !",
+                icon: "error",
+                text: "{{ session()->get('error') }}"
+            });
+        </script>
+
+    @endif
+@endpush
 
 <script>
     (function (i, s, o, g, r, a, m) {
