@@ -18,7 +18,7 @@ class RedirectIfVotingTimeFinished
     public function handle($request, Closure $next)
     {
         if(Pengaturan::isVotingTelahBerlangsung())
-            return abort(404);
+            return redirect()->route('votingselesai');
 
         return $next($request);
     }

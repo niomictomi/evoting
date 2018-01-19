@@ -117,3 +117,7 @@ Route::prefix('mahasiswa')->group(function() {
     });
 
 });
+
+Route::get('votingselesai', function () {
+    return view('mahasiswa.votingselesai');
+})->name('votingselesai');

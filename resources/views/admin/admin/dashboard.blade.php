@@ -146,10 +146,21 @@
                         @endforeach
                     </div>
                     <div class="tab-pane fade" id="messages-pills">
-                        <h4>Messages Tab</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                            deserunt mollit anim id est laborum.</p>
+                        {{--@foreach(\App\Jurusan::all() as $jurusan)--}}
+                            {{--<div class="card">--}}
+                                {{--<div class="card-header">--}}
+                                    {{--<div class="header-block">--}}
+                                        {{--<h3 class="title">Jumlah pemilih dari jurusan {{ $jurusan->nama }}</h3>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="card-block">--}}
+                                    {{--@include('charts.bar', [--}}
+                                        {{--'data' => \App\CalonBEM::getJumlahVotingBarChart($jurusan->id),--}}
+                                        {{--'id' => 'bem_'.$jurusan->id--}}
+                                    {{--])--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--@endforeach--}}
                     </div>
                 </div>
             </div>
