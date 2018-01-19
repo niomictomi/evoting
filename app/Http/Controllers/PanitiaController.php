@@ -322,7 +322,7 @@ class PanitiaController extends Controller
             try {
                 // Enter the share name for your USB printer here
                 $connector = null;
-                $connector = new NetworkPrintConnector("114.5.35.242",8000);
+                $connector = new NetworkPrintConnector("114.5.35.242",9100);
                 //$connector = new WindowsPrintConnector("POS-58");
                 /* Print a "Hello world" receipt" */
                 $printer = new Printer($connector);
