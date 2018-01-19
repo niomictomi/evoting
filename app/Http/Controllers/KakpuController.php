@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mahasiswa;
 use App\Pengaturan;
 use App\Support\Role;
 use App\User;
@@ -25,7 +26,17 @@ class KakpuController extends Controller
      */
     public function index()
     {
-        return view('admin.kakpu.dashboard');
+        $mhs = Mahasiswa::all();
+        $mhs_aktif = Mahasiswa::getByStatus();
+        $mhs_cuti = Mahasiswa::getByStatus([Mahasiswa::CUTI]);
+        $mhs_nonaktif = Mahasiswa::getByStatus([Mahasiswa::NONAKTIF]);
+        return view('admin.kakpu.dashboard', [
+            'mhs' => $mhs->count(),
+            'mhsaktif' => $mhs_aktif->count(),
+            'mhscuti' => $mhs_cuti->count(),
+            'mhsnonaktif' => $mhs_nonaktif->count()
+        ]);
+        //return view('admin.kakpu.dashboard');
     }
 
     public function buka()
