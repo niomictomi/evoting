@@ -31,6 +31,11 @@
                 </h1>
             </header>
             <div class="auth-content">
+                @if(Session::has('error'))
+                    <p class="alert alert-danger">
+                        {{ Session::get('error') }}
+                    </p>
+                @endif
                 <p class="text-center"></p>
                 <form id="login-form" action="{{ route('admin.login.process') }}" method="post">
                     {{ csrf_field() }}
