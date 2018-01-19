@@ -66,20 +66,6 @@
         <div class="color-secondary"></div>
     </div>
 </div>
-
-@push('js)
-    @if(session()->has('error'))
-        <script>
-            swal({
-                title:"Oops !",
-                icon: "error",
-                text: "{{ session()->get('error') }}"
-            });
-        </script>
-
-    @endif
-@endpush
-
 <script>
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
