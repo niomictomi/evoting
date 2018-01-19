@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Jurusan;
 use App\Support\Role;
 use App\User;
+use App\Pengaturan;
 
 class RootController extends Controller
 {
@@ -18,7 +19,22 @@ class RootController extends Controller
      */
     public function dashboard()
     {
-        return view('admin.root.dashboard');
+        $waktu = Pengaturan::getWaktuMulai();
+        $header = 'Pemilihan akan dilakukan pada';
+        $useTimer = true;
+
+        if(Pengaturan::isVotingSedangBerlangsung()) {
+            $waktu = Pengaturan::getWaktuSelesai();
+            $header = 'Pemilihan akan berakhir pada';
+        }
+        else if(Pengaturan::isVotingTelahBerlangsung())
+            $useTimer = false;
+
+        return view('admin.root.dashboard', [
+            'useTimer' => $useTimer,
+            'waktu' => $waktu,
+            'header' => $header
+        ]);
     }
 
     /**
