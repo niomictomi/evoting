@@ -68,9 +68,7 @@ class PanitiaController extends Controller
 
     public function pasloneditsave(Request $request)
     {
-
         $request->validate([
-            'id' => 'required',
             'ketua_id' => 'required',
             'wakil_id' => 'required',
             'visi' => 'required',
@@ -90,11 +88,12 @@ class PanitiaController extends Controller
             $berkas->wakil_id = $request->wakil_id;
             $berkas->visi = $request->visi;
             $berkas->misi = $request->misi;
-            $berkas->update();
+            $berkas->save();
             $dir = $fillnames2;
+
         }
 
-        return view('admin.panitia.include.formedit');
+        return view('admin.panitia.include.formedit',compact('edithmj'));
     }
 
     public function paslondpmedit(Request $request)
