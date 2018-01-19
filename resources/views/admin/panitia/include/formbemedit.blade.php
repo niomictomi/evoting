@@ -2,19 +2,20 @@
 
 @section('content')
     <div class="title-block">
-        <h3 class="title"> Form Paslon DPM
+        <h3 class="title"> Form Paslon HMJ
             <span class="sparkline bar" data-type="bar"></span>
         </h3>
     </div>
-    <form role="form" method="post" action="{{route('dpm.save')}}" enctype="multipart/form-data">
+    <form role="form" method="post" action="{{route('hmj.save')}}" enctype="multipart/form-data">
         {{ csrf_field() }}
+
         <section class="section ">
             <div class="row sameheight-container">
                 <div class="col-md-6">
                     <div class="card card-default">
                         <div class="card-header">
                             <div class="header-block">
-                                <p class="title"> Data Calon Anggota </p>
+                                <p class="title"> Data Calon Ketua </p>
                             </div>
                         </div>
                         <div class="card-block">
@@ -32,10 +33,11 @@
                                     </div>
                                 </div>
                                 <div class="col-9">
-                                    <label class="control-label">NIM Calon Anggota DPM</label>
-                                    <input type="text" class="form-control underlined" name="anggota_id" value="{{$editdpm->anggota_id}}" maxlength="11" required>
-                                    <label class="control-label">Foto</label>
-                                    <input type="file" class="form-control" name="dir" required>
+                                    <label class="control-label">NIM Calon Ketua Ketua</label>
+                                    <input type="text" class="form-control underlined" name="ketua_id" maxlength="11" value="{{$editbem->ketua_id}}" required>
+                                    <input type="file" class="form-control underlined" name="dir">
+                                    <label class="control-label">NIM Calon Ketua Wakil Ketua</label>
+                                    <input type="text" class="form-control underlined" name="wakil_id" maxlength="11" value="{{$editbem->wakil_id}}" required>
                                 </div>
                             </div>
                         </div>
@@ -51,9 +53,9 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Visi</label>
-                            <textarea rows="3" class="form-control" name="visi" required>{{$editdpm->visi}}</textarea>
+                            <textarea rows="3" class="form-control" name="visi" required>{{$editbem->visi}}</textarea>
                             <label class="control-label">Misi</label>
-                            <textarea rows="3" class="form-control" name="misi" required>{{$editdpm->misi}}</textarea>
+                            <textarea rows="3" class="form-control" name="misi" required>{{$editbem->misi}} </textarea>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-oval btn-info">Submit</button>
@@ -61,4 +63,5 @@
             </div>
         </section>
     </form>
+
 @endsection

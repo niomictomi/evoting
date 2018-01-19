@@ -61,7 +61,22 @@
                                     <td></td>
                                     <td><b>{{$bem->ketua_id}}</b></td>
                                     <td><b>{{$bem->wakil_id}}</b></td>
-                                    <td><img src="{{asset('storage/'.$bem->dir)}}" style="width: 80%;height: 30%;"></td>
+                                    <td>
+                                        <form method="post">
+                                            {{ csrf_field() }}
+                                            {{ method_field('delete') }}
+                                            <input type="hidden" name="id" value="{{ $bem->id }}">
+                                        </form>
+                                        <div class="btn-group">
+                                            <a href="{{url('panitia/paslon/'.$bem->id.'/bem/update')}}">
+                                                <button class="btn btn-primary btn-sm btn-pill-left" data-toggle="modal"
+                                                        data-target="#edit-{{ $bem->id }}">Edit
+                                                </button>
+                                            </a>
+                                            <a><button class="btn btn-danger btn-sm btn-pill-right">Hapus</button></a>
+                                        </div>
+                                        
+                                    </td>
                                     </tr>
                                 @endforeach
                         </tbody>

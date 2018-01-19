@@ -66,12 +66,51 @@ class PanitiaController extends Controller
         return view('admin.panitia.include.formedit',compact('edithmj'));
     }
 
+    public function pasloneditsave(Request $request)
+    {
+
+        $request->validate([
+            'id' => 'required',
+            'ketua_id' => 'required',
+            'wakil_id' => 'required',
+            'visi' => 'required',
+            'misi' => 'required',
+            'dir' => 'required',
+        ]);
+
+        if ($request->hasFile('dir')) {
+
+            $fillnames2 = $request->dir->getClientOriginalName() . '' . str_random(4);
+            $filename = 'upload/photo/hmj/'
+                . str_slug($fillnames2, '-') . '.' . $request->dir->getClientOriginalExtension();
+            $request->dir->storeAs('public', $filename);
+            $berkas = new CalonHMJ();
+            $berkas->dir = $filename;
+            $berkas->ketua_id = $request->ketua_id;
+            $berkas->wakil_id = $request->wakil_id;
+            $berkas->visi = $request->visi;
+            $berkas->misi = $request->misi;
+            $berkas->update();
+            $dir = $fillnames2;
+        }
+
+        return view('admin.panitia.include.formedit');
+    }
+
     public function paslondpmedit(Request $request)
     {
         //hmj
         $editdpm = CalonDPM::find($request->id);
 
         return view('admin.panitia.include.formdpmedit',compact('editdpm'));
+    }
+
+    public function paslonbemedit(Request $request)
+    {
+        //hmj
+        $editbem = CalonBEM::find($request->id);
+
+        return view('admin.panitia.include.formbemedit',compact('editbem'));
     }
 
     public function formhmj()
@@ -248,9 +287,12 @@ class PanitiaController extends Controller
             $key = $request->id;
             $result = Mahasiswa::whereRaw('("id" LIKE \'%' . $key . '%\')')->first();
         }
-        //$mhscari = Mahasiswa::where('id','=',$request->id)->get();
-        //dd($result);
-        return view('admin.panitia.resepsionis', compact('result'));
+        if($result == null){
+            return back()->with('error','NIM'.$key.' tidak ditemukan');
+        }
+        else{
+            return view('admin.panitia.resepsionis', compact('result'));
+        }
     }
 
     public function edit($id)
@@ -262,7 +304,7 @@ class PanitiaController extends Controller
     public function updatestatus(Request $request)
     {
 
-
+        $result = 0;
         $this->validate($request, [
             'login' => 'required',
         ]);

@@ -34,7 +34,13 @@ Route::group(['prefix' => 'panitia'], function() {
 
     Route::get('paslon/{id}/update', 'PanitiaController@paslonedit');
 
+    Route::post('paslon/update/save', 'PanitiaController@pasloneditsave')->name('update.hmj');
+
     Route::get('paslon/{id}/dpm/update', 'PanitiaController@paslondpmedit');
+
+    Route::get('paslon/{id}/bem/update', 'PanitiaController@paslonbemedit');
+
+
 
     //Route::resource('resepsionis', 'PanitiaController');
 

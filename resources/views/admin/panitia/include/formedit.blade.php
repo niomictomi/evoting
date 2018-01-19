@@ -6,7 +6,7 @@
             <span class="sparkline bar" data-type="bar"></span>
         </h3>
     </div>
-    <form role="form" method="post" action="{{route('hmj.save')}}" enctype="multipart/form-data">
+    <form role="form" method="post" action="{{route('update.hmj')}}" enctype="multipart/form-data">
         {{ csrf_field() }}
 
         <section class="section ">
@@ -15,8 +15,8 @@
                     <div class="card card-default">
                         <div class="card-header">
                             <div class="header-block">
-                                <p class="title"> Data Calon Ketua </p>
-                                <p>{{$edithmj->visi}}</p>
+                                <p class="title"> Data Calon Ketua</p>
+
                             </div>
                         </div>
                         <div class="card-block">
@@ -34,8 +34,9 @@
                                     </div>
                                 </div>
                                 <div class="col-9">
-                                    <label class="control-label">NIM Calon Ketua Ketua</label>
+                                    <label class="control-label">NIM Calon Ketua Ketua </label>
                                     <input type="text" class="form-control underlined" name="ketua_id" maxlength="11" value="{{$edithmj->ketua_id}}" required>
+                                    <input type="hidden" class="form-control underlined" name="id" maxlength="11" value="{{$edithmj->id}}" required>
                                     <input type="file" class="form-control underlined" name="dir">
                                     <label class="control-label">NIM Calon Ketua Wakil Ketua</label>
                                     <input type="text" class="form-control underlined" name="wakil_id" maxlength="11" value="{{$edithmj->wakil_id}}" required>
