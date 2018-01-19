@@ -97,6 +97,16 @@
         </script>
 
     @endif
+    @if(session()->has('error'))
+        <script>
+            swal({
+                title:"Oops !",
+                icon: "error",
+                text: "{{ session()->get('error') }}"
+            });
+        </script>
+
+    @endif
     <script type="text/javascript">
         {{--$('#mahasiswa').DataTable({--}}
         {{--processing: true,--}}

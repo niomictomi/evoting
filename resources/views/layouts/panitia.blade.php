@@ -1,8 +1,12 @@
+@if (\Illuminate\Support\Facades\Auth::user()->helper=='kps'||\Illuminate\Support\Facades\Auth::user()->helper=='kpu'||\Illuminate\Support\Facades\Auth::user()->helper=='bawaslu')
 <li @if (Route::currentRouteName() == 'panitia.dashboard') class="active" @endif>
     <a href="{{route('panitia.dashboard')}}">
         <i class="fa fa-home"></i> Dashboard
     </a>
 </li>
+@endif
+@if (\Illuminate\Support\Facades\Auth::user()->helper=='kpu'||\Illuminate\Support\Facades\Auth::user()->helper=='bawaslu')
+
 <li>
     <a href="">
         <i class="fa fa-th-list"></i> Data Paslon
@@ -20,6 +24,7 @@
         </li>
     </ul>
 </li>
+@endif
 @if (\Illuminate\Support\Facades\Auth::user()->helper=='kps')
     <li @if (Route::currentRouteName() == 'panitia.resepsionis') class="active" @endif>
         <a href="{{route('panitia.resepsionis')}}">
