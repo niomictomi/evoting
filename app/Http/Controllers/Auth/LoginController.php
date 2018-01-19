@@ -113,7 +113,9 @@ class LoginController extends Controller
                 ]);
             }
         } catch(ModelNotFoundException $e) {
-
+            return back()->with([
+                'error' => 'NIM tidak terdaftar !'
+            ]);
         }
     }
 
