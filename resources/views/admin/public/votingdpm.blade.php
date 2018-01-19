@@ -21,31 +21,30 @@
         @endif
     </div>
 
-    @if($cek)
-        <div class="row">
-            @foreach(\App\CalonDPM::getDaftarCalon(\App\Jurusan::findByName($jurusan)->id)->orderBy('nomor')->get() as $calon)
-                <div class="col">
-                    <div class="card">
-                        <div class="card-header bordered">
-                            <div class="header-block">
-                                <h3 class="title">Anggota nomor {{ $calon->nomor }}</h3>
-                            </div>
+    <div class="row">
+        @foreach(\App\CalonDPM::getDaftarCalon(\App\Jurusan::findByName($jurusan)->id)->orderBy('nomor')->get() as $calon)
+            <div class="col">
+                <div class="card">
+                    <div class="card-header bordered">
+                        <div class="header-block">
+                            <h3 class="title">Anggota nomor {{ $calon->nomor }}</h3>
                         </div>
-                        <img src="{{ $calon->dir }}" class="img-fluid">
-                        <div class="card-block">
-                            <div style="max-height: 200px; overflow: auto">
-                                <label>Anggota</label>
-                                <p>{{ $calon->getAnggota()->id }}<br>{{ $calon->getAnggota()->nama }}</p>
-                                <label>Visi</label>
-                                <p>{!! $calon->visi !!}</p>
-                                <label>Misi</label>
-                                <p>{!! $calon->misi !!}</p>
-                            </div>
+                    </div>
+                    <img src="{{ $calon->dir }}" class="img-fluid">
+                    <div class="card-block">
+                        <div style="max-height: 200px; overflow: auto">
+                            <label>Anggota</label>
+                            <p>{{ $calon->getAnggota()->id }}<br>{{ $calon->getAnggota()->nama }}</p>
+                            <label>Visi</label>
+                            <p>{!! $calon->visi !!}</p>
+                            <label>Misi</label>
+                            <p>{!! $calon->misi !!}</p>
                         </div>
                     </div>
                 </div>
-            @endforeach
-        </div>
+            </div>
+        @endforeach
+    </div>
 
         <div class="card">
             <div class="card-header bordered">
@@ -55,8 +54,7 @@
                 <div class="header-block pull-right">
                     <div class="btn-group">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary btn-sm btn-pill-left dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">{{ $tipe }}
+                            <button type="button" class="btn btn-primary btn-sm btn-pill-left dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ $tipe }}
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ route('admin.voting.dpm', ['jurusan' => $jurusan, 'tipe' => 'Memiliki hak suara']) }}">Memiliki hak suara</a>
@@ -78,22 +76,27 @@
                 </div>
             </div>
             <div class="card-block">
-                <table class="table" id="hmj-{{ str_replace(' ', '_', $tipe) }}-{{ $jurusanobject->id }}">
-                    <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>NIM</th>
-                        <th>Nama</th>
-                        <th>Prodi</th>
-                        @if ($tipe == 'Telah memberikan hak suara')
-                            <th>Waktu</th>
-                        @endif
-                    </tr>
-                    </thead>
-                </table>
+                @if($cek)
+                    <table class="table" id="hmj-{{ str_replace(' ', '_', $tipe) }}-{{ $jurusanobject->id }}">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>NIM</th>
+                            <th>Nama</th>
+                            <th>Prodi</th>
+                            @if ($tipe == 'Telah memberikan hak suara')
+                                <th>Waktu</th>
+                            @endif
+                        </tr>
+                        </thead>
+                    </table>
+                @else
+                    <div class="alert alert-info">
+                        Daftar mahasiswa yang telah voting atau belum akan ditampilkan saat voting sedang berlangsung.
+                    </div>
+                @endif
             </div>
         </div>
-    @endif
 @endsection
 
 @push('js')
