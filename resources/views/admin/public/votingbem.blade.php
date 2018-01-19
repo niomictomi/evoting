@@ -21,44 +21,82 @@
         @endif
     </div>
 
-    @if($cek)
-        <div class="card">
-            <div class="card-header bordered">
-                <div class="header-block ">
-                    <h3 class="title">Daftar pemilih/mahasiswa</h3>
-                </div>
-                <div class="header-block pull-right">
-                    <div class="btn-group">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary btn-sm btn-pill-left dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">{{ $tipe }}
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('admin.voting.bem', ['tipe' => 'Memiliki hak suara']) }}">Memiliki hak suara</a>
-                                <a class="dropdown-item" href="{{ route('admin.voting.bem', ['tipe' => 'Telah memberikan hak suara']) }}">Telah memberikan hak suara</a>
-                                <a class="dropdown-item" href="{{ route('admin.voting.bem', ['tipe' => 'Belum memberikan hak suara']) }}">Belum memberikan hak suara</a>
-                            </div>
+    <div class="row">
+        @foreach(\App\CalonBEM::all() as $calon)
+            <div class="col">
+                <div class="card">
+                    <div class="card-header bordered">
+                        <div class="header-block">
+                            <h3 class="title">Paslon nomor {{ $calon->nomor }}</h3>
+                        </div>
+                    </div>
+                    <img src="{{ $calon->dir }}" class="img-fluid">
+                    <div class="card-block">
+                        <div style="max-height: 200px; overflow: auto">
+                            <label>Ketua</label>
+                            <p>{{ $calon->getKetua()->id }}<br>{{ $calon->getKetua()->nama }}</p>
+                            <label>Wakil</label>
+                            <p>{{ $calon->getWakil()->id }}<br>{{ $calon->getWakil()->nama }}</p>
+                            <label>Visi</label>
+                            <p>{!! $calon->visi !!}</p>
+                            <label>Misi</label>
+                            <p>{!! $calon->misi !!}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card-block">
-                <table class="table" id="bem-{{ str_replace(' ', '_', $tipe) }}">
-                    <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>NIM</th>
-                        <th>Nama</th>
-                        <th>Prodi</th>
-                        @if ($tipe == 'Telah memberikan hak suara')
-                            <th>Waktu</th>
-                        @endif
-                    </tr>
-                    </thead>
-                </table>
+        @endforeach
+    </div>
+
+    <div class="card">
+        <div class="card-header bordered">
+            <div class="header-block ">
+                <h3 class="title">Daftar pemilih/mahasiswa</h3>
+            </div>
+            <div class="header-block pull-right">
+                <div class="btn-group">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm btn-pill-left dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">{{ $tipe }}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                               href="{{ route('admin.voting.bem', ['tipe' => 'Memiliki hak suara']) }}">Memiliki hak
+                                suara</a>
+                            <a class="dropdown-item"
+                               href="{{ route('admin.voting.bem', ['tipe' => 'Telah memberikan hak suara']) }}">Telah
+                                memberikan hak suara</a>
+                            <a class="dropdown-item"
+                               href="{{ route('admin.voting.bem', ['tipe' => 'Belum memberikan hak suara']) }}">Belum
+                                memberikan hak suara</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    @endif
+        <div class="card-block">
+            @if($cek)
+            <table class="table" id="bem-{{ str_replace(' ', '_', $tipe) }}">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>NIM</th>
+                    <th>Nama</th>
+                    <th>Prodi</th>
+                    @if ($tipe == 'Telah memberikan hak suara')
+                        <th>Waktu</th>
+                    @endif
+                </tr>
+                </thead>
+            </table>
+            @else
+                <div class="alert alert-info">
+                    Daftar mahasiswa yang telah voting atau belum akan ditampilkan saat voting sedang berlangsung.
+                </div>
+            @endif
+        </div>
+    </div>
 @endsection
 
 @push('js')
@@ -75,12 +113,18 @@
                 url: '{{ route('bem.data.hakpilih', ['status' => md5($tipe)]) }}'
             },
             columns: [
-                {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }},
+                {
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
                 {data: 'id', name: 'id'},
                 {data: 'nama', name: 'nama'},
                 {data: 'prodi', name: 'prodi'},
-                @if ($tipe == 'Telah memberikan hak suara')
-                {data: 'created_at', name: 'created_at', searchable: false}
+                    @if ($tipe == 'Telah memberikan hak suara')
+                {
+                    data: 'created_at', name: 'created_at', searchable: false
+                }
                 @endif
             ]
         });

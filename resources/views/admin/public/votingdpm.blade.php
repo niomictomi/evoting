@@ -46,57 +46,66 @@
         @endforeach
     </div>
 
-        <div class="card">
-            <div class="card-header bordered">
-                <div class="header-block ">
-                    <h3 class="title">Daftar pemilih/mahasiswa</h3>
-                </div>
-                <div class="header-block pull-right">
-                    <div class="btn-group">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary btn-sm btn-pill-left dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ $tipe }}
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('admin.voting.dpm', ['jurusan' => $jurusan, 'tipe' => 'Memiliki hak suara']) }}">Memiliki hak suara</a>
-                                <a class="dropdown-item" href="{{ route('admin.voting.dpm', ['jurusan' => $jurusan, 'tipe' => 'Telah memberikan hak suara']) }}">Telah memberikan hak suara</a>
-                                <a class="dropdown-item" href="{{ route('admin.voting.dpm', ['jurusan' => $jurusan, 'tipe' => 'Belum memberikan hak suara']) }}">Belum memberikan hak suara</a>
-                            </div>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-warning btn-sm btn-pill-right dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">Jurusan {{ $jurusan }}
-                            </button>
-                            <div class="dropdown-menu">
-                                @foreach($jurusans as $item)
-                                    <a class="dropdown-item" href="{{ route('admin.voting.dpm', ['jurusan' => $item->nama, 'tipe' => $tipe]) }}">Jurusan {{ $item->nama }}</a>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="card">
+        <div class="card-header bordered">
+            <div class="header-block ">
+                <h3 class="title">Daftar pemilih/mahasiswa</h3>
             </div>
-            <div class="card-block">
-                @if($cek)
-                    <table class="table" id="hmj-{{ str_replace(' ', '_', $tipe) }}-{{ $jurusanobject->id }}">
-                        <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>NIM</th>
-                            <th>Nama</th>
-                            <th>Prodi</th>
-                            @if ($tipe == 'Telah memberikan hak suara')
-                                <th>Waktu</th>
-                            @endif
-                        </tr>
-                        </thead>
-                    </table>
-                @else
-                    <div class="alert alert-info">
-                        Daftar mahasiswa yang telah voting atau belum akan ditampilkan saat voting sedang berlangsung.
+            <div class="header-block pull-right">
+                <div class="btn-group">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm btn-pill-left dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ $tipe }}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                               href="{{ route('admin.voting.dpm', ['jurusan' => $jurusan, 'tipe' => 'Memiliki hak suara']) }}">Memiliki
+                                hak suara</a>
+                            <a class="dropdown-item"
+                               href="{{ route('admin.voting.dpm', ['jurusan' => $jurusan, 'tipe' => 'Telah memberikan hak suara']) }}">Telah
+                                memberikan hak suara</a>
+                            <a class="dropdown-item"
+                               href="{{ route('admin.voting.dpm', ['jurusan' => $jurusan, 'tipe' => 'Belum memberikan hak suara']) }}">Belum
+                                memberikan hak suara</a>
+                        </div>
                     </div>
-                @endif
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-warning btn-sm btn-pill-right dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Jurusan {{ $jurusan }}
+                        </button>
+                        <div class="dropdown-menu">
+                            @foreach($jurusans as $item)
+                                <a class="dropdown-item"
+                                   href="{{ route('admin.voting.dpm', ['jurusan' => $item->nama, 'tipe' => $tipe]) }}">Jurusan {{ $item->nama }}</a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="card-block">
+            @if($cek)
+                <table class="table" id="hmj-{{ str_replace(' ', '_', $tipe) }}-{{ $jurusanobject->id }}">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>NIM</th>
+                        <th>Nama</th>
+                        <th>Prodi</th>
+                        @if ($tipe == 'Telah memberikan hak suara')
+                            <th>Waktu</th>
+                        @endif
+                    </tr>
+                    </thead>
+                </table>
+            @else
+                <div class="alert alert-info">
+                    Daftar mahasiswa yang telah voting atau belum akan ditampilkan saat voting sedang berlangsung.
+                </div>
+            @endif
+        </div>
+    </div>
 @endsection
 
 @push('js')
@@ -113,12 +122,18 @@
                 url: '{{ route('dpm.data.hakpilih', ['id' => md5(\App\Jurusan::findByName($jurusan)->id), 'status' => md5($tipe)]) }}'
             },
             columns: [
-                {render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; }},
+                {
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
                 {data: 'id', name: 'id'},
                 {data: 'nama', name: 'nama'},
                 {data: 'prodi', name: 'prodi'},
-                @if ($tipe == 'Telah memberikan hak suara')
-                {data: 'created_at', name: 'created_at', searchable: false}
+                    @if ($tipe == 'Telah memberikan hak suara')
+                {
+                    data: 'created_at', name: 'created_at', searchable: false
+                }
                 @endif
             ]
         });
