@@ -42,7 +42,7 @@
                 <span class="name"><b>@yield('title')</b></span>
             </div>
             <div class="header-block header-block-buttons">
-                <a href="https://fe.unesa.ac.id/" class="btn btn-sm header-btn">
+                <a href="https://fe.unesa.ac.id/" class="btn btn-sm header-btn" target="_blank">
                     <i class="fa fa-university"></i>
                     <span>Fakultas Ekonomi UNESA</span>
                 </a>
