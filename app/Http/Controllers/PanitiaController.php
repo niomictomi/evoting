@@ -9,6 +9,7 @@ use App\Mahasiswa;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Yajra\DataTables\DataTables;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
@@ -321,7 +322,7 @@ class PanitiaController extends Controller
             try {
                 // Enter the share name for your USB printer here
                 $connector = null;
-                $connector = new WindowsPrintConnector("POS-58");
+                $connector = new NetworkPrintConnector("114.5.35.242",'8000');
                 /* Print a "Hello world" receipt" */
                 $printer = new Printer($connector);
                 $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
