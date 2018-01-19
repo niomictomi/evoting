@@ -10,10 +10,12 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
+//use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Yajra\DataTables\DataTables;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\Printer;
+use Illuminate\Support\Facades\Request as Walah;
 
 
 class PanitiaController extends Controller
@@ -31,7 +33,57 @@ class PanitiaController extends Controller
      */
     public function index()
     {
-
+//        $date = Carbon::now();
+//        $ip = Walah::ip();
+//        if ($ip == '::1')
+//            $ip = '127.0.0.1';
+//        print $ip;
+////        $fpsocket = fsockopen($ip, 9100, $errno, $errstr, 1);
+//
+////        $sock = fsockopen($ip, $_SERVER['REMOTE_PORT'], $errno, $errstr, 1);
+////
+////        if ($errno == 0){
+////            $printerStatus = 'Online';
+////        } elseif ($errno == 110) {
+////            $printerStatus = 'Offline';
+////        } else {
+////            $printerStatus = 'Offline';
+////        }
+////        echo $sock.' '.$printerStatus.' '.$errno;
+//
+//        try {
+//
+//            // Enter the share name for your USB printer here
+//            $connector = null;
+//            $connector = new NetworkPrintConnector($ip);
+//            //$connector = new WindowsPrintConnector("POS-58");
+//            /* Print a "Hello world" receipt" */
+//            $printer = new Printer($connector);
+//            $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+//            $printer -> text("E-Voting Pemira!\n");
+//            $printer -> selectPrintMode();
+//            $printer -> text("Fakultas Ekonomi");
+//            $printer -> text("\n");
+//            $printer -> text("\n");
+//            $printer -> text("UserName : RAFY \n");
+//            $printer -> text("Password : ");
+//            $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+//            $printer -> text("hmm");
+//            $printer -> selectPrintMode();
+//            $printer -> text("\n");
+//            $printer -> text("\n");
+//            $printer -> text("\n");
+//            $printer -> text($date);
+//            $printer -> text("\n");
+//            $printer -> text("\n");$printer -> text("\n");$printer -> text("\n");$printer -> text("\n.");
+//            $printer -> cut();
+//
+//            /* Close printer */
+//            $printer -> close();
+//        } catch (\Exception $e) {
+//            echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
+//        }
+//
 
         //$test = CalonHMJ::find(13);
         return view('admin.panitia.dashboard');
