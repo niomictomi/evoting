@@ -132,6 +132,13 @@ class CalonHMJ extends Model
         return collect($data);
     }
 
+    /**
+     * Mendapatkan hasil dalam bentuk array yang nantinya akan digunakan
+     * untuk diagram
+     *
+     * @param int $jurusan_id
+     * @return array
+     */
     public static function getHasilUntukDiagram($jurusan_id)
     {
         $data = [];

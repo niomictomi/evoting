@@ -65,7 +65,37 @@ class CalonBEM extends Model
         return Mahasiswa::whereIn('id', CalonBEM::getAllIdCalon());
     }
 
-        /**
+    /**
+     * Mendapatkan data jumlah pemilih pada jam-jam tertentu
+     * yang akan ditampilkan dalam bentuk diagram batang
+     *
+     * @param int $jurusan_id
+     * @return array
+     */
+    public static function getJumlahVotingBarChart($jurusan_id)
+    {
+        $data = [];
+
+        $waktuMulai = Pengaturan::getWaktuMulai()->minute == 0 ? Pengaturan::getWaktuMulai() : Pengaturan::getWaktuMulai()->addMinutes(-Pengaturan::getWaktuMulai()->minute);
+
+        while($waktuMulai->lessThan(Pengaturan::getWaktuSelesai())) {
+            // generate waktuSelesai
+            $waktuSelesai = $waktuMulai->copy()->addMinutes(60);
+
+            $jumlahVoting = Mahasiswa::getYangTelahMemilihBemViaRelation($jurusan_id, $waktuMulai, $waktuSelesai)->count();
+
+            array_push($data, [
+                Carbon::parse($waktuMulai)->hour . ':00' . '-' . Carbon::parse($waktuSelesai)->hour . ':00',
+                $jumlahVoting
+            ]);
+
+            $waktuMulai = $waktuSelesai;
+        }
+
+        return collect($data);
+    }
+
+    /**
      * Mendapatkan hasil dalam bentuk array yang nantinya akan digunakan
      * untuk diagram
      *
