@@ -23,7 +23,8 @@ class MahasiswaController extends Controller
     public function __construct()
     {
         $this->middleware('guest:mhs')->only('login');
-        $this->middleware('votingselesai')->except('login');
+        $this->middleware('votingselesai');
+        $this->middleware('votingbelummulai');
     }
 
     /**
