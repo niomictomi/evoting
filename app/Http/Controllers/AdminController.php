@@ -43,9 +43,13 @@ class AdminController extends Controller
 
         if ((count(explode(';', $request->role)) > 1) ? Role::check($request->role, ';') : Role::check($request->role)) {
             $role = explode(';', $request->role);
-            if ($role[0] == Role::WD3 || $role[0] == Role::KETUA_KPU){
-                if (Role::checkIfKetuaKpuExists() || Role::checkIfWd3Exists())
-                    return back()->withErrors(['WD3 dan Ketua KPU tidak boleh lebih dari satu!']);
+            if ($role[0] == Role::WD3){
+                if (Role::checkIfWd3Exists())
+                    return back()->withErrors(['WD3 tidak boleh lebih dari satu!']);
+            }
+            elseif ($role[0] == Role::KETUA_KPU){
+                if (Role::checkIfKetuaKpuExists())
+                    return back()->withErrors(['Ketua KPU tidak boleh lebih dari satu!']);
             }
             if (count($role) > 1) {
                 User::create([
