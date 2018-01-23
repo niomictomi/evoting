@@ -33,11 +33,11 @@ class JurusanProdiSeeder extends Seeder
      */
     public function run()
     {
-        foreach (static::EKONOMI as $jurusan => $daftarProdi){
+        foreach (static::EKONOMI as $jurusan => $daftarProdi) {
             $id = Jurusan::create([
                 'nama' => $jurusan
             ])->id;
-            foreach ($daftarProdi as $prodi){
+            foreach ($daftarProdi as $prodi) {
                 Prodi::create([
                     'nama' => $prodi,
                     'jurusan_id' => $id

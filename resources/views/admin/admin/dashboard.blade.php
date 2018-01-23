@@ -28,7 +28,9 @@
                                 <i class="fa fa-users"></i>
                             </div>
                             <div class="stat">
-                                <div class="value"> {{ $mhs }} <small>mahasiswa</small></div>
+                                <div class="value"> {{ $mhs }}
+                                    <small>mahasiswa</small>
+                                </div>
                                 <div class="name"> Semua mahasiswa</div>
                             </div>
                             <div class="progress stat-progress">
@@ -40,7 +42,9 @@
                                 <i class="fa fa-users"></i>
                             </div>
                             <div class="stat">
-                                <div class="value"> {{ $mhsaktif }} <small>mahasiswa</small></div>
+                                <div class="value"> {{ $mhsaktif }}
+                                    <small>mahasiswa</small>
+                                </div>
                                 <div class="name"> Mahasiswa yang aktif</div>
                             </div>
                             <div class="progress stat-progress">
@@ -52,7 +56,9 @@
                                 <i class="fa fa-users"></i>
                             </div>
                             <div class="stat">
-                                <div class="value"> {{ $mhscuti }} <small>mahasiswa</small></div>
+                                <div class="value"> {{ $mhscuti }}
+                                    <small>mahasiswa</small>
+                                </div>
                                 <div class="name"> Mahasiswa yang cuti</div>
                             </div>
                             <div class="progress stat-progress">
@@ -64,7 +70,9 @@
                                 <i class="fa fa-users"></i>
                             </div>
                             <div class="stat">
-                                <div class="value"> {{ $mhsnonaktif }} <small>mahasiswa</small></div>
+                                <div class="value"> {{ $mhsnonaktif }}
+                                    <small>mahasiswa</small>
+                                </div>
                                 <div class="name"> Mahasiswa yang nonaktif</div>
                             </div>
                             <div class="progress stat-progress">
@@ -100,13 +108,16 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a href="" class="nav-link active" data-target="#home-pills" aria-controls="home-pills" data-toggle="tab" role="tab">HMJ</a>
+                        <a href="" class="nav-link active" data-target="#home-pills" aria-controls="home-pills"
+                           data-toggle="tab" role="tab">HMJ</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link" data-target="#profile-pills" aria-controls="profile-pills" data-toggle="tab" role="tab">DPM</a>
+                        <a href="" class="nav-link" data-target="#profile-pills" aria-controls="profile-pills"
+                           data-toggle="tab" role="tab">DPM</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link" data-target="#messages-pills" aria-controls="messages-pills" data-toggle="tab" role="tab">BEM</a>
+                        <a href="" class="nav-link" data-target="#messages-pills" aria-controls="messages-pills"
+                           data-toggle="tab" role="tab">BEM</a>
                     </li>
                 </ul>
                 <!-- Tab panes -->
@@ -146,21 +157,19 @@
                         @endforeach
                     </div>
                     <div class="tab-pane fade" id="messages-pills">
-                        {{--@foreach(\App\Jurusan::all() as $jurusan)--}}
-                            {{--<div class="card">--}}
-                                {{--<div class="card-header">--}}
-                                    {{--<div class="header-block">--}}
-                                        {{--<h3 class="title">Jumlah pemilih dari jurusan {{ $jurusan->nama }}</h3>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="card-block">--}}
-                                    {{--@include('charts.bar', [--}}
-                                        {{--'data' => \App\CalonBEM::getJumlahVotingBarChart($jurusan->id),--}}
-                                        {{--'id' => 'bem_'.$jurusan->id--}}
-                                    {{--])--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--@endforeach--}}
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="header-block">
+                                    <h3 class="title">Jumlah yang telah memilih BEM</h3>
+                                </div>
+                            </div>
+                            <div class="card-block">
+                                @include('charts.bar', [
+                                    'data' => \App\CalonBEM::getJumlahVotingBarChart(),
+                                    'id' => 'bem'
+                                ])
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

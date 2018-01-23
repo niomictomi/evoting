@@ -1,11 +1,11 @@
-<div id="bar-{{ $id }}">
-    <column-chart :data="arr" :colors="['#b00']" xtitle="Waktu" ytitle="Jumlah Pemilih" :stacked="true"></column-chart>
+<div id="bar_{{ $id }}">
+    <column-chart :data="arr" :colors="['#b00']" xtitle="Waktu" ytitle="Jumlah Pemilih"></column-chart>
 </div>
 
 @push('js')
 <script>
-    let bar_{{ $id }} = new Vue({
-        el: '#bar-{{ $id }}',
+    var bar_{{ $id }} = new Vue({
+        el: '#bar_{{ $id }}',
         data: {
             arr: {!! $data !!}
         }
