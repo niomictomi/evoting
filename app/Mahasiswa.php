@@ -192,7 +192,7 @@ class Mahasiswa extends Authenticatable
         return Jurusan::find($jurusan_id)->getMahasiswa()
             ->where('status', Mahasiswa::AKTIF)
             ->where('dpm', true)
-            ->leftJoin('pemilihan_dpm', 'mahasiswa_id', '=', 'id');;
+            ->leftJoin('pemilihan_dpm', 'mahasiswa_id', '=', 'id');
     }
 
     /**
