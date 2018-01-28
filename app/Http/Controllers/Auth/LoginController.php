@@ -40,7 +40,7 @@ class LoginController extends Controller
                 return redirect()->route('root.dashboard');
             }
             if (Auth::user()->isAdmin()){
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('admin.dashboard', ['tipe' => 'bem']);
             }
             if (Auth::user()->isDosen() || Auth::user()->isWD3()){
                 return redirect()->route('dosen.dashboard');

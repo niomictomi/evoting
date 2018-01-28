@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
                 return redirect()->route('mahasiswa.halaman.voting');
             else if($guard == 'web') {
                 if(Auth::user()->isAdmin())
-                    return redirect()->route('admin.dashboard');
+                    return redirect()->route('admin.dashboard', ['tipe' => 'bem']);
                 else if(Auth::user()->isDosen())
                     return redirect()->route('admin.dashboard');
                 else if(Auth::user()->isPanitia())

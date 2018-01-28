@@ -100,80 +100,73 @@
     </div>
 
     @if(\App\Pengaturan::isVotingTelahBerlangsung() || \App\Pengaturan::isVotingSedangBerlangsung())
-        <div class="card sameheight-item">
-            <div class="card-block">
-                <div class="card-title-block">
+        <div class="card">
+            <div class="card-header">
+                <div class="header-block">
                     <h3 class="title">Jumlah pemilih dari waktu ke waktu</h3>
                 </div>
-                <!-- Nav tabs -->
-                <ul class="nav nav-pills">
-                    <li class="nav-item">
-                        <a href="" class="nav-link active" data-target="#home-pills" aria-controls="home-pills"
-                           data-toggle="tab" role="tab">HMJ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link" data-target="#profile-pills" aria-controls="profile-pills"
-                           data-toggle="tab" role="tab">DPM</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link" data-target="#messages-pills" aria-controls="messages-pills"
-                           data-toggle="tab" role="tab">BEM</a>
-                    </li>
-                </ul>
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div class="tab-pane active" id="home-pills">
-                        @foreach(\App\Jurusan::all() as $jurusan)
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="header-block">
-                                        <h3 class="title">Jumlah pemilih dari jurusan {{ $jurusan->nama }}</h3>
-                                    </div>
-                                </div>
-                                <div class="card-block">
-                                    @include('charts.bar', [
-                                        'data' => \App\CalonHMJ::getJumlahVotingBarChart($jurusan->id),
-                                        'id' => 'hmj_'.$jurusan->id
-                                    ])
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="tab-pane fade" id="profile-pills">
-                        @foreach(\App\Jurusan::all() as $jurusan)
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="header-block">
-                                        <h3 class="title">Jumlah pemilih dari jurusan {{ $jurusan->nama }}</h3>
-                                    </div>
-                                </div>
-                                <div class="card-block">
-                                    @include('charts.bar', [
-                                        'data' => \App\CalonDPM::getJumlahVotingBarChart($jurusan->id),
-                                        'id' => 'dpm_'.$jurusan->id
-                                    ])
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="tab-pane fade" id="messages-pills">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="header-block">
-                                    <h3 class="title">Jumlah yang telah memilih BEM</h3>
-                                </div>
-                            </div>
-                            <div class="card-block">
-                                @include('charts.bar', [
-                                    'data' => \App\CalonBEM::getJumlahVotingBarChart(),
-                                    'id' => 'bem'
-                                ])
-                            </div>
+                <div class="header-block pull-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ strtoupper($tipe) }}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('admin.dashboard', ['tipe' => 'bem']) }}">BEM</a>
+                            <a class="dropdown-item" href="{{ route('admin.dashboard', ['tipe' => 'dpm']) }}">DPM</a>
+                            <a class="dropdown-item" href="{{ route('admin.dashboard', ['tipe' => 'hmj']) }}">HMJ</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /.card-block -->
+            <div class="card-block">
+                @if($tipe == 'bem')
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="header-block">
+                                <h3 class="title">Jumlah yang telah memilih BEM</h3>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            @include('charts.bar', [
+                                'data' => \App\CalonBEM::getJumlahVotingBarChart(),
+                                'id' => 'bem'
+                            ])
+                        </div>
+                    </div>
+                @elseif($tipe == 'dpm')
+                    @foreach(\App\Jurusan::all() as $jurusan)
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="header-block">
+                                    <h3 class="title">Jumlah pemilih dari jurusan {{ $jurusan->nama }}</h3>
+                                </div>
+                            </div>
+                            <div class="card-block">
+                                @include('charts.bar', [
+                                    'data' => \App\CalonDPM::getJumlahVotingBarChart($jurusan->id),
+                                    'id' => 'dpm_'.$jurusan->id
+                                ])
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    @foreach(\App\Jurusan::all() as $jurusan)
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="header-block">
+                                    <h3 class="title">Jumlah pemilih dari jurusan {{ $jurusan->nama }}</h3>
+                                </div>
+                            </div>
+                            <div class="card-block">
+                                @include('charts.bar', [
+                                    'data' => \App\CalonHMJ::getJumlahVotingBarChart($jurusan->id),
+                                    'id' => 'hmj_'.$jurusan->id
+                                ])
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
         </div>
     @endif
 

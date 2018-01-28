@@ -1,5 +1,5 @@
 <li @if(Route::currentRouteName() == 'admin.dashboard') class="active" @endif>
-    <a href="{{ route('admin.dashboard') }}">
+    <a href="{{ route('admin.dashboard', ['tipe' => 'bem']) }}">
         <i class="fa fa-home"></i>
         Dashboard
     </a>

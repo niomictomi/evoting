@@ -10,8 +10,10 @@ use App\User;
 
 class AdminController extends Controller
 {
-    public function dashboard()
+    public function dashboard(Request $request)
     {
+        if (!in_array($request->tipe, ['bem', 'dpm', 'hmj']))
+            $request->tipe = 'bem';
         $mhs = Mahasiswa::all();
         $mhs_aktif = Mahasiswa::getByStatus();
         $mhs_cuti = Mahasiswa::getByStatus([Mahasiswa::CUTI]);
@@ -20,7 +22,8 @@ class AdminController extends Controller
             'mhs' => $mhs->count(),
             'mhsaktif' => $mhs_aktif->count(),
             'mhscuti' => $mhs_cuti->count(),
-            'mhsnonaktif' => $mhs_nonaktif->count()
+            'mhsnonaktif' => $mhs_nonaktif->count(),
+            'tipe' => $request->tipe
         ]);
     }
 
