@@ -73,7 +73,7 @@ class CalonBEM extends Model
      * @param int $jurusan_id
      * @return array
      */
-    public static function getJumlahVotingBarChart($jurusan_id)
+    public static function getJumlahVotingBarChart()
     {
         $data = [];
 
@@ -83,7 +83,7 @@ class CalonBEM extends Model
             // generate waktuSelesai
             $waktuSelesai = $waktuMulai->copy()->addMinutes(60);
 
-            $jumlahVoting = Mahasiswa::getYangTelahMemilihBemViaRelation($jurusan_id, $waktuMulai, $waktuSelesai)->count();
+            $jumlahVoting = Mahasiswa::getYangTelahMemilihBemViaRelation($waktuMulai, $waktuSelesai)->count();
 
             array_push($data, [
                 Carbon::parse($waktuMulai)->hour . ':00' . '-' . Carbon::parse($waktuSelesai)->hour . ':00',

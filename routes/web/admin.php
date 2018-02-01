@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['prefix' => 'admin'], function (){
-    Route::get('dashboard', [
+    Route::get('dashboard/{tipe}', [
         'uses' => 'AdminController@dashboard',
         'as' => 'admin.dashboard'
     ]);
