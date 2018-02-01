@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Pengaturan;
 
 class RedirectIfVotingTimeNotYetStarted
 {
@@ -15,7 +16,7 @@ class RedirectIfVotingTimeNotYetStarted
      */
     public function handle($request, Closure $next)
     {
-        if(!Pengaturan::isVotingTelahBerlangsung())
+        if(!Pengaturan::isVotingSedangBerlangsung())
             return redirect()->route('votingbelummulai');
 
         return $next($request);

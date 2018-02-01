@@ -64,6 +64,6 @@ class Kernel extends HttpKernel
         'ajax' => \App\Http\Middleware\AjaxRequest::class,
         'votingselesai' => \App\Http\Middleware\RedirectIfVotingTimeFinished::class,
         'bukanmhs' => \App\Http\Middleware\RedirectIfMahasiswa::class,
-        'votingbelummulai' => \App\Http\Middleware\RedirectIfVotingNotYetStarted::class
+        'votingbelummulai' => \App\Http\Middleware\RedirectIfVotingTimeNotYetStarted::class
     ];
 }
