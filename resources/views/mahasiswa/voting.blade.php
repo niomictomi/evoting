@@ -22,10 +22,10 @@
                             <a href="" class="nav-link nav-hmj active" data-target="#daftar-calon-hmj" aria-controls="home-pills" data-toggle="tab" role="tab">Hima <span class="desc">{{ $calonHMJ->count() }} calon</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link nav-bem" data-target="#daftar-calon-bem" aria-controls="profile-pills" data-toggle="tab" role="tab">BEM <span class="desc">{{ $calonBEM->count() }} calon</span></a>
+                            <a href="" class="nav-link nav-dpm" data-target="#daftar-calon-dpm" aria-controls="messages-pills" data-toggle="tab" role="tab">DPM <span class="desc">{{ $calonDPM->count() }} calon</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link nav-dpm" data-target="#daftar-calon-dpm" aria-controls="messages-pills" data-toggle="tab" role="tab">DPM <span class="desc">{{ $calonDPM->count() }} calon</span></a>
+                            <a href="" class="nav-link nav-bem" data-target="#daftar-calon-bem" aria-controls="profile-pills" data-toggle="tab" role="tab">BEM <span class="desc">{{ $calonBEM->count() }} calon</span></a>
                         </li>
                     </ul>
                 </div>
@@ -59,6 +59,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="tab-pane fade" id="daftar-calon-dpm">
+                        <div id="paslondpm">
+                            <div v-if="voted" class="mask">
+                                <h4>Anda telah melakukan pemilihan anggota DPM</h4>
+                            </div>
+                            <div :class="{row: true, blur: voted}">
+                                <card-calon-dpm 
+                                v-for="paslon in daftarPaslon" 
+                                :key="paslon.id" 
+                                ref="satu" 
+                                :id="paslon.id" 
+                                :no-urut="paslon.nomor"                             
+                                :foto="paslon.dir" 
+                                :nama="paslon.nama"
+                                :href="href"></card-calon-dpm>
+                            </div>
+                        </div>
+                    </div>
                 <div class="tab-pane fade" id="daftar-calon-bem">
                     <div id="paslonbem">
                         <div v-if="voted" class="mask">
@@ -75,24 +93,6 @@
                             :nama-ketua="paslon.nama_ketua" 
                             :nama-wakil="paslon.nama_wakil"
                             :href="href"></card-paslon>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="daftar-calon-dpm">
-                    <div id="paslondpm">
-                        <div v-if="voted" class="mask">
-                            <h4>Anda telah melakukan pemilihan anggota DPM</h4>
-                        </div>
-                        <div :class="{row: true, blur: voted}">
-                            <card-calon-dpm 
-                            v-for="paslon in daftarPaslon" 
-                            :key="paslon.id" 
-                            ref="satu" 
-                            :id="paslon.id" 
-                            :no-urut="paslon.nomor"                             
-                            :foto="paslon.dir" 
-                            :nama="paslon.nama"
-                            :href="href"></card-calon-dpm>
                         </div>
                     </div>
                 </div>
