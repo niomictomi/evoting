@@ -3,6 +3,7 @@
 @section('activity','Buka Kotak Suara')
 
 @section('content')
+    @if(!\App\Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu())
     <div class="row">
         @foreach($users as $user)
             <div class="col-4">
@@ -51,6 +52,96 @@
             </div>
         @endforeach
     </div>
+    @else
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="alert alert-info">
+                        Data Pemilihan bersifat rahasia
+                    </div>
+                    <div class="card-block">
+                        @if(\App\Pengaturan::isVotingSedangBerlangsung())
+                            <div class="alert alert-info">
+                                Pemira Sedang berlansung
+                            </div>
+                        @elseif(\App\Pengaturan::isVotingTelahBerlangsung())
+                            @if(\App\Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu())
+                                <div class="header-block pull-right">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ strtoupper($hasil) }}
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                               href="{{ route('kakpu.buka', ['hasil' => 'bem']) }}">BEM</a>
+                                            <a class="dropdown-item"
+                                               href="{{ route('kakpu.buka', ['hasil' => 'dpm']) }}">DPM</a>
+                                            <a class="dropdown-item"
+                                               href="{{ route('kakpu.buka', ['hasil' => 'hmj']) }}">HMJ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if($hasil == 'bem')
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="header-block">
+                                                <h3 class="title">Hasil Perhitungan Suara Pemilihan BEM</h3>
+                                            </div>
+                                        </div>
+                                        <div class="card-block">
+                                            @include('charts.bar', [
+                                                'data' => collect(\App\CalonBEM::getHasilUntukDiagram()),
+                                                'id' => 'hasilbem'
+                                            ])
+                                        </div>
+                                    </div>
+                                @elseif($hasil == 'dpm')
+                                    @foreach(\App\Jurusan::all() as $jurusan)
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="header-block">
+                                                    <h3 class="title">Hasil Perhitungan Suara Pemilihan jurusan{{ $jurusan->nama }}</h3>
+                                                </div>
+                                            </div>
+                                            <div class="card-block">
+                                                @include('charts.bar', [
+                                                    'data' => collect(\App\CalonDPM::getHasilUntukDiagram($jurusan->id)),
+                                                    'id' => 'hasildpm_'.$jurusan->id
+                                                ])
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @elseif($hasil == 'hmj')
+                                    @foreach(\App\Jurusan::all() as $jurusan)
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="header-block">
+                                                    <h3 class="title">Hasil Perhitungan Suara Pemilihan jurusan {{ $jurusan->nama }}</h3>
+                                                </div>
+                                            </div>
+                                            <div class="card-block">
+                                                @include('charts.bar', [
+                                                    'data' => collect(\App\CalonHMJ::getHasilUntukDiagram($jurusan->id)),
+                                                    'id' => 'hasilhmj_'.$jurusan->id
+                                                ])
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+
+
+                            @else
+                                <a href="{{route('kakpu.buka')}}">
+                                    <button class="btn btn-primary">Buka Kotak Suara</button>
+                                </a>
+                            @endif
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
 
 @push('js')
