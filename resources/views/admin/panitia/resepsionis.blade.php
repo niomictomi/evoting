@@ -33,15 +33,27 @@
         <div class="card-block">
             <center>
                 <form action="{{route('cari')}}" method="get">
-                    <div class="input-group col-6">
-                        <input type="text" class="form-control boxed rounded-s" placeholder="NIM Mahasiswa..."
-                               name="id">
-                        <span class="input-group-btn">
+                    @if(\App\Pengaturan::isVotingSedangBerlangsung())
+                        <div class="input-group col-6">
+                            <input type="text" class="form-control boxed rounded-s" placeholder="NIM Mahasiswa..."
+                                   name="id">
+                            <span class="input-group-btn">
                             <button class="btn btn-danger rounded-s" type="submit">
                                 <i class="fa fa-search"></i>
                             </button>
                         </span>
-                    </div>
+                        </div>
+                        @elseif(\App\Pengaturan::isVotingAkanBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())
+                        <div class="input-group col-6">
+                            <input type="text" class="form-control boxed rounded-s" placeholder="Pemira Belum Atau Telah Dilaksanakan"
+                                   name="id" disabled>
+                            <span class="input-group-btn">
+                            <button class="btn btn-danger rounded-s" type="submit" disabled>
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                        </div>
+                    @endif
                 </form>
             </center>
         </div>
@@ -90,7 +102,7 @@
     @if(session()->has('message'))
         <script>
             swal({
-                title:"Berhasil !",
+                title: "Berhasil !",
                 icon: "success",
                 text: "{{ session()->get('message') }}"
             });
@@ -100,7 +112,7 @@
     @if(session()->has('error'))
         <script>
             swal({
-                title:"Oops !",
+                title: "Oops !",
                 icon: "error",
                 text: "{{ session()->get('error') }}"
             });
