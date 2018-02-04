@@ -506,4 +506,13 @@ class Mahasiswa extends Authenticatable
     {
         return self::getYangBelumMemilihBemViaFlag()->where('login', true);
     }
+
+    /**
+     * mendapatkan mahasiswa yang abstain dalam pemilihan bem via relation
+     * @return mixed
+     */
+    public function getAbstainBemViaRelation()
+    {
+        return self::getYangBelumMemilihBemViaRelation()->where('login', true);
+    }
 }
