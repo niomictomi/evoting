@@ -545,4 +545,14 @@ class Mahasiswa extends Authenticatable
     {
         return self::getYangBelumMemilihHmjViaFlag($jurusan_id)->where('login', true);
     }
+
+    /**
+     * mendapatkan mahasiswa yang abstain dalam pemilihan hmj via relation
+     * @param $jurusan_id
+     * @return mixed
+     */
+    public function getAbstainHmjViaRelation($jurusan_id)
+    {
+        return self::getYangBelumMemilihHmjViaRelation($jurusan_id)->where('login', true);
+    }
 }
