@@ -24,8 +24,12 @@ class KakpuController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!in_array($request->tipe, ['bem', 'dpm', 'hmj']))
+            if (!in_array($request->hasil, ['bem', 'dpm', 'hmj']))
+            $request->tipe = 'bem';
+        $request->hasil = 'bem';
         $mhs = Mahasiswa::all();
         $mhs_aktif = Mahasiswa::getByStatus();
         $mhs_cuti = Mahasiswa::getByStatus([Mahasiswa::CUTI]);
@@ -34,17 +38,22 @@ class KakpuController extends Controller
             'mhs' => $mhs->count(),
             'mhsaktif' => $mhs_aktif->count(),
             'mhscuti' => $mhs_cuti->count(),
-            'mhsnonaktif' => $mhs_nonaktif->count()
+            'mhsnonaktif' => $mhs_nonaktif->count(),
+            'tipe' => $request->tipe,
+            'hasil' => $request->hasil
         ]);
-        //return view('admin.kakpu.dashboard');
     }
 
-    public function buka()
+    public function buka(Request $request)
     {
+        if (!in_array($request->hasil, ['bem', 'dpm', 'hmj']))
+            $request->hasil = 'bem';
+
         $users = User::whereIn('role', [Role::KETUA_KPU, Role::DOSEN, Role::WD3])->get();
 
         return view('admin.kakpu.bukasuara', [
-            'users' => $users
+            'users' => $users,
+            'hasil' =>$request->hasil
         ]);
     }
 

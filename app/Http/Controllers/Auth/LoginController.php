@@ -137,6 +137,8 @@ class LoginController extends Controller
             Auth::guard('mhs')->logout();
             return redirect()->route('mahasiswa.login');
         }
+
+        return redirect()->route('mahasiswa.login');
     }
 
     public function form()
