@@ -14,6 +14,7 @@
                     {{--<a href="{{route('panitia.paslon.form')}}" class="btn btn-primary btn-sm rounded pull-right" >Tambah--}}
                     {{--Paslon</a>--}}
                     <div class="btn-group">
+                        @if(\App\Pengaturan::isVotingAkanBerlangsung())
                         <button type="button" class="btn btn-primary btn-sm rounded pull-right" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> Tambah Paslon
                         </button>
@@ -22,6 +23,11 @@
                             <a class="dropdown-item" href="{{route('form.dpm')}}">DPM</a>
                             <a class="dropdown-item" href="{{route('form.bem')}}">BEMF</a>
                         </div>
+                        @elseif(\App\Pengaturan::isVotingSedangBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())
+                            <button type="button" class="btn btn-primary btn-sm rounded pull-right" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" disabled><i class="fa fa-plus"></i> Tambah Paslon
+                            </button>
+                        @endif
                     </div>
                     <div class="modal fade" id="tambah" tabindex="-1" role="dialog"
                          aria-hidden="true">
@@ -52,7 +58,7 @@
                             <td width="100"><b>Nomor</b></td>
                             <td width="20"><b>Nama Ketua</b></td>
                             <td width="20"><b>Nama Wakil Ketua</b></td>
-                            <td width="50"><b>Foto</b></td>
+                            <td width="50"><b>aksi</b></td>
                         </tr>
                         </thead>
                         <tbody>
@@ -62,6 +68,7 @@
                                     <td><b>{{$bem->ketua_id}}</b></td>
                                     <td><b>{{$bem->wakil_id}}</b></td>
                                     <td>
+                                        @if(\App\Pengaturan::isVotingAkanBerlangsung())
                                         <form method="post">
                                             {{ csrf_field() }}
                                             {{ method_field('delete') }}
@@ -75,6 +82,10 @@
                                             </a>
                                             <a><button class="btn btn-danger btn-sm btn-pill-right">Hapus</button></a>
                                         </div>
+                                        @elseif(\App\Pengaturan::isVotingSedangBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())
+                                            <button class="btn btn-primary btn-sm rounded" data-toggle="modal">Pemira Sedang Berlangsung
+                                            </button>
+                                        @endif
                                         
                                     </td>
                                     </tr>

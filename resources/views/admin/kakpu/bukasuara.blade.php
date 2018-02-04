@@ -101,7 +101,7 @@
                                         <div class="card">
                                             <div class="card-header">
                                                 <div class="header-block">
-                                                    <h3 class="title">Hasil Perhitungan Suara Pemilihan jurusan{{ $jurusan->nama }}</h3>
+                                                    <h3 class="title">Hasil Perhitungan Suara Pemilihan jurusan {{ $jurusan->nama }}</h3>
                                                 </div>
                                             </div>
                                             <div class="card-block">

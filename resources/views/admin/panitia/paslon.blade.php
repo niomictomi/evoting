@@ -14,12 +14,21 @@
                     {{--<a href="{{route('panitia.paslon.form')}}" class="btn btn-primary btn-sm rounded pull-right" >Tambah--}}
                     {{--Paslon</a>--}}
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-sm rounded pull-right" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> Tambah Paslon
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{route('form.hmj')}}">HMJ</a>
-                        </div>
+                        @if(\App\Pengaturan::isVotingAkanBerlangsung())
+                            <button type="button" class="btn btn-primary btn-sm rounded pull-right"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> Tambah Paslon
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{route('form.hmj')}}">HMJ</a>
+                            </div>
+                        @elseif(\App\Pengaturan::isVotingSedangBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())
+                            <button type="button" class="btn btn-primary btn-sm rounded pull-right"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" disabled><i class="fa fa-plus"></i>
+                                Tambah Paslon
+                            </button>
+                        @endif
                     </div>
                     <div class="modal fade" id="tambah" tabindex="-1" role="dialog"
                          aria-hidden="true">
@@ -51,6 +60,8 @@
                             <td width="20"><b>Nama Ketua</b></td>
                             <td width="20"><b>Nama Wakil Ketua</b></td>
                             <td width="50"><b>Aksi</b></td>
+                            <td width="50"><b>Jurusan</b></td>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -60,20 +71,41 @@
                                 <td><b>{{$hmj->ketua_id}}</b></td>
                                 <td><b>{{$hmj->wakil_id}}</b></td>
                                 <td>
-                                    <form method="post">
-                                        {{ csrf_field() }}
-                                        {{ method_field('delete') }}
-                                        <input type="hidden" name="id" value="{{ $hmj->id }}">
-                                    </form>
-                                    <div class="btn-group">
-                                        <a href="{{url('panitia/paslon/'.$hmj->id.'/update')}}">
-                                            <button class="btn btn-primary btn-sm btn-pill-left" data-toggle="modal"
-                                                    data-target="#edit-{{ $hmj->id }}">Edit
-                                            </button>
-                                        </a>
-                                        <a><button class="btn btn-danger btn-sm btn-pill-right">Hapus</button></a>
-                                    </div>
+                                    @if(\App\Pengaturan::isVotingAkanBerlangsung())
+                                        <form method="post">
+                                            {{ csrf_field() }}
+                                            {{ method_field('delete') }}
+                                            <input type="hidden" name="id" value="{{ $hmj->id }}">
+                                        </form>
+                                        <div class="btn-group">
+                                            <a href="{{url('panitia/paslon/'.$hmj->id.'/update')}}">
+                                                <button class="btn btn-primary btn-sm btn-pill-left" data-toggle="modal"
+                                                        data-target="#edit-{{ $hmj->id }}">Edit
+                                                </button>
+                                            </a>
+                                            <a>
+                                                <button class="btn btn-danger btn-sm btn-pill-right">Hapus</button>
+                                            </a>
+                                        </div>
+                                    @elseif(\App\Pengaturan::isVotingSedangBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())
+                                        <button class="btn btn-primary btn-sm rounded" data-toggle="modal">Pemira Sedang
+                                            Berlangsung
+                                        </button>
+                                    @endif
                                 </td>
+                                <td>
+                                    @if($hmj->getKetua()->getProdi()->jurusan_id==1)
+                                        Pendidikan Ekonomi
+                                    @elseif($hmj->getKetua()->getProdi()->jurusan_id==2)
+                                        Manajemen
+                                    @elseif($hmj->getKetua()->getProdi()->jurusan_id==3)
+                                        Akutansi
+                                    @elseif($hmj->getKetua()->getProdi()->jurusan_id==4)
+                                        Ilmu Ekonomi
+                                    @endif
+
+                                </td>
+
                             </tr>
                         @endforeach
                         </tbody>
