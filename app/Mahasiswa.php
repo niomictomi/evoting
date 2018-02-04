@@ -498,4 +498,12 @@ class Mahasiswa extends Authenticatable
         return $query->where('status', Mahasiswa::CUTI);
     }
 
+    /**
+     * mendapatkan mahasiswa yang abstain dalam pemilihan bem via flag
+     * @return mixed
+     */
+    public function getAbstainBemViaFlag()
+    {
+        return self::getYangBelumMemilihBemViaFlag()->where('login', true);
+    }
 }
