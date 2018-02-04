@@ -525,4 +525,14 @@ class Mahasiswa extends Authenticatable
     {
         return self::getYangBelumMemilihDpmViaFlag($jurusan_id)->where('login', true);
     }
+
+    /**
+     * mendapatkan mahasiswa yang abstain dalam pemilihan dpm via relation
+     * @param $jurusan_id
+     * @return mixed
+     */
+    public function getAbstainDpmViaRelation($jurusan_id)
+    {
+        return self::getYangBelumMemilihDpmViaRelation($jurusan_id)->where('login', true);
+    }
 }
