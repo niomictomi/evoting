@@ -502,18 +502,18 @@ class Mahasiswa extends Authenticatable
      * mendapatkan mahasiswa yang abstain dalam pemilihan bem via flag
      * @return mixed
      */
-    public function getAbstainBemViaFlag()
+    public static function getAbstainBemViaFlag()
     {
-        return self::getYangBelumMemilihBemViaFlag()->where('login', true);
+        return self::getYangBelumMemilihBemViaFlag()->where('telah_login', true);
     }
 
     /**
      * mendapatkan mahasiswa yang abstain dalam pemilihan bem via relation
      * @return mixed
      */
-    public function getAbstainBemViaRelation()
+    public static function getAbstainBemViaRelation()
     {
-        return self::getYangBelumMemilihBemViaRelation()->where('login', true);
+        return self::getYangBelumMemilihBemViaRelation()->where('telah_login', true);
     }
 
     /**
@@ -521,9 +521,9 @@ class Mahasiswa extends Authenticatable
      * @param $jurusan_id
      * @return mixed
      */
-    public function getAbstainDpmViaFlag($jurusan_id)
+    public static function getAbstainDpmViaFlag($jurusan_id)
     {
-        return self::getYangBelumMemilihDpmViaFlag($jurusan_id)->where('login', true);
+        return self::getYangBelumMemilihDpmViaFlag($jurusan_id)->where('telah_login', true);
     }
 
     /**
@@ -531,9 +531,9 @@ class Mahasiswa extends Authenticatable
      * @param $jurusan_id
      * @return mixed
      */
-    public function getAbstainDpmViaRelation($jurusan_id)
+    public static function getAbstainDpmViaRelation($jurusan_id)
     {
-        return self::getYangBelumMemilihDpmViaRelation($jurusan_id)->where('login', true);
+        return self::getYangBelumMemilihDpmViaRelation($jurusan_id)->where('telah_login', true);
     }
 
     /**
@@ -541,9 +541,9 @@ class Mahasiswa extends Authenticatable
      * @param $jurusan_id
      * @return mixed
      */
-    public function getAbstainHmjViaFlag($jurusan_id)
+    public static function getAbstainHmjViaFlag($jurusan_id)
     {
-        return self::getYangBelumMemilihHmjViaFlag($jurusan_id)->where('login', true);
+        return self::getYangBelumMemilihHmjViaFlag($jurusan_id)->where('telah_login', true);
     }
 
     /**
@@ -551,8 +551,8 @@ class Mahasiswa extends Authenticatable
      * @param $jurusan_id
      * @return mixed
      */
-    public function getAbstainHmjViaRelation($jurusan_id)
+    public static function getAbstainHmjViaRelation($jurusan_id)
     {
-        return self::getYangBelumMemilihHmjViaRelation($jurusan_id)->where('login', true);
+        return self::getYangBelumMemilihHmjViaRelation($jurusan_id)->where('telah_login', true);
     }
 }
