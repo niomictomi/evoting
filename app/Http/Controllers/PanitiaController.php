@@ -363,7 +363,7 @@ class PanitiaController extends Controller
             }
             return back()->with('message', 'Silahkan Klik Tombol Print');
         } else {
-            return back()->with('message', 'Mahasiswa Berstatus Cuti / Non-aktir');
+            return back()->with('error', 'Mahasiswa Berstatus Cuti / Non-aktir');
         }
 
 
