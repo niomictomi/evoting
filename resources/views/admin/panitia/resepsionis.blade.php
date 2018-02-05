@@ -32,6 +32,8 @@
         </div>
         <div class="card-block">
             <center>
+                <p class="alert alert-warning">Apabila Terdapat Tombol <b><u>Generate Password</u></b> pada hasil pencarian maka mahasiswa tersebut berhak mendapatkan <b><u>Password Baru</u></b>
+                Apabila Mahasiswa tersebut <b>Meminta</b> Kepada PPUR</p>
                 <form action="{{route('cari')}}" method="get">
                     @if(\App\Pengaturan::isVotingSedangBerlangsung())
                         <div class="input-group col-6">
@@ -44,16 +46,7 @@
                         </span>
                         </div>
                     @elseif(\App\Pengaturan::isVotingAkanBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())
-                        <div class="input-group col-6">
-                            <input type="text" class="form-control boxed rounded-s"
-                                   placeholder="Pemira Belum Atau Telah Dilaksanakan"
-                                   name="id" disabled>
-                            <span class="input-group-btn">
-                            <button class="btn btn-danger rounded-s" type="submit" disabled>
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                        </div>
+                        <p class="alert alert-danger">Pemira Belum Atau Telah Dilaksanakan</p>
                     @endif
                 </form>
             </center>
@@ -87,7 +80,12 @@
                             @elseif ($result->login == 1 && $result->telah_login == 1)
                                 <button type="button" class="btn btn-primary btn-sm rounded">Aktif</button>
                             @elseif ($result->login == 1 && $result->telah_login == 0)
-                                <button type="button" class="btn btn-primary btn-sm rounded">Aktif</button>
+                                <form action="{{url('panitia/resepsionis/'.$result->id.'/update')}}" method="post">
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-primary btn-sm rounded">Generate Password
+                                    </button>
+                                    <input hidden="" value="1" name="login">
+                                </form>
 
                             @endif
                         </div>

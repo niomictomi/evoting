@@ -20,8 +20,9 @@
         window.open('https://www.codexworld.com', '_blank');</script>
 </head>
 <body onload="window.print();window.close()">
------ PEMIRA -----
- Fakultas Ekonomi
+
+----- PEMIRA Fakultas Ekonomi -----
+
 <p>Username : {{$mahasiswa->id}}</p>
 <p>Password : {{$pass}}</p>
 </body>
