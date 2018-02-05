@@ -24,10 +24,10 @@ class Jurusan extends Model
     }
 
     /**
-     * mendapatkan data mahasiswa dari jurusan tertentu
-     * @return mixed
+     * mendapatkan id mhs per jurusan
+     * @return array
      */
-    public function getMahasiswa()
+    public function getIdMahasiswa()
     {
         $id_mhs = Array();
         foreach ($this->getProdi()->get() as $prodi){
@@ -36,7 +36,16 @@ class Jurusan extends Model
             })));
         }
 
-        return Mahasiswa::whereIn('mahasiswa.id', $id_mhs);
+        return $id_mhs;
+    }
+
+    /**
+     * mendapatkan data mahasiswa dari jurusan tertentu
+     * @return mixed
+     */
+    public function getMahasiswa()
+    {
+        return Mahasiswa::whereIn('mahasiswa.id', $this->getIdMahasiswa());
     }
 
     /**

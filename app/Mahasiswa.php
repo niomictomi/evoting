@@ -555,4 +555,24 @@ class Mahasiswa extends Authenticatable
     {
         return self::getYangBelumMemilihHmjViaRelation($jurusan_id)->where('telah_login', true);
     }
+
+    /**
+     * mendapatkan mhs yang mager
+     * @param null $jurusan_id
+     * @return mixed
+     */
+    public static function getMager($jurusan_id = null)
+    {
+        $mager = Mahasiswa::where('login', false)->where('telah_login', false)
+            ->where('hmj', false)
+            ->where('dpm', false)
+            ->where('bem', false)
+            ->where('status', static::AKTIF);
+        if (is_null($jurusan_id)){
+            return $mager->get();
+        }
+
+        $jurusan = Jurusan::findOrFail($jurusan_id);
+        return $mager->whereIn('id', $jurusan->getIdMahasiswa())->get();
+    }
 }
