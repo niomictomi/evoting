@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Mahasiswa;
@@ -34,60 +33,57 @@ class MahasiswaController extends Controller
      */
     public function tambahDariFile(Request $request)
     {
-        $this->validate($request, [
-            'berkas' => 'required|file|mimes:csv,xls,xlsx'
-        ]);
+        // $this->validate($request, [
+        //     'berkas' => 'required|file|mimes:csv,xls,xlsx'
+        // ]);
 
-        $excel = App::make('excel');
-        $files = null;
-
-        try {
-            $files = $excel->load($request->file('berkas')->getRealPath())->get();
-        } catch(\Exception $e) {
-            return back()->with('error', 'Tidak dapat membaca file !');
-        }
+        $berkas = fopen($request->file('berkas')->getRealPath(), 'r');
 
         $jumlahDitambah = 0;
 
         $daftarJurusan = Jurusan::all()->pluck('nama')->toArray();
+        
+        while(!feof($berkas)) {
+            $line = fgetcsv($berkas, 0, ';');
 
-        foreach($files as $row) {
             // Mengecek apakah jurusan sudah ada di dalam array
             // jika tidak ada, maka ditambah ke database
             $jurusan = null;
-            if(Jurusan::where('nama', str_replace('Jurusan ', '', $row[$this->excelColumnName['jurusan']]))->count() == 0) {
+            if(Jurusan::where('nama', str_replace('Jurusan ', '', $line[4]))->count() == 0) {
                 $jurusan = Jurusan::create([
-                    'nama' => str_replace('Jurusan ', '', $row[$this->excelColumnName['jurusan']])
+                    'nama' => str_replace('Jurusan ', '', $line[4])
                 ]);
             }
             else {
-                $jurusan = Jurusan::where('nama', str_replace('Jurusan ', '', $row[$this->excelColumnName['jurusan']]))->first();
+                $jurusan = Jurusan::where('nama', str_replace('Jurusan ', '', $line[4]))->first();
             }
 
             $prodi = null;
-            if(Prodi::where('nama', $row[$this->excelColumnName['prodi']])->count() == 0) {
+            if(Prodi::where('nama', $line[3])->count() == 0) {
                 $prodi = Prodi::create([
-                    'nama' => $row[$this->excelColumnName['prodi']],
+                    'nama' => $line[3],
                     'jurusan_id' => $jurusan->id
                 ]);
             }
             else {
-                $prodi = Prodi::where('nama', $row[$this->excelColumnName['prodi']])->first();
+                $prodi = Prodi::where('nama', $line[3])->first();
             }
 
             try {
-                $mahasiswa = Mahasiswa::findOrFail($row[$this->excelColumnName['nim']]);
+                $mahasiswa = Mahasiswa::findOrFail($line[0]);
             }
             catch(ModelNotFoundException $e) {
                 Mahasiswa::create([
-                    'id' => $row[$this->excelColumnName['nim']],
-                    'nama' => $row[$this->excelColumnName['nama']],
-                    'status' => $row[$this->excelColumnName['status']],
+                    'id' => $line[0],
+                    'nama' => $line[1],
+                    'status' => $line[2],
                     'prodi_id' => $prodi->id,
                 ]);
                 $jumlahDitambah++;
             }
         }
+
+        fclose($berkas);
 
         if($jumlahDitambah > 0)
             return back()->with('success', 'Berhasil menambah ' . $jumlahDitambah . ' data !');
