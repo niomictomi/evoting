@@ -15,12 +15,12 @@ class PengaturanSeeder extends Seeder
     {
         Pengaturan::create([
             'key' => 'mulai',
-            'value' => Carbon::today()->addHours(7)->toDateTimeString()
+            'value' => Carbon::today()->addWeeks(2)->addHours(7)->toDateTimeString()
         ]);
 
         Pengaturan::create([
             'key' => 'selesai',
-            'value' => Carbon::today()->addHours(16)->toDateTimeString()
+            'value' => Carbon::today()->addWeeks(2)->addHours(16)->toDateTimeString()
         ]);
 
         Pengaturan::create([
