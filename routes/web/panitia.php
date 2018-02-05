@@ -40,7 +40,7 @@ Route::group(['prefix' => 'panitia'], function() {
 
     Route::get('paslon/{id}/bem/update', 'PanitiaController@paslonbemedit');
 
-
+    Route::get('print/{id}', 'PanitiaController@printnim')->name('print.nim');
 
     //Route::resource('resepsionis', 'PanitiaController');
 

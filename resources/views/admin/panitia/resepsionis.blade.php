@@ -43,9 +43,10 @@
                             </button>
                         </span>
                         </div>
-                        @elseif(\App\Pengaturan::isVotingAkanBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())
+                    @elseif(\App\Pengaturan::isVotingAkanBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())
                         <div class="input-group col-6">
-                            <input type="text" class="form-control boxed rounded-s" placeholder="Pemira Belum Atau Telah Dilaksanakan"
+                            <input type="text" class="form-control boxed rounded-s"
+                                   placeholder="Pemira Belum Atau Telah Dilaksanakan"
                                    name="id" disabled>
                             <span class="input-group-btn">
                             <button class="btn btn-danger rounded-s" type="submit" disabled>
@@ -79,7 +80,7 @@
                                     {{ csrf_field() }}
                                     <button type="submit" class="btn btn-danger btn-sm rounded">Belum Aktif
                                     </button>
-                                    <input hidden="" value="1" name="login">'.
+                                    <input hidden="" value="1" name="login">
                                 </form>
                             @elseif($result->login == 0 && $result->telah_login == 1)
                                 <button type="button" class="btn btn-primary btn-sm rounded">Telah Login</button>
@@ -104,10 +105,14 @@
             swal({
                 title: "Berhasil !",
                 icon: "success",
-                text: "{{ session()->get('message') }}"
+                text: "{{ session()->get('message') }}",
+                button: "Print"
+            }).then(function () {
+                // Redirect the user
+                window.open('{{url('panitia/print/'.$result->id)}}', '_blank');
             });
         </script>
-
+session()->get('id')
     @endif
     @if(session()->has('error'))
         <script>

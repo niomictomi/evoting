@@ -322,12 +322,10 @@ class PanitiaController extends Controller
             'login' => 'required',
         ]);
         $mahasiswa = Mahasiswa::find($request->id);
-        $pass = random_int(10000,99999);
-        $password = bcrypt($pass);
         if ($mahasiswa->status == 'A') {
             $mahasiswa->update([
                 'login' => $request->login,
-                'password' =>$password,
+                //'password' =>$password,
             ]);
 
             // set printer
@@ -363,12 +361,24 @@ class PanitiaController extends Controller
             } catch (\Exception $e) {
                 echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
             }
-            return back()->with('message', 'Username : ' . $mahasiswa->id . ' Password : '.$pass);
+            return back()->with('message', 'Silahkan Klik Tombol Print');
         } else {
             return back()->with('message', 'Mahasiswa Berstatus Cuti / Non-aktir');
         }
 
 
+    }
+
+    public function printnim(Request $request)
+    {
+        $pass = random_int(10000,99999);
+        $password = bcrypt($pass);
+        $mahasiswa = Mahasiswa::find($request->id);
+        $mahasiswa->update([
+            'password' =>$password,
+        ]);
+
+        return view('admin.panitia.print',compact('pass','mahasiswa'));
     }
 
 }
