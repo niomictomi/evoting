@@ -19,8 +19,6 @@
                                 aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> Tambah Paslon
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{route('form.hmj')}}">HMJ</a>
-                            <a class="dropdown-item" href="{{route('form.dpm')}}">DPM</a>
                             <a class="dropdown-item" href="{{route('form.bem')}}">BEMF</a>
                         </div>
                         @elseif(\App\Pengaturan::isVotingSedangBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())

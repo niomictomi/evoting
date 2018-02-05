@@ -20,19 +20,7 @@
                         </div>
                         <div class="card-block">
                             <div class="row form-group">
-                                <div class="col-3 form-group">
-                                    <div class="images-container">
-                                        <a href="#" class="add-image" data-toggle="modal"
-                                           data-target="#modal-media">
-                                            <div class="image-container new">
-                                                <div class="image">
-                                                    <i class="fa fa-plus"></i>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-9">
+                                <div class="col-12">
                                     <label class="control-label">NIM Calon Ketua Ketua</label>
                                     <input type="text" class="form-control underlined" name="ketua_id" maxlength="11" required>
                                     <input type="file" class="form-control underlined" name="dir" required>
