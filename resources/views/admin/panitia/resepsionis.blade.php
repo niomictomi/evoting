@@ -78,7 +78,7 @@
                             @elseif($result->login == 0 && $result->telah_login == 1)
                                 <button type="button" class="btn btn-primary btn-sm rounded">Telah Login</button>
                             @elseif ($result->login == 1 && $result->telah_login == 1)
-                                <button type="button" class="btn btn-primary btn-sm rounded">Aktif</button>
+                                <button type="button" class="btn btn-primary btn-sm rounded">Telah Login</button>
                             @elseif ($result->login == 1 && $result->telah_login == 0)
                                 <form action="{{url('panitia/resepsionis/'.$result->id.'/update')}}" method="post">
                                     {{ csrf_field() }}
