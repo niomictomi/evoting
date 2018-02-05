@@ -32,10 +32,10 @@
         </div>
         <div class="card-block">
             <center>
-                <p class="alert alert-warning">Apabila Terdapat Tombol <b><u>Generate Password</u></b> pada hasil pencarian maka mahasiswa tersebut berhak mendapatkan <b><u>Password Baru</u></b>
-                Apabila Mahasiswa tersebut <b>Meminta</b> Kepada PPUR</p>
                 <form action="{{route('cari')}}" method="get">
                     @if(\App\Pengaturan::isVotingSedangBerlangsung())
+                        <p class="alert alert-warning">Apabila Terdapat Tombol <b><u>Generate Password</u></b> pada hasil pencarian maka mahasiswa tersebut berhak mendapatkan <b><u>Password Baru</u></b>
+                            Apabila Mahasiswa tersebut <b>Meminta</b> Kepada PPUR</p>
                         <div class="input-group col-6">
                             <input type="text" class="form-control boxed rounded-s" placeholder="NIM Mahasiswa..."
                                    name="id">
