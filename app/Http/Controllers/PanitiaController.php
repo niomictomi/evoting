@@ -88,7 +88,6 @@ class PanitiaController extends Controller
             'wakil_id' => 'required',
             'visi' => 'required',
             'misi' => 'required',
-            'dir' => 'required',
         ]);
 
         if ($request->hasFile('dir')) {
@@ -199,7 +198,7 @@ class PanitiaController extends Controller
             $dir = $fillnames2;
 
         }
-        return redirect('panitia/paslon')->with('message', 'Paslon Berhasil Ditambahkan');
+        return redirect('panitia/paslon/dpm')->with('message', 'Paslon Berhasil Ditambahkan');
     }
 
     public function formbem()
@@ -238,7 +237,7 @@ class PanitiaController extends Controller
 
         }
 
-        return redirect('panitia/paslon')->with('message', 'Paslon Berhasil Ditambahkan');
+        return redirect('panitia/paslon/bem')->with('message', 'Paslon Berhasil Ditambahkan');
     }
 
     public function api()

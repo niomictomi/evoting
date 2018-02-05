@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mahasiswa;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,9 +21,25 @@ class Wd3dosenController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.wd3dosen.dashboard');
+        if (!in_array($request->tipe, ['bem', 'dpm', 'hmj']))
+            if (!in_array($request->hasil, ['bem', 'dpm', 'hmj']))
+                $request->tipe = 'bem';
+        $request->hasil = 'bem';
+        $mhs = Mahasiswa::all();
+        $mhs_aktif = Mahasiswa::getByStatus();
+        $mhs_cuti = Mahasiswa::getByStatus([Mahasiswa::CUTI]);
+        $mhs_nonaktif = Mahasiswa::getByStatus([Mahasiswa::NONAKTIF]);
+        return view('admin.wd3dosen.dashboard', [
+            'mhs' => $mhs->count(),
+            'mhsaktif' => $mhs_aktif->count(),
+            'mhscuti' => $mhs_cuti->count(),
+            'mhsnonaktif' => $mhs_nonaktif->count(),
+            'tipe' => $request->tipe,
+            'hasil' => $request->hasil
+        ]);
+
     }
 
     public function buka()
