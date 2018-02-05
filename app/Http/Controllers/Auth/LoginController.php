@@ -37,7 +37,7 @@ class LoginController extends Controller
         $request->remember = (is_null($request->remember)) ? false : $request->remember;
 
         try {
-            $user = User::find($request->id);
+            $user = User::findOrFail($request->id);
 
             if(!Hash::check($request->password, $user->password)) {
                 return back()->with([
