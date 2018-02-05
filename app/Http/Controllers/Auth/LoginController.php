@@ -35,25 +35,72 @@ class LoginController extends Controller
         ]);
 
         $request->remember = (is_null($request->remember)) ? false : $request->remember;
-        if (Auth::attempt(['id' => $request->id, 'password' => $request->password], $request->remember)){
-            if (Auth::user()->isRoot()){
+
+        try {
+            $user = User::find($request->id);
+
+            if(!Hash::check($request->password, $user->password)) {
+                return back()->with([
+                    'error' => 'NIM/NIP atau kata sandi salah'
+                ]);
+            }
+
+            // mengecek apakah user sudah pernah login
+            // mencegah satu akun di buka pada pc atau laptop lain
+            if($this->userActive($user)) {
+                return back()->with([
+                    'error' => 'Akun ini telah masuk pada perangkat lain'
+                ]);
+            }
+
+            Auth::login($user);
+            Auth::user()->update([
+                'last_active' => Carbon::now()
+            ]);;
+
+            if (Auth::user()->isRoot()) {
                 return redirect()->route('root.dashboard');
             }
-            if (Auth::user()->isAdmin()){
+            if (Auth::user()->isAdmin()) {
                 return redirect()->route('admin.dashboard', ['tipe' => 'bem']);
             }
-            if (Auth::user()->isDosen() || Auth::user()->isWD3()){
+            if (Auth::user()->isDosen() || Auth::user()->isWD3()) {
                 return redirect()->route('dosen.dashboard');
             }
-            if (Auth::user()->isKetuaKPU()){
+            if (Auth::user()->isKetuaKPU()) {
                 return redirect()->route('kakpu.dashboard');
             }
-            if (Auth::user()->isPanitia()){
+            if (Auth::user()->isPanitia()) {
                 return redirect()->route('panitia.dashboard');
             }
+
+        }
+        catch (ModelNotFoundException $e) {
+            return back()->with([
+                'error' => 'NIM/NIP atau kata sandi salah'
+            ]);
+        }
+    }
+
+    /**
+     * Mengecek apakah user sedang aktif
+     * Hal ini mencegah satu akun dibuka pada device yang berbeda
+     *
+     * @param User $user
+     * @return bool
+     */
+    protected function userActive(User $user)
+    {
+        if(is_null($user->last_active))
+            return false;
+        else {
+            // jika last active null, maka dicek jarak
+            // perbedaan waktunya
+            if(Carbon::now()->diffInHours(Carbon::parse($user->last_active)) < 1440)
+                return true;
         }
 
-        return back()->with('error', 'NIP/NIM atau password salah!');
+        return true;
     }
 
     /**
@@ -128,6 +175,10 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         if(Auth::guard('web')->check()) {
+            Auth::user()->update([
+                'last_active' => null
+            ]);
+
             Auth::logout();
             return redirect()->route('admin.login.form');
         }
