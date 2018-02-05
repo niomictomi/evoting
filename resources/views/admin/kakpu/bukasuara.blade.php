@@ -4,54 +4,54 @@
 
 @section('content')
     @if(!\App\Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu())
-    <div class="row">
-        @foreach($users as $user)
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="header-block">
-                            <h3 class="title">{{ $user->nama }}</h3>
-                        </div>
-                        <div class="header-block pull-right">
-                            <h3 class="title">{{ strtoupper($user->role) }}</h3>
-                        </div>
-                    </div>
-
-                    <div class="card-block">
-                        @if($user->helper == null || $user->helper == '')
-                            <input name="id" value="{{ $user->id }}" type="hidden" disabled>
-                            <div class="form-group">
-                                <label class="control-label">Password</label>
-                                <input type="password" placeholder="{{$user->name}} Belum Mengeset Password"
-                                       name="password" class="form-control" disabled>
+        <div class="row">
+            @foreach($users as $user)
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="header-block">
+                                <h3 class="title">{{ $user->nama }}</h3>
                             </div>
-                            <input type="submit" value="Kirim" class="btn btn-info" disabled>
-                        @else
-                            @if($user->helper == 'secret')
+                            <div class="header-block pull-right">
+                                <h3 class="title">{{ strtoupper($user->role) }}</h3>
+                            </div>
+                        </div>
+
+                        <div class="card-block">
+                            @if($user->helper == null || $user->helper == '')
+                                <input name="id" value="{{ $user->id }}" type="hidden" disabled>
                                 <div class="form-group">
                                     <label class="control-label">Password</label>
-                                    <div class="alert alert-info">
-                                        Password dari {{ strtoupper($user->role) }} telah dikonfirmasi
-                                    </div>
+                                    <input type="password" placeholder="{{$user->name}} Belum Mengeset Password"
+                                           name="password" class="form-control" disabled>
                                 </div>
+                                <input type="submit" value="Kirim" class="btn btn-info" disabled>
                             @else
-                                <form action="{{ route('kakpu.simpan') }}" method="post">
-                                    {{ csrf_field() }}
-                                    <input name="id" value="{{ $user->id }}" type="hidden">
+                                @if($user->helper == 'secret')
                                     <div class="form-group">
                                         <label class="control-label">Password</label>
-                                        <input type="password" name="password" class="form-control">
+                                        <div class="alert alert-info">
+                                            Password dari {{ strtoupper($user->role) }} telah dikonfirmasi
+                                        </div>
                                     </div>
-                                    <input type="submit" value="Kirim" class="btn btn-info">
-                                </form>
+                                @else
+                                    <form action="{{ route('kakpu.simpan') }}" method="post">
+                                        {{ csrf_field() }}
+                                        <input name="id" value="{{ $user->id }}" type="hidden">
+                                        <div class="form-group">
+                                            <label class="control-label">Password</label>
+                                            <input type="password" name="password" class="form-control">
+                                        </div>
+                                        <input type="submit" value="Kirim" class="btn btn-info">
+                                    </form>
+                                @endif
                             @endif
-                        @endif
-                    </div>
+                        </div>
 
+                    </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
+            @endforeach
+        </div>
     @else
         <div class="row">
             <div class="col-md-12">
@@ -94,6 +94,13 @@
                                                 'data' => collect(\App\CalonBEM::getHasilUntukDiagram()),
                                                 'id' => 'hasilbem'
                                             ])
+                                            @include('charts.pie', [
+                                                'data' => Chart::parse([
+                                                'Hasil' => collect(\App\CalonBEM::getHasilUntukDiagram())->count(),
+                                                'abstain' => \App\Mahasiswa::getAbstainBemViaRelation()->count()
+                                                    ]),
+                                                'id' => 'qwerty'
+                                                ])
                                         </div>
                                     </div>
                                 @elseif($hasil == 'dpm')
@@ -101,7 +108,8 @@
                                         <div class="card">
                                             <div class="card-header">
                                                 <div class="header-block">
-                                                    <h3 class="title">Hasil Perhitungan Suara Pemilihan jurusan {{ $jurusan->nama }}</h3>
+                                                    <h3 class="title">Hasil Perhitungan Suara Pemilihan
+                                                        jurusan {{ $jurusan->nama }}</h3>
                                                 </div>
                                             </div>
                                             <div class="card-block">
@@ -117,7 +125,8 @@
                                         <div class="card">
                                             <div class="card-header">
                                                 <div class="header-block">
-                                                    <h3 class="title">Hasil Perhitungan Suara Pemilihan jurusan {{ $jurusan->nama }}</h3>
+                                                    <h3 class="title">Hasil Perhitungan Suara Pemilihan
+                                                        jurusan {{ $jurusan->nama }}</h3>
                                                 </div>
                                             </div>
                                             <div class="card-block">
