@@ -52,3 +52,15 @@
     </form>
 
 @endsection
+@push('js')
+    @if(session()->has('error'))
+        <script>
+            swal({
+                title: "Oops !",
+                icon: "error",
+                text: "{{ session()->get('error') }}"
+            });
+        </script>
+
+    @endif
+@endpush
