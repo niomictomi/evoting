@@ -30,6 +30,7 @@ class MahasiswaTable extends Migration
             $table->boolean('hmj')->default(false);
             $table->boolean('dpm')->default(false);
             $table->boolean('bem')->default(false);
+            $table->timestamp('last_login')->nullable();
             $table->text('password')->nullable();
         });
     }
