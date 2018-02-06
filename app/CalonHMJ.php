@@ -148,6 +148,8 @@ class CalonHMJ extends Model
             $data['Nomor Paslon ' . $calon->nomor] = $calon->getPemilih()->count();
         }
 
+        $data['Abstain'] = Mahasiswa::getAbstainHmjViaRelation($jurusan_id)->count();
+
         return $data;
     }
 
