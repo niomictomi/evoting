@@ -100,6 +100,7 @@
                                     - {{ strtoupper($user->helper) }}
                                 @endif
                             </td>
+                            @if($user->role != \App\Support\Role::WD3 && $user->role != \App\Support\Role::DOSEN)
                             <td>
                                 <form id="hapus-{{ $user->id }}" action="{{ route('admin.hapus.panitia') }}" method="post">
                                     {{ csrf_field() }}
@@ -144,34 +145,11 @@
                                             </fieldset>
                                             <fieldset class="form-group">
                                                 <label class="control-label">Hak Akses</label>
-                                                <select name="role" class="form-control underlined" required>
-                                                    @if($user->role == \App\Support\Role::PANITIA)
-                                                        <option value="{{ $userrole = $user->role.';'.$user->helper }}">
-                                                            {{ strtoupper($user->role.' - '.$user->helper) }}
-                                                        </option>
-                                                    @else
-                                                        <option value="{{ $userrole = $user->role }}">
-                                                            {{ strtoupper($user->role) }}
-                                                        </option>
-                                                    @endif
-                                                    @foreach(\App\Support\Role::ALL as $role)
-                                                        @if($role == \App\Support\Role::PANITIA)
-                                                            @foreach(\App\Support\Role::PANITIA_ALL as $p)
-                                                                @if($userrole != $role.';'.$p)
-                                                                    <option value="{{ $role.';'.$p }}">
-                                                                        {{ strtoupper($role.' - '.$p) }}
-                                                                    </option>
-                                                                @endif
-                                                            @endforeach
-                                                        @elseif($role != \App\Support\Role::ADMIN && $role != \App\Support\Role::ROOT)
-                                                            @if($userrole != $role)
-                                                                <option value="{{ $role }}">
-                                                                    {{ strtoupper($role) }}
-                                                                </option>
-                                                            @endif
-                                                        @endif
-                                                    @endforeach
-                                                </select>
+                                                @if($user->role == \App\Support\Role::PANITIA)
+                                                    {{ strtoupper($user->role.' - '.$user->helper) }}
+                                                @else
+                                                    {{ strtoupper($user->role) }}
+                                                @endif
                                             </fieldset>
                                             <fieldset class="form-group">
                                                 <label class="control-label">Password (kosongi jika password tidak diubah)</label>
@@ -183,6 +161,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>
