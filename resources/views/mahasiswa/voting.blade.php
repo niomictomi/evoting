@@ -117,7 +117,7 @@
             voted: {{ Auth::guard('mhs')->user()->telahMemilihHmj() ? 'true' : 'false' }},
             colClass: 'card col-sm card-calon'
         },
-        mounted() {
+        created() {
             if(this.daftarPaslon.length == 1) {
                 this.colClass = 'card col-lg-3 card-calon'
             }
