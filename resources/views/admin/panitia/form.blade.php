@@ -22,10 +22,12 @@
                             <div class="row form-group">
                                 <div class="col-12">
                                     <label class="control-label">NIM Calon Ketua Ketua</label>
-                                    <input type="text" class="form-control underlined" name="ketua_id" maxlength="11" required>
+                                    <input type="text" class="form-control underlined" name="ketua_id" maxlength="11"
+                                           required>
                                     <input type="file" class="form-control underlined" name="dir" required>
                                     <label class="control-label">NIM Calon Ketua Wakil Ketua</label>
-                                    <input type="text" class="form-control underlined" name="wakil_id" maxlength="11" required>
+                                    <input type="text" class="form-control underlined" name="wakil_id" maxlength="11"
+                                           required>
                                 </div>
                             </div>
                         </div>
@@ -53,3 +55,15 @@
     </form>
 
 @endsection
+@push('js')
+    @if(session()->has('error'))
+        <script>
+            swal({
+                title: "Oops !",
+                icon: "error",
+                text: "{{ session()->get('error') }}"
+            });
+        </script>
+
+    @endif
+@endpush

@@ -79,7 +79,11 @@
                                                         data-target="#edit-{{ $dpm->id }}">Edit
                                                 </button>
                                             </a>
-                                            <a><button class="btn btn-danger btn-sm btn-pill-right">Hapus</button></a>
+                                            <form action="{{ route('paslon.delete.dpm') }}" method="post">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="id" value="{{ $dpm->id }}">
+                                                <button type="submit" class="btn btn-danger btn-sm btn-pill-right">Hapus</button>
+                                            </form>
                                         </div>
 
                                         @elseif(\App\Pengaturan::isVotingSedangBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())

@@ -96,7 +96,7 @@ class LoginController extends Controller
         else {
             // jika last active null, maka dicek jarak
             // perbedaan waktunya
-            if(Carbon::now()->diffInHours(Carbon::parse($user->last_active)) < 1440)
+            if(Carbon::now()->diffInHours(Carbon::parse($user->last_active)) < 24)
                 return true;
         }
 

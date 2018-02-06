@@ -78,7 +78,11 @@
                                                         data-target="#edit-{{ $bem->id }}">Edit
                                                 </button>
                                             </a>
-                                            <a><button class="btn btn-danger btn-sm btn-pill-right">Hapus</button></a>
+                                            <form action="{{ route('paslon.delete.bem') }}" method="post">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="id" value="{{ $bem->id }}">
+                                                <button type="submit" class="btn btn-danger btn-sm btn-pill-right">Hapus</button>
+                                            </form>
                                         </div>
                                         @elseif(\App\Pengaturan::isVotingSedangBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())
                                             <button class="btn btn-primary btn-sm rounded" data-toggle="modal">Pemira Sedang Berlangsung

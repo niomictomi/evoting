@@ -14,9 +14,15 @@ Route::group(['prefix' => 'panitia'], function() {
 
     Route::get('paslon', 'PanitiaController@paslon')->name('panitia.paslon');
 
+    Route::post('paslon/delete', 'PanitiaController@hmjdelete')->name('paslon.delete');
+
     Route::get('paslon/dpm', 'PanitiaController@paslondpm')->name('panitia.paslon.dpm');
 
+    Route::post('paslon/dpm/delete', 'PanitiaController@dpmdelete')->name('paslon.delete.dpm');
+
     Route::get('paslon/bem', 'PanitiaController@paslonbemf')->name('panitia.paslon.bem');
+
+    Route::post('paslon/bem/delete', 'PanitiaController@bemdelete')->name('paslon.delete.bem');
 
     Route::get('paslon/form/hmj', 'PanitiaController@formhmj')->name('form.hmj');
 
