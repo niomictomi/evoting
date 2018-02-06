@@ -2,6 +2,10 @@
 
 @section('activity','Buka Kotak Suara')
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/bukasuara.css') }}">
+@endpush
+
 @section('content')
     @if(!\App\Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu())
         <div class="row">
@@ -66,7 +70,7 @@
                             </div>
                         @elseif(\App\Pengaturan::isVotingTelahBerlangsung())
                             @if(\App\Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu())
-                                <div class="header-block pull-right">
+                                <div class="header-block">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -83,60 +87,11 @@
                                     </div>
                                 </div>
                                 @if($hasil == 'bem')
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="header-block">
-                                                <h3 class="title">Hasil Perhitungan Suara Pemilihan BEM</h3>
-                                            </div>
-                                        </div>
-                                        <div class="card-block">
-                                            @include('charts.bar', [
-                                                'data' => collect(\App\CalonBEM::getHasilUntukDiagram()),
-                                                'id' => 'hasilbem'
-                                            ])
-                                            @include('charts.pie', [
-                                                'data' => Chart::parse([
-                                                'Hasil' => collect(\App\CalonBEM::getHasilUntukDiagram())->count(),
-                                                'abstain' => \App\Mahasiswa::getAbstainBemViaRelation()->count()
-                                                    ]),
-                                                'id' => 'qwerty'
-                                                ])
-                                        </div>
-                                    </div>
+                                    @include('admin.kakpu.include.bem')
                                 @elseif($hasil == 'dpm')
-                                    @foreach(\App\Jurusan::all() as $jurusan)
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <div class="header-block">
-                                                    <h3 class="title">Hasil Perhitungan Suara Pemilihan
-                                                        jurusan {{ $jurusan->nama }}</h3>
-                                                </div>
-                                            </div>
-                                            <div class="card-block">
-                                                @include('charts.bar', [
-                                                    'data' => collect(\App\CalonDPM::getHasilUntukDiagram($jurusan->id)),
-                                                    'id' => 'hasildpm_'.$jurusan->id
-                                                ])
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                    @include('admin.kakpu.include.dpm')
                                 @elseif($hasil == 'hmj')
-                                    @foreach(\App\Jurusan::all() as $jurusan)
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <div class="header-block">
-                                                    <h3 class="title">Hasil Perhitungan Suara Pemilihan
-                                                        jurusan {{ $jurusan->nama }}</h3>
-                                                </div>
-                                            </div>
-                                            <div class="card-block">
-                                                @include('charts.bar', [
-                                                    'data' => collect(\App\CalonHMJ::getHasilUntukDiagram($jurusan->id)),
-                                                    'id' => 'hasilhmj_'.$jurusan->id
-                                                ])
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                    @include('admin.kakpu.include.hmj')
                                 @endif
 
 

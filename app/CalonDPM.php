@@ -139,6 +139,8 @@ class CalonDPM extends Model
             $data['Nomor Paslon ' . $calon->nomor] = $calon->getPemilih()->count();
         }
 
+        $data['Abstain'] = Mahasiswa::getAbstainDpmViaRelation($jurusan_id)->count();
+
         return $data;
     }
 

@@ -16,6 +16,7 @@
     <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/dataTables.responsive.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/tempusdominus-bootstrap-4.css') }}" rel="stylesheet">
+    @stack('css')
 
     @if(Auth::guard('mhs')->check())
         <style>

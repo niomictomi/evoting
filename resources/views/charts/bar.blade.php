@@ -1,5 +1,5 @@
 <div id="bar_{{ $id }}">
-    <column-chart :data="arr" :colors="['#b00']" xtitle="Waktu" ytitle="Jumlah Pemilih"></column-chart>
+    <column-chart :data="arr" :colors="['#52BCD3']" ytitle="Jumlah Pemilih"></column-chart>
 </div>
 
 @push('js')
