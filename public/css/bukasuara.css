@@ -1,0 +1,57 @@
+.hasil {
+  margin-top: 20px;
+}
+
+.hasil .col {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding: 15px;
+  text-align: center;
+}
+
+.hasil .col:first-child {
+  border-radius: 5px 0 0 5px;
+  border-left: 1px solid #ddd;
+}
+
+.hasil .col:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
+.hasil .col h5 {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.hasil .col h5 span {
+  font-weight: normal;
+  font-size: 14px;
+  display: block;
+}
+
+.card {
+  padding: 0;
+}
+
+.card-block {
+  padding: 20px;
+}
+
+.card-block .row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.title-divider {
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  background-color: #52BCD3;
+  display: block;
+  color: #fff;
+}
+
