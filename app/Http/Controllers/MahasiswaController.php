@@ -25,7 +25,7 @@ class MahasiswaController extends Controller
         $this->middleware('hakakses:root')->only('tambahDariFile');
         $this->middleware('ajax')->only('daftar');
     }
-
+   // 38941
     /**
      * Menambah mahasiswa baru dari file excel atau csv
      * nama route : root.tambah.mahasiswa
@@ -33,9 +33,9 @@ class MahasiswaController extends Controller
      */
     public function tambahDariFile(Request $request)
     {
-        // $this->validate($request, [
-        //     'berkas' => 'required|file|mimes:csv,xls,xlsx'
-        // ]);
+        $this->validate($request, [
+            'berkas' => 'required|file'
+        ]);
 
         $berkas = fopen($request->file('berkas')->getRealPath(), 'r');
 
