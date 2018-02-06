@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container-fluid">
 
     <div class="card" id="card-vote">
 
@@ -18,13 +18,13 @@
                     </div>
                     <!-- Nav tabs -->
                     <ul class="nav nav-pills">
-                        <li class="nav-item">
+                        <li class="nav-item" style="cursor: pointer">
                             <a class="nav-link nav-hmj active" data-target="#daftar-calon-hmj" aria-controls="home-pills" data-toggle="tab" role="tab">Hima <span class="desc">{{ $calonHMJ->count() }} calon</span></a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" style="cursor: pointer">
                             <a class="nav-link nav-dpm" data-target="#daftar-calon-dpm" aria-controls="messages-pills" data-toggle="tab" role="tab">DPM <span class="desc">{{ $calonDPM->count() }} calon</span></a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" style="cursor: pointer">
                             <a class="nav-link nav-bem" data-target="#daftar-calon-bem" aria-controls="profile-pills" data-toggle="tab" role="tab">BEM <span class="desc">{{ $calonBEM->count() }} calon</span></a>
                         </li>
                     </ul>
@@ -45,7 +45,7 @@
                         <div v-if="voted" class="mask">
                             <h4>Anda telah melakukan pemilihan calon ketua dan wakil ketua HMJ</h4>
                         </div>
-                        <div :class="{row: true, blur: voted}">
+                        <div :class="{row: true, blur: voted}" style="justify-content: center">
                             <card-paslon 
                             v-for="paslon in daftarPaslon" 
                             :key="paslon.id"
@@ -82,7 +82,7 @@
                         <div v-if="voted" class="mask">
                             <h4>Anda telah melakukan pemilihan calon ketua dan wakil ketua BEM</h4>
                         </div>
-                        <div :class="{row: true, blur: voted}">
+                        <div :class="{row: true, blur: voted}" style="justify-content: center">
                             <card-paslon 
                             v-for="paslon in daftarPaslon" 
                             :key="paslon.id" 
@@ -114,7 +114,16 @@
         data: {
             daftarPaslon: {!! $calonHMJ !!},
             href: '{{ route('mahasiswa.vote.hmj') }}',
-            voted: {{ Auth::guard('mhs')->user()->telahMemilihHmj() ? 'true' : 'false' }}
+            voted: {{ Auth::guard('mhs')->user()->telahMemilihHmj() ? 'true' : 'false' }},
+            colClass: 'card col-sm card-calon'
+        },
+        mounted() {
+            if(this.daftarPaslon.length == 1) {
+                this.colClass = 'card col-lg-3 card-calon'
+            }
+            else if(this.daftarPaslon.length == 2) {
+                this.colClass = 'card col-lg-4 card-calon'
+            }
         }
     })
     
@@ -123,7 +132,16 @@
         data: {
             daftarPaslon: {!! $calonBEM !!},
             href: '{{ route('mahasiswa.vote.bem') }}',
-            voted: {{ Auth::guard('mhs')->user()->telahMemilihBem() ? 'true' : 'false' }}
+            voted: {{ Auth::guard('mhs')->user()->telahMemilihBem() ? 'true' : 'false' }},
+            colClass: 'card col-sm card-calon'
+        },
+        created() {
+            if(this.daftarPaslon.length == 1) {
+                this.colClass = 'card col-lg-3 card-calon'
+            }
+            else if(this.daftarPaslon.length == 2) {
+                this.colClass = 'card col-lg-4 card-calon'
+            }
         }
     })
     
@@ -132,7 +150,8 @@
         data: {
             daftarPaslon: {!! $calonDPM !!},
             href: '{{ route('mahasiswa.vote.dpm') }}',
-            voted: {{ Auth::guard('mhs')->user()->telahMemilihDpm() ? 'true' : 'false' }}
+            voted: {{ Auth::guard('mhs')->user()->telahMemilihDpm() ? 'true' : 'false' }},
+            colClass: ''
         }
     })
     
@@ -156,7 +175,7 @@
                 })
                 setTimeout(function () {
                     $('#keluar').submit()
-                }, 1500)
+                }, 1000)
             }
         }
     })
