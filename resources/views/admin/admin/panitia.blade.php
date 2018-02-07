@@ -145,11 +145,13 @@
                                             </fieldset>
                                             <fieldset class="form-group">
                                                 <label class="control-label">Hak Akses</label>
-                                                @if($user->role == \App\Support\Role::PANITIA)
-                                                    {{ strtoupper($user->role.' - '.$user->helper) }}
-                                                @else
-                                                    {{ strtoupper($user->role) }}
-                                                @endif
+                                                <p>
+                                                    @if($user->role == \App\Support\Role::PANITIA)
+                                                        {{ strtoupper($user->role.' - '.$user->helper) }}
+                                                    @else
+                                                        {{ strtoupper($user->role) }}
+                                                    @endif
+                                                </p>
                                             </fieldset>
                                             <fieldset class="form-group">
                                                 <label class="control-label">Password (kosongi jika password tidak diubah)</label>
@@ -169,3 +171,21 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        @if($errors->any())
+            swal({
+                icon: "error",
+                text: "{!! implode('\n', $errors->all()) !!}",
+                html: true
+            });
+        @endif
+        @if(session()->has('message'))
+            swal({
+                icon: "success",
+                title: "{{ session()->get('message') }}"
+            });
+        @endif
+    </script>
+@endpush
