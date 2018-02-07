@@ -191,3 +191,21 @@
     {{--])--}}
     {{----}}
 @endsection
+
+@push('js')
+    <script>
+        @if($errors->any())
+            swal({
+                icon: "error",
+                text: "{!! implode('\n', $errors->all()) !!}",
+                html: true
+            });
+        @endif
+        @if(session()->has('message'))
+            swal({
+                icon: "success",
+                title: "{{ session()->get('message') }}"
+            });
+        @endif
+    </script>
+@endpush
