@@ -32,7 +32,9 @@ export default {
                 method: 'post',
                 data: 'terpilih=' + that.id,
                 success: function (response) {
-                    dpm.voted = true
+                    if(!response.error)
+                        dpm.voted = true
+                        
                     // menampilkan pesan
                     swal({
                         title: response.error ? 'Gagal !' : 'Berhasil !',

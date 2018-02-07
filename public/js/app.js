@@ -43749,7 +43749,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 method: 'post',
                 data: 'terpilih=' + that.id,
                 success: function success(response) {
-                    if (that.jenis == 'bem') bem.voted = true;else if (that.jenis == 'hmj') hmj.voted = true;
+                    if (!response.error) {
+                        if (that.jenis == 'bem') bem.voted = true;else if (that.jenis == 'hmj') hmj.voted = true;
+                    }
                     // menampilkan pesan
                     swal({
                         title: response.error ? 'Gagal !' : 'Berhasil !',
@@ -43929,7 +43931,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 method: 'post',
                 data: 'terpilih=' + that.id,
                 success: function success(response) {
-                    dpm.voted = true;
+                    if (!response.error) dpm.voted = true;
+
                     // menampilkan pesan
                     swal({
                         title: response.error ? 'Gagal !' : 'Berhasil !',
@@ -44122,7 +44125,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             queueWaktu: this.waktu,
             datawaktu: Math.trunc(Date.parse(this.waktu[0]) / 1000),
-            now: Math.trunc(new Date().getTime() / 1000)
+            now: Math.trunc(Date.parse(this.$root.now) / 1000)
         };
     },
     mounted: function mounted() {

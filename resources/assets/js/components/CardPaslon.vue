@@ -44,10 +44,12 @@ export default {
                 method: 'post',
                 data: 'terpilih=' + that.id,
                 success: function (response) {
-                    if(that.jenis == 'bem')
-                        bem.voted = true;
-                    else if(that.jenis == 'hmj')
-                        hmj.voted = true
+                    if(!response.error) {
+                        if(that.jenis == 'bem')
+                            bem.voted = true;
+                        else if(that.jenis == 'hmj')
+                            hmj.voted = true
+                    }
                     // menampilkan pesan
                     swal({
                         title: response.error ? 'Gagal !' : 'Berhasil !',
