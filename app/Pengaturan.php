@@ -95,4 +95,25 @@ class Pengaturan extends Model
 
         return true;
     }
+
+    /**
+     * mendapatkan panjang password untuk mahasiswa
+     * @return mixed
+     */
+    public static function getPanjangPassword()
+    {
+        return Pengaturan::find('mhs_max_password')->value;
+    }
+
+    /**
+     * set pasnjang password
+     * @param int $value
+     * @return bool
+     */
+    public static function setPanjangPassword(int $value)
+    {
+        Pengaturan::find('mhs_max_password')->update(['value' => $value]);
+
+        return true;
+    }
 }

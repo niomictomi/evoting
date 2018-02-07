@@ -25,7 +25,12 @@ class PengaturanSeeder extends Seeder
 
         Pengaturan::create([
             'key' => 'buka_hasil',
-            'value' => 0
+            'value' => false
+        ]);
+
+        Pengaturan::create([
+            'key' => 'mhs_max_password',
+            'value' => 8
         ]);
     }
 }
