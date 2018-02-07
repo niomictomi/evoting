@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Visi</label>
-                            <textarea rows="3" class="form-control" name="visi" required></textarea>
+                            <textarea rows="3" class="form-control" name="visi" required> </textarea>
                             <label class="control-label">Misi</label>
                             <textarea rows="3" class="form-control" name="misi" required> </textarea>
                         </div>

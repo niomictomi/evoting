@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Visi</label>
-                            <textarea class="form-control" name="visi" required></textarea>
+                            <textarea class="form-control" name="visi" required> </textarea>
                             <label class="control-label">Misi</label>
                             <textarea class="form-control" name="misi" required> </textarea>
                         </div>

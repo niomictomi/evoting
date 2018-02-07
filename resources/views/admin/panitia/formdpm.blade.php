@@ -38,13 +38,13 @@
                             <h3 class="title"> Visi & Misi </h3>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Visi</label>
-                            <textarea rows="3" class="form-control" name="visi" required></textarea>
+                            <label class="control-label" for="visi">Visi</label>
+                            <textarea class="form-control" name="visi" required> </textarea>
                             <label class="control-label">Misi</label>
-                            <textarea rows="3" class="form-control" name="misi" required> </textarea>
+                            <textarea  class="form-control" name="misi" required> </textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn rounded btn-info">Tambah</button>
+                    <input type="submit" class="btn rounded btn-info" value="Tambah">
                 </div>
             </div>
         </section>
