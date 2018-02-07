@@ -74,7 +74,8 @@ class MahasiswaController extends Controller
             'calonBEM' => $calonBEM,
             'calonDPM' => $calonDPM,
             'waktu' => Carbon::parse(session()->get('timer-end'))->addMinutes(-2),
-            'tambahan' => Carbon::parse(session()->get('timer-end'))
+            'tambahan' => Carbon::parse(session()->get('timer-end')),
+            'sekarang' => Carbon::now()
         ]);
     }
 

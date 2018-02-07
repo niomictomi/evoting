@@ -54,7 +54,7 @@
             return {
                 queueWaktu: this.waktu,
                 datawaktu: Math.trunc(Date.parse(this.waktu[0]) / 1000),
-                now: Math.trunc((new Date()).getTime() / 1000)
+                now: Math.trunc(Date.parse(this.$root.now) / 1000)
             }
         },
         mounted() {

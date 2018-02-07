@@ -163,7 +163,8 @@
                 '{{ $tambahan }}'
             ],
             useHari: false,
-            useJam: false
+            useJam: false,
+            now: '{{ $sekarang }}'
         },
         methods: {
             timerCallback() {
