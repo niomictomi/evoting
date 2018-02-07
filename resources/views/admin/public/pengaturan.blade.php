@@ -101,21 +101,20 @@
 @endsection
 
 @push('js')
-<script>
-@if(Session::has('success'))
-swal({
-    title: 'Berhasil !',
-    icon: 'success',
-    text: '{{ Session::get('success') }}'
-})
-@endif
-
-@if(Session::has('error'))
-swal({
-    title: 'Ups !',
-    icon: 'error',
-    text: '{{ Session::get('error') }}'
-})
-@endif
-</script>
+    <script>
+        @if(Session::has('success'))
+            swal({
+                title: 'Berhasil !',
+                icon: 'success',
+                text: '{{ Session::get('success') }}'
+            })
+        @endif
+        @if(Session::has('error'))
+            swal({
+                title: 'Ups !',
+                icon: 'error',
+                text: '{{ Session::get('error') }}'
+            })
+        @endif
+    </script>
 @endpush
