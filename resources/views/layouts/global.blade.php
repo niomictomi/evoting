@@ -31,7 +31,7 @@
     @endif
 
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=5zm9sroyyw92mdbkdqpna5oo2r7vnf0e3exupkiguygzg097"></script>
-    {{--<script>tinymce.init({ selector:'textarea' });</script>--}}
+        <script>tinymce.init({ selector:'textarea' });</script>
 </head>
 <body>
 <div class="main-wrapper">

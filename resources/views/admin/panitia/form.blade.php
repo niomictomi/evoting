@@ -37,7 +37,7 @@
 
                 </div>
                 <div class="col-md-6">
-                    <div class="card card-block sameheight-item">
+                    <div class="card card-block">
                         <div class="title-block">
                             <h3 class="title"> Visi & Misi </h3>
                         </div>

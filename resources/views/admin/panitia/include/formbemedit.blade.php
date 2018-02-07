@@ -35,7 +35,7 @@
 
                 </div>
                 <div class="col-md-6">
-                    <div class="card card-block sameheight-item">
+                    <div class="card card-block">
                         <div class="title-block">
                             <h3 class="title"> Visi & Misi </h3>
                         </div>
@@ -46,7 +46,7 @@
                             <textarea rows="3" class="form-control" name="misi" required>{{$editbem->misi}} </textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-oval btn-info">Submit</button>
+                    <button type="submit" class="btn rounded btn-info">Sunting</button>
                 </div>
             </div>
         </section>
