@@ -24,7 +24,7 @@
     <div class="card">
         <div class="card-header bordered">
             <div class="header-block">
-                <h3 class="title">Atur kapan voting terjadi</h3>
+                <h3 class="title">Atur voting</h3>
             </div>
         </div>
         <div class="card-block">
@@ -43,6 +43,10 @@
                         <input class="form-control" type="hidden" id="selesai" name="selesai" value="{{ $selesai }}">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label">Panjang password untuk mahasiswa</label>
+                    <input class="form-control" name="panjang_password" value="{{ $max_password }}" type="number" min="5">
+                </div>
                 <input type="submit" class="btn btn-success" value="Simpan" style="color: white">
             </form>
         </div>
@@ -51,6 +55,19 @@
 
 @push('js')
     <script type="text/javascript">
+        @if($errors->any())
+            swal({
+                icon: "error",
+                text: "{!! implode('\n', $errors->all()) !!}",
+                html: true
+            });
+        @endif
+        @if(session()->has('message'))
+            swal({
+                icon: "success",
+                title: "{{ session()->get('message') }}"
+            });
+        @endif
         $('#mulai').datetimepicker({
             inline: true,
             locale: 'id',

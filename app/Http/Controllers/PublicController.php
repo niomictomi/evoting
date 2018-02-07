@@ -100,7 +100,8 @@ class PublicController extends Controller
         }
         return view('admin.public.pengaturanvoting', [
             'mulai' => $mulai,
-            'selesai' => $selesai
+            'selesai' => $selesai,
+            'max_password' => Pengaturan::getPanjangPassword()
         ]);
     }
 
@@ -108,7 +109,8 @@ class PublicController extends Controller
     {
         $this->validate($request, [
             'mulai' => 'required',
-            'selesai' => 'required'
+            'selesai' => 'required',
+            'panjang_password' => 'required|numeric'
         ]);
 
         if ($request->mulai == $request->selesai)
@@ -123,7 +125,8 @@ class PublicController extends Controller
         Pengaturan::find('selesai')->update([
             'value' => $selesai
         ]);
+        Pengaturan::setPanjangPassword($request->panjang_password);
 
-        return back()->with('message', 'Waktu mulai dan selesai telah berhasil diatur.');
+        return back()->with('message', 'Voting telah berhasil diatur.');
     }
 }
