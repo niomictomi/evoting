@@ -30,7 +30,7 @@
                             <h3 class="title">Paslon nomor {{ $calon->nomor }}</h3>
                         </div>
                     </div>
-                    <img src="{{ asset($calon->dir) }}" class="img-fluid">
+                    <img src="{{ asset('storage/'.$calon->dir) }}" class="img-fluid">
                     <div class="card-block">
                         <div style="max-height: 200px; overflow: auto">
                             <label>Ketua</label>
