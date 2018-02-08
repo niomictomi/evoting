@@ -6,7 +6,9 @@ use App\CalonBEM;
 use App\CalonDPM;
 use App\CalonHMJ;
 use App\Mahasiswa;
+use App\Pengaturan;
 use Carbon\Carbon;
+use Faker\Factory;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -33,9 +35,10 @@ class PanitiaController extends Controller
      * @return \Illuminate\View\View
      */
     public function index(Request $request)
-    {if (!in_array($request->tipe, ['bem', 'dpm', 'hmj']))
-        if (!in_array($request->hasil, ['bem', 'dpm', 'hmj']))
-            $request->tipe = 'bem';
+    {
+        if (!in_array($request->tipe, ['bem', 'dpm', 'hmj']))
+            if (!in_array($request->hasil, ['bem', 'dpm', 'hmj']))
+                $request->tipe = 'bem';
         $request->hasil = 'bem';
         $mhs = Mahasiswa::all();
         $mhs_aktif = Mahasiswa::getByStatus();
@@ -79,7 +82,7 @@ class PanitiaController extends Controller
         //hmj
         $edithmj = CalonHMJ::find($request->id);
 
-        return view('admin.panitia.include.formedit',compact('edithmj'));
+        return view('admin.panitia.include.formedit', compact('edithmj'));
     }
 
     public function pasloneditsave(Request $request)
@@ -108,7 +111,7 @@ class PanitiaController extends Controller
 
         }
 
-        return view('admin.panitia.include.formedit',compact('edithmj'));
+        return view('admin.panitia.include.formedit', compact('edithmj'));
     }
 
     public function hmjdelete(Request $request)
@@ -120,7 +123,7 @@ class PanitiaController extends Controller
         //dd($paslon);
         $paslon->delete();
 
-        return back()->with('message', 'Berhasil menghapus '.$paslon->id.'.');
+        return back()->with('message', 'Berhasil menghapus ' . $paslon->id . '.');
     }
 
 
@@ -129,7 +132,7 @@ class PanitiaController extends Controller
         //hmj
         $editdpm = CalonDPM::find($request->id);
 
-        return view('admin.panitia.include.formdpmedit',compact('editdpm'));
+        return view('admin.panitia.include.formdpmedit', compact('editdpm'));
     }
 
     public function dpmdelete(Request $request)
@@ -141,7 +144,7 @@ class PanitiaController extends Controller
         //dd($paslon);
         $paslon->delete();
 
-        return back()->with('message', 'Berhasil menghapus '.$paslon->id.'.');
+        return back()->with('message', 'Berhasil menghapus ' . $paslon->id . '.');
     }
 
     public function paslonbemedit(Request $request)
@@ -149,7 +152,7 @@ class PanitiaController extends Controller
         //hmj
         $editbem = CalonBEM::find($request->id);
 
-        return view('admin.panitia.include.formbemedit',compact('editbem'));
+        return view('admin.panitia.include.formbemedit', compact('editbem'));
     }
 
     public function bemdelete(Request $request)
@@ -161,7 +164,7 @@ class PanitiaController extends Controller
         //dd($paslon);
         $paslon->delete();
 
-        return back()->with('message', 'Berhasil menghapus '.$paslon->id.'.');
+        return back()->with('message', 'Berhasil menghapus ' . $paslon->id . '.');
     }
 
     public function formhmj()
@@ -182,8 +185,7 @@ class PanitiaController extends Controller
         $id = CalonHMJ::count();
         $idnow = $id + 1;
 
-        try
-        {
+        try {
             $mhs = Mahasiswa::findorfail($request->ketua_id);
 
             if ($request->hasFile('dir')) {
@@ -204,8 +206,7 @@ class PanitiaController extends Controller
             }
 
             return redirect('panitia/paslon')->with('message', 'Paslon Berhasil Ditambahkan');
-        }
-        catch (ModelNotFoundException $exception){
+        } catch (ModelNotFoundException $exception) {
             return back()->with('error', 'NIM ketua Atau wakil Tidak Terdaftar');
         }
 
@@ -228,7 +229,7 @@ class PanitiaController extends Controller
         $id = CalonHMJ::count();
         $idnow = $id + 1;
 
-        try{
+        try {
 
             $mhs = Mahasiswa::findorfail($request->anggota_id);
             if ($request->hasFile('dir')) {
@@ -247,8 +248,7 @@ class PanitiaController extends Controller
 
             }
             return redirect('panitia/paslon/dpm')->with('message', 'Paslon Berhasil Ditambahkan');
-        }
-        catch (ModelNotFoundException $exception){
+        } catch (ModelNotFoundException $exception) {
             return back()->with('error', 'NIM calon Anggota Tidak Terdaftar');
         }
 
@@ -273,7 +273,7 @@ class PanitiaController extends Controller
         $idnow = $id + 1;
 
 
-        try{
+        try {
 
             $mhs = Mahasiswa::findorfail($request->ketua_id);
 
@@ -295,8 +295,7 @@ class PanitiaController extends Controller
             }
 
             return redirect('panitia/paslon/bem')->with('message', 'Paslon Berhasil Ditambahkan');
-        }
-        catch (ModelNotFoundException $exception){
+        } catch (ModelNotFoundException $exception) {
             return back()->with('error', 'NIM calon Anggota Tidak Terdaftar');
         }
 
@@ -333,9 +332,9 @@ class PanitiaController extends Controller
             })
             ->addcolumn('action', function ($mhs) {
                 if ($mhs->login == 0 && $mhs->telah_login == 0) {
-                    $r = '<form method="post" action="' . url('panitia/resepsionis/'.$mhs->id.'/update') . '"><input type="hidden" name="_token" value="'.csrf_token().'"/>';
+                    $r = '<form method="post" action="' . url('panitia/resepsionis/' . $mhs->id . '/update') . '"><input type="hidden" name="_token" value="' . csrf_token() . '"/>';
                     return $r . '<button type="submit" class="btn btn-danger btn-sm btn-pill-right">Belum Aktif</button>' .
-                        '<input hidden="" value="1" name="login">'.'</form>';
+                        '<input hidden="" value="1" name="login">' . '</form>';
                 } elseif ($mhs->login == 0 && $mhs->telah_login == 1) {
                     return '<button type="button" class="btn btn-primary btn-sm btn-pill-right">Telah Login</button>';
                 } elseif ($mhs->login == 1 && $mhs->telah_login == 1) {
@@ -351,7 +350,7 @@ class PanitiaController extends Controller
     {
         $result = null;
 
-        return view('admin.panitia.resepsionis',compact('result'));
+        return view('admin.panitia.resepsionis', compact('result'));
 
     }
 
@@ -362,10 +361,9 @@ class PanitiaController extends Controller
             $key = $request->id;
             $result = Mahasiswa::whereRaw('("id" LIKE \'%' . $key . '%\')')->first();
         }
-        if($result == null){
-            return back()->with('error','NIM'.$key.' tidak ditemukan');
-        }
-        else{
+        if ($result == null) {
+            return back()->with('error', 'NIM' . $key . ' tidak ditemukan');
+        } else {
             return view('admin.panitia.resepsionis', compact('result'));
         }
     }
@@ -399,29 +397,32 @@ class PanitiaController extends Controller
                 $connector = new WindowsPrintConnector("POS-58");
                 /* Print a "Hello world" receipt" */
                 $printer = new Printer($connector);
-                $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-                $printer -> text("E-Voting Pemira!\n");
-                $printer -> selectPrintMode();
-                $printer -> text("Fakultas Ekonomi");
-                $printer -> text("\n");
-                $printer -> text("\n");
-                $printer -> text("UserName : ".$mahasiswa->id."\n");
-                $printer -> text("Password : ");
-                $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-                $printer -> text($pass);
-                $printer -> selectPrintMode();
-                $printer -> text("\n");
-                $printer -> text("\n");
-                $printer -> text("\n");
-                $printer -> text($date);
-                $printer -> text("\n");
-                $printer -> text("\n");$printer -> text("\n");$printer -> text("\n");$printer -> text("\n.");
-                $printer -> cut();
+                $printer->selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+                $printer->text("E-Voting Pemira!\n");
+                $printer->selectPrintMode();
+                $printer->text("Fakultas Ekonomi");
+                $printer->text("\n");
+                $printer->text("\n");
+                $printer->text("UserName : " . $mahasiswa->id . "\n");
+                $printer->text("Password : ");
+                $printer->selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+                $printer->text($pass);
+                $printer->selectPrintMode();
+                $printer->text("\n");
+                $printer->text("\n");
+                $printer->text("\n");
+                $printer->text($date);
+                $printer->text("\n");
+                $printer->text("\n");
+                $printer->text("\n");
+                $printer->text("\n");
+                $printer->text("\n.");
+                $printer->cut();
 
                 /* Close printer */
-                $printer -> close();
+                $printer->close();
             } catch (\Exception $e) {
-                echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
+                echo "Couldn't print to this printer: " . $e->getMessage() . "\n";
             }
             return back()->with('message', 'Silahkan Klik Tombol Print');
         } else {
@@ -433,14 +434,27 @@ class PanitiaController extends Controller
 
     public function printnim(Request $request)
     {
-        $pass = random_int(10000,99999);
+        $faker = Factory::create();
+        $hmm = 'mhs_max_password';
+        $maxpass = Pengaturan::find($hmm);
+        $maxpass = $maxpass->value;
+        $etc = '';
+
+        for($i=1;$i<=$maxpass;$i++)
+        {
+            $i++;
+        }
+
+        $pass = $faker->unique()->numerify('########'
+        );
+        dd($pass);
         $password = bcrypt($pass);
         $mahasiswa = Mahasiswa::find($request->id);
         $mahasiswa->update([
-            'password' =>$password,
+            'password' => $password,
         ]);
 
-        return view('admin.panitia.print',compact('pass','mahasiswa'));
+        return view('admin.panitia.print', compact('pass', 'mahasiswa'));
     }
 
 }
