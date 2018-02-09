@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\CalonBEM;
 use App\CalonDPM;
 use App\CalonHMJ;
+use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Mahasiswa;
 use App\Pengaturan;
 use Carbon\Carbon;
@@ -36,6 +37,8 @@ class PanitiaController extends Controller
      */
     public function index(Request $request)
     {
+
+
         if (!in_array($request->tipe, ['bem', 'dpm', 'hmj']))
             if (!in_array($request->hasil, ['bem', 'dpm', 'hmj']))
                 $request->tipe = 'bem';
@@ -457,4 +460,45 @@ class PanitiaController extends Controller
         return view('admin.panitia.print', compact('pass', 'mahasiswa'));
     }
 
+    public function nomorbem(Request $request)
+    {
+
+        $request->validate([
+            'id' => 'required',
+            'nomor' => 'required',
+        ]);
+        $paslon = CalonBEM::find($request->id);
+        $paslon->update([
+           'nomor'=>$request->nomor,
+        ]);
+        return back()->with('message', 'Nomor Paslon Berhasil Diberikan');
+    }
+
+    public function nomordpm(Request $request)
+    {
+
+        $request->validate([
+            'id' => 'required',
+            'nomor' => 'required',
+        ]);
+        $paslon = CalonDPM::find($request->id);
+        $paslon->update([
+            'nomor'=>$request->nomor,
+        ]);
+        return back()->with('message', 'Nomor Paslon Berhasil Diberikan');
+    }
+
+    public function nomorhmj(Request $request)
+    {
+
+        $request->validate([
+            'id' => 'required',
+            'nomor' => 'required',
+        ]);
+        $paslon = CalonHMJ::find($request->id);
+        $paslon->update([
+            'nomor'=>$request->nomor,
+        ]);
+        return back()->with('message', 'Nomor Paslon Berhasil Diberikan');
+    }
 }
