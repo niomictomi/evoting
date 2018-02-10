@@ -450,7 +450,6 @@ class PanitiaController extends Controller
 
         $pass = $faker->unique()->numerify('########'
         );
-        dd($pass);
         $password = bcrypt($pass);
         $mahasiswa = Mahasiswa::find($request->id);
         $mahasiswa->update([
