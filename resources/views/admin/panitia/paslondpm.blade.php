@@ -63,7 +63,34 @@
                         <tbody>
                                 @foreach($dpm as $dpm)
                                     <tr>
-                                    <td></td>
+                                    <td>
+                                        @if(\App\Pengaturan::isVotingAkanBerlangsung())
+                                            @if($dpm->nomor== null || $dpm->nomor == '')
+                                                <form action="{{route('no.hmj')}}" method="post">
+                                                    {{ csrf_field() }}
+                                                    <div class="input-group col-6">
+                                                        <input type="text" class="form-control underlined" name="nomor"
+                                                               maxlength="11" placeholder="isikan Nomor Paslon"
+                                                               required>
+                                                        <span class="input-group-btn">
+                                                <button class="btn btn-danger rounded-s" type="submit">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                                </span>
+                                                    </div>
+                                                    <input type="text" class="form-control underlined" name="id"
+                                                           maxlength="11"
+                                                           value="{{$dpm->id}}"
+                                                           required hidden>
+                                                </form>
+                                            @else
+                                                {{$dpm->nomor}}
+                                            @endif
+                                        @else
+                                            {{$dpm->nomor}}
+                                        @endif
+                                        
+                                    </td>
                                     <td><b>{{$dpm->anggota_id}}</b></td>
                                     <td><b>{{$dpm->getAnggota()->nama }}</b></td>
                                     <td>

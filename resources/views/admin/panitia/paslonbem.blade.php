@@ -15,15 +15,18 @@
                     {{--Paslon</a>--}}
                     <div class="btn-group">
                         @if(\App\Pengaturan::isVotingAkanBerlangsung())
-                        <button type="button" class="btn btn-primary btn-sm rounded pull-right" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> Tambah Paslon
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{route('form.bem')}}">BEMF</a>
-                        </div>
+                            <button type="button" class="btn btn-primary btn-sm rounded pull-right"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus"></i> Tambah Paslon
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{route('form.bem')}}">BEMF</a>
+                            </div>
                         @elseif(\App\Pengaturan::isVotingSedangBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())
-                            <button type="button" class="btn btn-primary btn-sm rounded pull-right" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" disabled><i class="fa fa-plus"></i> Tambah Paslon
+                            <button type="button" class="btn btn-primary btn-sm rounded pull-right"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" disabled><i class="fa fa-plus"></i>
+                                Tambah Paslon
                             </button>
                         @endif
                     </div>
@@ -60,13 +63,39 @@
                         </tr>
                         </thead>
                         <tbody>
-                                @foreach($bem as $bem)
-                                    <tr>
-                                    <td></td>
-                                    <td><b>{{$bem->ketua_id}}</b></td>
-                                    <td><b>{{$bem->wakil_id}}</b></td>
-                                    <td>
-                                        @if(\App\Pengaturan::isVotingAkanBerlangsung())
+                        @foreach($bem as $bem)
+                            <tr>
+                                <td>
+                                    @if(\App\Pengaturan::isVotingAkanBerlangsung())
+                                        @if($bem->nomor== null || $bem->nomor == '')
+                                            <form action="{{route('no.bem')}}" method="post">
+                                                {{ csrf_field() }}
+                                                <div class="input-group col-6">
+                                                    <input type="text" class="form-control underlined" name="nomor"
+                                                           maxlength="11" placeholder="isikan Nomor Paslon"
+                                                           required>
+                                                    <span class="input-group-btn">
+                                                <button class="btn btn-danger rounded-s" type="submit">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                                </span>
+                                                </div>
+                                                <input type="text" class="form-control underlined" name="id"
+                                                       maxlength="11"
+                                                       value="{{$bem->id}}"
+                                                       required hidden>
+                                            </form>
+                                        @else
+                                            {{$bem->nomor}}
+                                        @endif
+                                    @else
+                                        {{$bem->nomor}}
+                                    @endif
+                                </td>
+                                <td><b>{{$bem->ketua_id}}</b></td>
+                                <td><b>{{$bem->wakil_id}}</b></td>
+                                <td>
+                                    @if(\App\Pengaturan::isVotingAkanBerlangsung())
                                         <form method="post">
                                             {{ csrf_field() }}
                                             {{ method_field('delete') }}
@@ -81,17 +110,20 @@
                                             <form action="{{ route('paslon.delete.bem') }}" method="post">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="id" value="{{ $bem->id }}">
-                                                <button type="submit" class="btn btn-danger btn-sm btn-pill-right">Hapus</button>
+                                                <button type="submit" class="btn btn-danger btn-sm btn-pill-right">
+                                                    Hapus
+                                                </button>
                                             </form>
                                         </div>
-                                        @elseif(\App\Pengaturan::isVotingSedangBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())
-                                            <button class="btn btn-primary btn-sm rounded" data-toggle="modal">Pemira Sedang Berlangsung
-                                            </button>
-                                        @endif
-                                        
-                                    </td>
-                                    </tr>
-                                @endforeach
+                                    @elseif(\App\Pengaturan::isVotingSedangBerlangsung()||\App\Pengaturan::isVotingTelahBerlangsung())
+                                        <button class="btn btn-primary btn-sm rounded" data-toggle="modal">Pemira Sedang
+                                            Berlangsung
+                                        </button>
+                                    @endif
+
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
 

@@ -67,7 +67,33 @@
                         <tbody>
                         @foreach($hmj as $hmj)
                             <tr>
-                                <td></td>
+                                <td>
+                                    @if(\App\Pengaturan::isVotingAkanBerlangsung())
+                                        @if($hmj->nomor== null || $hmj->nomor == '')
+                                            <form action="{{route('no.hmj')}}" method="post">
+                                                {{ csrf_field() }}
+                                                <div class="input-group col-6">
+                                                    <input type="text" class="form-control underlined" name="nomor"
+                                                           maxlength="11" placeholder="isikan Nomor Paslon"
+                                                           required>
+                                                    <span class="input-group-btn">
+                                                <button class="btn btn-danger rounded-s" type="submit">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                                </span>
+                                                </div>
+                                                <input type="text" class="form-control underlined" name="id"
+                                                       maxlength="11"
+                                                       value="{{$hmj->id}}"
+                                                       required hidden>
+                                            </form>
+                                        @else
+                                            {{$hmj->nomor}}
+                                        @endif
+                                    @else
+                                        {{$hmj->nomor}}
+                                    @endif
+                                </td>
                                 <td><b>{{$hmj->ketua_id}}</b></td>
                                 <td><b>{{$hmj->wakil_id}}</b></td>
                                 <td>
