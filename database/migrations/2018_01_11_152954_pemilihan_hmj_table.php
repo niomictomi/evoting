@@ -20,7 +20,7 @@ class PemilihanHmjTable extends Migration
                 ->on('calon_hmj')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
-            $table->string('mahasiswa_id');
+            $table->string('mahasiswa_id')->unique();
             $table->foreign('mahasiswa_id')
                 ->references('id')
                 ->on('mahasiswa')
