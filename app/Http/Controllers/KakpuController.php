@@ -28,7 +28,7 @@ class KakpuController extends Controller
     {
         if (!in_array($request->tipe, ['bem', 'dpm', 'hmj']))
             if (!in_array($request->hasil, ['bem', 'dpm', 'hmj']))
-            $request->tipe = 'bem';
+                $request->tipe = 'bem';
         $request->hasil = 'bem';
         $mhs = Mahasiswa::all();
         $mhs_aktif = Mahasiswa::getByStatus();
@@ -53,22 +53,21 @@ class KakpuController extends Controller
 
         return view('admin.kakpu.bukasuara', [
             'users' => $users,
-            'hasil' =>$request->hasil
+            'hasil' => $request->hasil
         ]);
     }
 
     public function save(Request $request)
     {
-        if (!Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu()){
+        if (!Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu()) {
             $user = User::find($request->id);
-            if (Hash::check($request->password, $user->helper)){
+            if (Hash::check($request->password, $user->helper)) {
                 $user->helper = 'secret';
                 $user->save();
-            }
-            else{
+            } else {
                 return back()->with('error', 'Kata sandi anda salah!');
             }
-            if (Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu()){
+            if (Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu()) {
                 Pengaturan::find('buka_hasil')->update(['value' => true]);
                 return back()->with('message', 'Kotak suara telah dibuka!');
             }
@@ -76,5 +75,17 @@ class KakpuController extends Controller
         }
         return back()->with('message', 'Anda telah menginputkan semua password dan kotak suara bisa dibuka.');
     }
+
+    public function printhasil(Request $request)
+    {
+
+        return view('admin.kakpu.include.print', [
+
+            'hasil' => $request->hasil
+        ]);
+
+
+    }
+
 
 }

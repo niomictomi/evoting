@@ -14,4 +14,6 @@ Route::group(['prefix' => 'kakpu'], function() {
         'as' => 'kakpu.simpan'
     ]);
 
+    Route::get('print', 'KakpuController@printhasil')->name('kakpu.print');
+
 });

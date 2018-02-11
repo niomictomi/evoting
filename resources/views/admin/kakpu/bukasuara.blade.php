@@ -14,7 +14,7 @@
                 <b>Pemira Sedang berlansung</b>
             </center>
         </div>
-        @elseif(\App\Pengaturan::isVotingTelahBerlangsung())
+    @elseif(\App\Pengaturan::isVotingTelahBerlangsung())
         @if(!\App\Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu())
             <div class="row">
                 @foreach($users as $user)
@@ -80,7 +80,7 @@
                                 @if(\App\Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu())
                                     <div class="header-block">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                            <button type="button" class="btn btn-primary  dropdown-toggle"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 {{ strtoupper($hasil) }}
                                             </button>
@@ -93,12 +93,40 @@
                                                    href="{{ route('kakpu.buka', ['hasil' => 'hmj']) }}">HMJ</a>
                                             </div>
                                         </div>
+                                        @if($hasil == 'bem')
+                                            <div class="btn-group">
+                                                <a href="{{route('kakpu.print',['hasil' => 'bem'])}}" target="_blank">
+                                                    <button class="btn btn-success">
+                                                        <span class="fa fa-print"></span>
+                                                        Print
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        @elseif($hasil == 'dpm')
+                                            <div class="btn-group">
+                                                <a href="{{route('kakpu.print',['hasil' => 'dpm'])}}" target="_blank">
+                                                    <button class="btn btn-success">
+                                                        <span class="fa fa-print"></span>
+                                                        Print
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        @elseif($hasil == 'hmj')
+                                            <div class="btn-group">
+                                                <a href="{{route('kakpu.print',['hasil' => 'hmj'])}}" target="_blank">
+                                                    <button class="btn btn-success">
+                                                        <span class="fa fa-print"></span>
+                                                        Print
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                     @if($hasil == 'bem')
                                         @include('admin.kakpu.include.bem')
                                     @elseif($hasil == 'dpm')
                                         @include('admin.kakpu.include.dpm')
-                                    @elseif($hasil == 'hmj')
+                                    @elseif($hasil == 'dpm')
                                         @include('admin.kakpu.include.hmj')
                                     @endif
 
