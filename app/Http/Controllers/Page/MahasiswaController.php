@@ -25,6 +25,7 @@ class MahasiswaController extends Controller
         $this->middleware('guest:mhs')->only('login');
         $this->middleware('votingselesai');
         $this->middleware('votingbelummulai');
+        $this->middleware('guest:web')->only('login');
     }
 
     /**
