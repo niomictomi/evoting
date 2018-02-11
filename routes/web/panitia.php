@@ -8,7 +8,7 @@
 
 //------------------------------Panitia--------------------------------//
 
-Route::group(['prefix' => 'panitia'], function() {
+Route::group(['prefix' => 'panitia'], function () {
 
     Route::get('dashboard', 'PanitiaController@index')->name('panitia.dashboard');
 
@@ -57,6 +57,12 @@ Route::group(['prefix' => 'panitia'], function() {
     Route::get('resepsionis/search', 'PanitiaController@carimhs')->name('cari');
 
     Route::post('resepsionis/{id}/update', 'PanitiaController@updatestatus')->name('resepsionis.update');
+
+    Route::post('update/nobem', 'PanitiaController@nomorbem')->name('no.bem');
+
+    Route::post('update/nodpm', 'PanitiaController@nomordpm')->name('no.dpm');
+
+    Route::post('update/nohmj', 'PanitiaController@nomorhmj')->name('no.hmj');
 
 });
 

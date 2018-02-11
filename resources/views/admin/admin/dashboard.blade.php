@@ -103,9 +103,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="header-block">
-                    <h3 class="title">Jumlah pemilih dari waktu ke waktu</h3>
-                </div>
-                <div class="header-block pull-right">
+                    <h3 class="title">Jumlah pemilih</h3>
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ strtoupper($tipe) }}
@@ -115,6 +113,10 @@
                             <a class="dropdown-item" href="{{ route('admin.dashboard', ['tipe' => 'dpm']) }}">DPM</a>
                             <a class="dropdown-item" href="{{ route('admin.dashboard', ['tipe' => 'hmj']) }}">HMJ</a>
                         </div>
+                    </div>
+                    <h3 class="title">waktu ke waktu</h3>
+                <div class="header-block pull-right">
+
                     </div>
                 </div>
             </div>
