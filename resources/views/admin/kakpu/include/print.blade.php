@@ -37,11 +37,13 @@
         <center>
             <img src="{{asset('images/logo.jpg')}}">
         </center>
-    </div><br><br>
+    </div>
+    <br><br>
 
     <div>
         <center><h2>HASIL PEROLEHAN SUARA UNTUK TIAP
-                PASANGAN KANDIDAT </h2><h2> KETUA DAN WAKIL KETUA {{$hasil}}
+                PASANGAN KANDIDAT </h2>
+            <h2> KETUA DAN WAKIL KETUA {{$hasil}}
                 FAKULTAS EKONOMI UNESA
                 DI TEMPAT PEMUNGUTAN SUARA</h2>
         </center>
@@ -49,31 +51,55 @@
     <br><br><br>
     <div>
         <center>
-        <table class="table col-md-9" style="text-align: center">
-            <tr>
-                <td>No. Urut</td>
-                <td>Nama Kandidat</td>
-                <td>Jumlah Suara</td>
-                <td>Presentase (%)</td>
-            </tr>
-            <tr>
-                <td>No. Urut</td>
-                <td>Nama Kandidat</td>
-                <td>Jumlah Suara</td>
-                <td>Presentase (%)</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Tidak Memilih</td>
-                <td>Jumlah Suara</td>
-                <td>Presentase (%)</td>
-            </tr>
-            <tr>
-                <td colspan="2">Total Suara dan Presentase</td>
-                <td>82</td>
-                <td>100%</td>
-            </tr>
-        </table>
+            @if($hasil=='BEM'||$hasil=='HMJ')
+                <table class="table col-md-9" style="text-align: center">
+                    <tr>
+                        <td>No. Urut</td>
+                        <td>Nama Kandidat</td>
+                        <td>Jumlah Suara</td>
+                        <td>Presentase (%)</td>
+                    </tr>
+                    <tr>
+                        <td>No. Urut</td>
+                        <td>Nama Kandidat</td>
+                        <td>Jumlah Suara</td>
+                        <td>Presentase (%)</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Tidak Memilih</td>
+                        <td>Jumlah Suara</td>
+                        <td>Presentase (%)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Total Suara dan Presentase</td>
+                        <td>82</td>
+                        <td>100%</td>
+                    </tr>
+                </table>
+                @elseif($hasil=='DPM')
+                <table class="table col-md-9" style="text-align: center">
+                    <tr>
+                        <td>No. Urut</td>
+                        <td>Nama Kandidat</td>
+                        <td>Daerah Pemilihan</td>
+                        <td>Jumlah Suara</td>
+                        <td>Presentase (%)</td>
+                    </tr>
+                    <tr>
+                        <td>isi</td>
+                        <td>isi</td>
+                        <td>isi</td>
+                        <td>Jisi</td>
+                        <td>isi</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Total Suara dan Presentase</td>
+                        <td>82</td>
+                        <td>100%</td>
+                    </tr>
+                </table>
+            @endif
         </center>
     </div>
 </div>
