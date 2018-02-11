@@ -2,7 +2,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware(['guest:mhs', 'guest:web']);
 
 Route::group(['middleware' => 'bukanmhs'], function (){
 
