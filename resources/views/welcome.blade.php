@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Pemira Fakultas Ekonomi {{ Carbon\Carbon::now()->year }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -13,8 +13,10 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
+                background-image: url('{{ asset('images/landing.jpg') }}');
+                background-position: center;
+                background-size: 100% 100%;
+                color: #fff;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
                 height: 100vh;
@@ -22,6 +24,7 @@
             }
 
             .full-height {
+                background-color: rgba(0, 0, 0, .3);
                 height: 100vh;
             }
 
@@ -45,49 +48,56 @@
                 text-align: center;
             }
 
-            .title {
+            .title h1 {
                 font-size: 84px;
+                margin: 0;
+            }
+
+            .title h2 {
+                font-size: 50px;
+                margin: 0;
+            }
+
+            .links {
+                margin-top: 20px;
             }
 
             .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
+                color: #fff;
+                padding: 15px;
+                font-size: 15px;
+                border-radius: 30px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
                 text-transform: uppercase;
+                transition: all ease 0.2s;
+            }
+
+            .links > a:hover {
+                background-color: #fff;
+                color: #000;
             }
 
             .m-b-md {
-                margin-bottom: 30px;
+                margin-bottom: 50px;
             }
         </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    <h1>Pemira</h1>
+                    <h2>- Fakultas Ekonomi -</h2>
+                    <h3>Universitas Negeri Surabaya</h3>
+                    <p>Tahun {{ Carbon\Carbon::now()->year }}</p>
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="{{ route('admin.login.form') }}">Masuk Admin & Panitia</a>
+                    <a href="{{ route('mahasiswa.login') }}">Masuk Mahasiswa</a>
                 </div>
             </div>
         </div>
