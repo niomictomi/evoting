@@ -126,7 +126,7 @@
                                         @include('admin.kakpu.include.bem')
                                     @elseif($hasil == 'dpm')
                                         @include('admin.kakpu.include.dpm')
-                                    @elseif($hasil == 'dpm')
+                                    @elseif($hasil == 'hmj')
                                         @include('admin.kakpu.include.hmj')
                                     @endif
 

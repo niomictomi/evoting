@@ -79,11 +79,26 @@ class KakpuController extends Controller
     public function printhasil(Request $request)
     {
 
-        return view('admin.kakpu.include.print', [
+        if($request->hasil == 'bem'){
+            return view('admin.kakpu.include.print', [
 
-            'hasil' => $request->hasil
-        ]);
+                'hasil' => 'BEM'
+            ]);
+        }
+        elseif ($request->hasil == 'dpm'){
+            return view('admin.kakpu.include.print', [
 
+                'hasil' => 'DPM'
+            ]);
+        }
+        elseif ($request->hasil == 'hmj'){
+            return view('admin.kakpu.include.print', [
+
+                'hasil' => 'HMJ'
+            ]);
+        }
+        else
+            return back()->with('error', 'pilihan tidak tersedia');
 
     }
 

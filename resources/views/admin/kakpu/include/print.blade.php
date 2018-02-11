@@ -34,6 +34,12 @@
 <br><br><br><br><br><br>
 <div>
     <div>
+        <center>
+            <img src="{{asset('images/logo.jpg')}}">
+        </center>
+    </div><br><br>
+
+    <div>
         <center><h2>HASIL PEROLEHAN SUARA UNTUK TIAP
                 PASANGAN KANDIDAT </h2><h2> KETUA DAN WAKIL KETUA {{$hasil}}
                 FAKULTAS EKONOMI UNESA
