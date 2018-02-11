@@ -24,11 +24,11 @@ class RedirectIfAuthenticated
                 if(Auth::user()->isAdmin())
                     return redirect()->route('admin.dashboard', ['tipe' => 'bem']);
                 else if(Auth::user()->isDosen())
-                    return redirect()->route('admin.dashboard');
+                    return redirect()->route('admin.dashboard', ['tipe' => 'bem']);
                 else if(Auth::user()->isPanitia())
-                    return redirect()->route('admin.dashboard');
+                    return redirect()->route('admin.dashboard', ['tipe' => 'bem']);
                 else if(Auth::user()->isRoot())
-                    return redirect()->route('root.dashboard');
+                    return redirect()->route('root.dashboard', ['tipe' => 'bem']);
             }
                 
             return abort(403, 'Forbidden Access !');
