@@ -18,7 +18,8 @@ let timer = new Vue({
     data: {
         waktu: ['{{ $waktu }}'],
         useHari: true,
-        useJam: true
+        useJam: true,
+        now: '{{ Carbon\Carbon::now() }}'
     },
     methods: {
         timerCallback() {
