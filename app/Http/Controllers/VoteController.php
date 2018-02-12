@@ -20,7 +20,7 @@ class VoteController extends Controller
     {
         // memastikan bahwa seluruh proses voting menggunakan
         // ajax
-        //$this->middleware('ajax');
+        $this->middleware('ajax');
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Mockery\Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Mahasiswa extends Authenticatable
 {

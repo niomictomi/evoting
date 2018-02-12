@@ -80,6 +80,9 @@ class KakpuController extends Controller
     {
 
         if($request->hasil == 'bem'){
+
+            $table = DB::table('pemilihan_bem')->count();
+            //dd($table);
             return view('admin.kakpu.include.print', [
 
                 'hasil' => 'BEM'
