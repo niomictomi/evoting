@@ -18,7 +18,7 @@
     <link href="{{ asset('css/tempusdominus-bootstrap-4.css') }}" rel="stylesheet">
 
 </head>
-<body>
+<body onload="window.print();window.close()">
 
 <br><br><br><br><br><br>
 <div>
@@ -54,32 +54,40 @@
 
 
             @if($hasil=='BEM')
-                <table class="table col-md-9" style="text-align: center">
+                <table class="table col-md-9" style="text-align: center;font-size: 16pt">
                     <tr>
                         <td>No. Urut</td>
                         <td>Nama Kandidat</td>
                         <td>Jumlah Suara</td>
                         <td>Presentase (%)</td>
                     </tr>
+                    <?php
+                    $jum = 0;
+                    ?>
                     @foreach (\App\CalonBEM::all() as $calon)
                         <tr>
                             <td>{{$calon->nomor}}</td>
                             <td>{{ $calon->getKetua()->nama }}
                                 <br/> {{ $calon->getWakil()->nama }}</td>
                             <td>{{ $calon->getPemilih()->count() }}</td>
+                            <?php
+                            $jum += $calon->getPemilih()->count();
+                            ?>
                             <td></td>
                         </tr>
                     @endforeach
                     <tr>
                         <td colspan="2">Tidak Memilih</td>
-                        <td>{{ \App\Mahasiswa::getAbstainBemViaRelation()->count() }}</td>
+                        <td>
+                            {{\App\Mahasiswa::where('status','A')->where('telah_login',true)->count()-$jum}}
+                        </td>
                         <td>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">Total Suara dan Presentase</td>
                         <td>
-                            {{\App\Mahasiswa::all()->where('status','A')->where('telah_login',true)->where('bem',true)->count()}}
+                            {{\App\Mahasiswa::where('status','A')->where('telah_login',true)->count()}}
                         </td>
                         <td>100%</td>
                     </tr>
@@ -91,7 +99,7 @@
             @elseif($hasil=='HMJ')
                 @foreach(\App\Jurusan::all() as $jurusan)
                     <center><h3>Hasil Pemilihan Jurusan {{$jurusan->nama}}</h3></center>
-                    <table class="table col-md-9" style="text-align: center">
+                    <table class="table col-md-9" style="text-align: center;font-size: 16pt">
                         <tr>
                             <td><strong>No. Urut</strong></td>
                             <td><strong>Nama Kandidat</strong></td>
@@ -124,7 +132,7 @@
                             <td></td>
                         </tr>
                     </table>
-                    <br><br><br><br><br><br>
+                    <br><br><br><br>
                 @endforeach
 
 
@@ -133,7 +141,7 @@
             @elseif($hasil=='DPM')
                 @foreach(\App\Jurusan::all() as $jurusan)
                     <center><h3>Hasil Pemilihan Jurusan {{$jurusan->nama}}</h3></center>
-                    <table class="table col-md-9" style="text-align: center">
+                    <table class="table col-md-9" style="text-align: center;font-size: 16pt">
                         <tr>
                             <td><strong>No. Urut</strong></td>
                             <td><strong>Nama Kandidat</strong></td>
@@ -167,11 +175,60 @@
                             <td></td>
                         </tr>
                     </table>
-                    <br><br><br><br><br><br>
+                    <br><br><br><br>
                 @endforeach
             @endif
         </center>
     </div>
+    <div style="font-size: 16pt">
+        <div style="margin-left: 60%">
+            <p> Surabaya, 14 Februari 2018</p>
+            <br>
+            <br>
+        </div>
+
+        <center>
+        <div>
+            <p> Mengetahui,</p>
+            <br>
+            <br>
+        </div>
+        </center>
+
+        <div>
+            <p class="pull-left" style="margin-left: 15%">Saksi Pemilihan Umum Fakultas </p>
+            <p class="pull-right" style="margin-right: 300px">Saksi Pemilihan Umum Fakultas </p>
+        </div>
+        <br><br><br><br><br>
+        <br><br>
+        <div>
+            <p class="pull-left" style="margin-left: 15%">
+                (...................................................................)</p>
+            <p class="pull-right" style="margin-right: 280px">
+                (...................................................................)</p>
+        </div>
+        <br><br>
+        <div>
+            <p class="pull-left" style="margin-left: 15%">NIM.</p>
+            <p class="pull-right" style="margin-right: 500px">NIM.</p>
+        </div>
+        <br><br>
+        <center>
+            <div>
+                <p> Komisi Pemilihan Umum Raya
+                    Fakultas Ekonomi
+                </p>
+                <br>
+                <br><br><br><br>
+                <p>(........................................................................)
+                </p>
+                <p style="margin-right: 20%">NIM.
+                </p>
+            </div>
+        </center>
+    </div>
+
+
 </div>
 
 </body>
