@@ -51,6 +51,8 @@
     <br><br><br>
     <div>
         <center>
+
+
             @if($hasil=='BEM')
                 <table class="table col-md-9" style="text-align: center">
                     <tr>
@@ -65,21 +67,25 @@
                             <td>{{ $calon->getKetua()->nama }}
                                 <br/> {{ $calon->getWakil()->nama }}</td>
                             <td>{{ $calon->getPemilih()->count() }}</td>
-                            <td>{{ ($calon->getPemilih()->count())*100}}%</td>
+                            <td></td>
                         </tr>
                     @endforeach
                     <tr>
                         <td colspan="2">Tidak Memilih</td>
                         <td>{{ \App\Mahasiswa::getAbstainBemViaRelation()->count() }}</td>
-                        <td>%</td>
+                        <td>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2">Total Suara dan Presentase</td>
-                        <td>}</td>
+                        <td>
+                            {{\App\Mahasiswa::all()->where('status','A')->where('telah_login',true)->where('bem',true)->count()}}
+                        </td>
                         <td>100%</td>
                     </tr>
                 </table>
                 <br><br><br><br>
+
 
 
             @elseif($hasil=='HMJ')
@@ -99,7 +105,7 @@
                                 <td>{{ $calon->getKetua()->nama }}
                                     <br/> {{ $calon->getWakil()->nama }}</td>
                                 <td>{{ $calon->getPemilih()->count() }}</td>
-                                <td>{{ ($calon->getPemilih()->count()/\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->count())*100 }}
+                                <td>{{ ($calon->getPemilih()->count()/\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->where('telah_login',true)->count())*100 }}
                                     %
                                 </td>
                             </tr>
@@ -107,18 +113,20 @@
                         <tr>
                             <td colspan="2">Tidak Memilih</td>
                             <td>{{ \App\Mahasiswa::getAbstainHmjViaRelation($jurusan->id)->count() }}</td>
-                            <td>{{ (\App\Mahasiswa::getAbstainHmjViaRelation($jurusan->id)->count()/\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->count())*100}}
+                            <td>{{ (\App\Mahasiswa::getAbstainHmjViaRelation($jurusan->id)->count()
+                            /\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->where('telah_login',true)->count())*100}}
                                 %
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">Total Suara dan Presentase</td>
-                            <td>{{\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->count()}}</td>
+                            <td>{{\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->where('telah_login',true)->count()}}</td>
                             <td></td>
                         </tr>
                     </table>
                     <br><br><br><br><br><br>
                 @endforeach
+
 
 
 
@@ -138,7 +146,7 @@
                                 <td>{{$calon->nomor}}</td>
                                 <td>{{ $calon->getAnggota()->nama }}</td>
                                 <td>{{ $calon->getPemilih()->count() }}</td>
-                                <td>{{ ($calon->getPemilih()->count()/\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->count())*100 }}
+                                <td>{{ ($calon->getPemilih()->count()/\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->where('telah_login',true)->count())*100 }}
                                     %
                                 </td>
                             </tr>
@@ -146,14 +154,16 @@
                         <tr>
                             <td colspan="2">Tidak Memilih</td>
                             <td>{{ \App\Mahasiswa::getAbstainDpmViaRelation($jurusan->id)->count() }}</td>
-                            <td>{{ (\App\Mahasiswa::getAbstainDpmViaRelation($jurusan->id)->count()/\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->count())*100}}
+                            <td>{{ (\App\Mahasiswa::getAbstainDpmViaRelation($jurusan->id)->count()
+                            /\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->where('telah_login',true)
+                            ->count())*100}}
                                 %
                             </td>
                         </tr>
 
                         <tr>
                             <td colspan="2">Total Suara dan Presentase</td>
-                            <td>{{\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('telah_login',true)->count()}}</td>
+                            <td>{{\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->where('telah_login',true)->count()}}</td>
                             <td></td>
                         </tr>
                     </table>
