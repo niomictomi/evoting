@@ -123,16 +123,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if($hmj->getKetua()->getProdi()->jurusan_id==1)
-                                        Pendidikan Ekonomi
-                                    @elseif($hmj->getKetua()->getProdi()->jurusan_id==2)
-                                        Manajemen
-                                    @elseif($hmj->getKetua()->getProdi()->jurusan_id==3)
-                                        Akutansi
-                                    @elseif($hmj->getKetua()->getProdi()->jurusan_id==4)
-                                        Ilmu Ekonomi
-                                    @endif
-
+                               {{\App\Jurusan::find($hmj->getKetua()->getProdi()->jurusan_id)->nama}}
                                 </td>
 
                             </tr>
