@@ -66,7 +66,7 @@
                                     <td>
                                         @if(\App\Pengaturan::isVotingAkanBerlangsung())
                                             @if($dpm->nomor== null || $dpm->nomor == '')
-                                                <form action="{{route('no.hmj')}}" method="post">
+                                                <form action="{{route('no.dpm')}}" method="post">
                                                     {{ csrf_field() }}
                                                     <div class="input-group col-6">
                                                         <input type="text" class="form-control underlined" name="nomor"
