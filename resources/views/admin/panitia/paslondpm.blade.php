@@ -118,21 +118,9 @@
                                             </button>
                                         @endif
                                     </td>
-
                                         <td>
-                                            @if($dpm->getAnggota()->getProdi()->jurusan_id==1)
-                                                Pendidikan Ekonomi
-                                            @elseif($dpm->getAnggota()->getProdi()->jurusan_id==2)
-                                                Manajemen
-                                            @elseif($dpm->getAnggota()->getProdi()->jurusan_id==3)
-                                                Akutansi
-                                            @elseif($dpm->getAnggota()->getProdi()->jurusan_id==4)
-                                                Ilmu Ekonomi
-                                            @endif
-
-
+                                            {{\App\Jurusan::find($dpm->getAnggota()->getProdi()->jurusan_id)->nama}}
                                         </td>
-
                                     </tr>
                                 @endforeach
                         </tbody>
