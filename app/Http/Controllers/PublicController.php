@@ -21,7 +21,7 @@ class PublicController extends Controller
             ]);
         if (!in_array($request->tipe, ['Memiliki hak suara', 'Telah memberikan hak suara', 'Belum memberikan hak suara']))
             $request->tipe = 'Memiliki hak suara';
-        $cek = Pengaturan::isVotingSedangBerlangsung() || Pengaturan::isVotingTelahBerlangsung();
+        $cek = Pengaturan::isVotingSedangBerlangsung();
         $blade = (\Route::currentRouteName() == 'admin.voting.hmj') ? 'admin.public.votinghmj' : 'admin.public.votingdpm';
         return view($blade, [
             'cek' => $cek,
@@ -36,7 +36,7 @@ class PublicController extends Controller
     {
         if (!in_array($request->tipe, ['Memiliki hak suara', 'Telah memberikan hak suara', 'Belum memberikan hak suara']))
             $request->tipe = 'Memiliki hak suara';
-        $cek = Pengaturan::isVotingSedangBerlangsung() || Pengaturan::isVotingTelahBerlangsung();
+        $cek = Pengaturan::isVotingSedangBerlangsung();
         return view('admin.public.votingbem', [
             'cek' => $cek,
             'tipe' => $request->tipe
