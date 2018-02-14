@@ -114,9 +114,9 @@
                             {{ strtoupper($tipe) }}
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ route('kakpu.dashboard', ['tipe' => 'bem']) }}">BEM</a>
-                            <a class="dropdown-item" href="{{ route('kakpu.dashboard', ['tipe' => 'dpm']) }}">DPM</a>
-                            <a class="dropdown-item" href="{{ route('kakpu.dashboard', ['tipe' => 'hmj']) }}">HMJ</a>
+                            <a class="dropdown-item" href="{{ route('panitia.dashboard', ['tipe' => 'bem']) }}">BEM</a>
+                            <a class="dropdown-item" href="{{ route('panitia.dashboard', ['tipe' => 'dpm']) }}">DPM</a>
+                            <a class="dropdown-item" href="{{ route('panitia.dashboard', ['tipe' => 'hmj']) }}">HMJ</a>
                         </div>
                     </div>
                 </div>

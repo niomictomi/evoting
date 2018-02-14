@@ -66,7 +66,7 @@
                                     <td>
                                         @if(\App\Pengaturan::isVotingAkanBerlangsung())
                                             @if($dpm->nomor== null || $dpm->nomor == '')
-                                                <form action="{{route('no.hmj')}}" method="post">
+                                                <form action="{{route('no.dpm')}}" method="post">
                                                     {{ csrf_field() }}
                                                     <div class="input-group col-6">
                                                         <input type="text" class="form-control underlined" name="nomor"
@@ -118,21 +118,9 @@
                                             </button>
                                         @endif
                                     </td>
-
                                         <td>
-                                            @if($dpm->getAnggota()->getProdi()->jurusan_id==1)
-                                                Pendidikan Ekonomi
-                                            @elseif($dpm->getAnggota()->getProdi()->jurusan_id==2)
-                                                Manajemen
-                                            @elseif($dpm->getAnggota()->getProdi()->jurusan_id==3)
-                                                Akutansi
-                                            @elseif($dpm->getAnggota()->getProdi()->jurusan_id==4)
-                                                Ilmu Ekonomi
-                                            @endif
-
-
+                                            {{\App\Jurusan::find($dpm->getAnggota()->getProdi()->jurusan_id)->nama}}
                                         </td>
-
                                     </tr>
                                 @endforeach
                         </tbody>

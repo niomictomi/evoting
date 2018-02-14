@@ -107,12 +107,14 @@ class CalonBEM extends Model
     {
         $data = [];
         $daftar_calon = static::all();
+        $jum = 0;
 
         foreach($daftar_calon as $calon) {
             $data['Nomor Paslon ' . $calon->nomor] = $calon->getPemilih()->count();
+            $jum += $calon->getPemilih()->count();
         }
 
-        $data['Abstain'] = \App\Mahasiswa::getAbstainBemViaRelation()->count();
+        $data['Abstain'] = \App\Mahasiswa::where('status','A')->where('telah_login',true)->count()-$jum;
 
         return $data;
     }
