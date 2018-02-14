@@ -15,7 +15,7 @@ class PemilihanBemSeeder extends Seeder
     public function run()
     {
         $calon = CalonBEM::all();
-        foreach (Mahasiswa::all() as $mhs){
+        foreach (Mahasiswa::getByStatus()->get() as $mhs){
             $memilih = rand(0,1);
             if ($memilih){
                 $waktu = Carbon::today()->addHours(rand(7,15))->addMinutes(rand(0,59))->addSeconds(rand(0,59));
