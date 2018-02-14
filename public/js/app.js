@@ -43919,8 +43919,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['nama', 'foto', 'id', 'href', 'no-urut'],
     data: function data() {
         return {
-            csrf: document.head.querySelector('meta[name="csrf-token"]').content
+            csrf: document.head.querySelector('meta[name="csrf-token"]').content,
+            colClass: null
         };
+    },
+    mounted: function mounted() {
+        this.colClass = this.$root.colClass;
     },
 
     methods: {
@@ -43972,7 +43976,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card col-sm card-calon" }, [
+  return _c("div", { class: _vm.colClass }, [
     _c("div", { staticClass: "nomor-urut" }, [_vm._v(_vm._s(_vm.noUrut))]),
     _vm._v(" "),
     _c("img", {

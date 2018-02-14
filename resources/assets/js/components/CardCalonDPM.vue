@@ -1,5 +1,5 @@
 <template>
-     <div class="card col-sm card-calon">
+     <div :class="colClass">
         <div class="nomor-urut">{{ noUrut }}</div>
         <img class="card-img-top" :src="foto" :alt="nama">
         <div class="card-body">
@@ -22,7 +22,11 @@ export default {
     data() {
         return {
             csrf: document.head.querySelector('meta[name="csrf-token"]').content,
+            colClass: null
         }
+    },
+    mounted() {
+        this.colClass = this.$root.colClass        
     },
     methods: {
         submit() {

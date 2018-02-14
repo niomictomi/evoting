@@ -151,7 +151,15 @@
             daftarPaslon: {!! $calonDPM !!},
             href: '{{ route('mahasiswa.vote.dpm') }}',
             voted: {{ Auth::guard('mhs')->user()->telahMemilihDpm() ? 'true' : 'false' }},
-            colClass: ''
+            colClass: 'card col-sm card-calon'
+        },
+        created() {
+            if(this.daftarPaslon.length == 1) {
+                this.colClass = 'card col-lg-3 card-calon'
+            }
+            else if(this.daftarPaslon.length == 2) {
+                this.colClass = 'card col-lg-4 card-calon'
+            }
         }
     })
     
