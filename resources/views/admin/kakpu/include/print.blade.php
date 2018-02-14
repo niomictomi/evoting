@@ -18,7 +18,7 @@
     <link href="{{ asset('css/tempusdominus-bootstrap-4.css') }}" rel="stylesheet">
 
 </head>
-<body onload="window.print();window.close()">
+<body>
 
 <br><br><br><br><br><br>
 <div>
@@ -73,7 +73,9 @@
                             <?php
                             $jum += $calon->getPemilih()->count();
                             ?>
-                            <td></td>
+                            <td>
+                                {{($calon->getPemilih()->count()/\App\Mahasiswa::where('status','A')->where('telah_login',true)->count())*100}}%
+                            </td>
                         </tr>
                     @endforeach
                     <tr>
@@ -82,6 +84,8 @@
                             {{\App\Mahasiswa::where('status','A')->where('telah_login',true)->count()-$jum}}
                         </td>
                         <td>
+                            {{((\App\Mahasiswa::where('status','A')->where('telah_login',true)->count()-$jum)/\App\Mahasiswa::where('status','A')->where('telah_login',true)->count())*100}} %
+
                         </td>
                     </tr>
                     <tr>
@@ -89,7 +93,7 @@
                         <td>
                             {{\App\Mahasiswa::where('status','A')->where('telah_login',true)->count()}}
                         </td>
-                        <td>100%</td>
+                        <td></td>
                     </tr>
                 </table>
                 <br><br><br><br>
