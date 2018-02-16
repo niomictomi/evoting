@@ -21,7 +21,7 @@ class CalonDPM extends Model
      */
     public function getPemilih()
     {
-        return $this->belongsToMany('App\Mahasiswa','pemilihan_dpm','calon_dpm_id', 'mahasiswa_id')->withTimestamps();
+        return $this->belongsToMany('App\Mahasiswa','pemilihan_dpm','calon_dpm_id', 'mahasiswa_id')->withTimestamps()->get()->unique('id')->values();
     }
 
     /**
