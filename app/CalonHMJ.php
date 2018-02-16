@@ -21,7 +21,7 @@ class CalonHMJ extends Model
      */
     public function getPemilih()
     {
-        return $this->belongsToMany('App\Mahasiswa','pemilihan_hmj','calon_hmj_id', 'mahasiswa_id')->withTimestamps()->wherePivotIn('mahasiswa_id', Mahasiswa::getAllId());
+        return $this->belongsToMany('App\Mahasiswa','pemilihan_hmj','calon_hmj_id', 'mahasiswa_id')->withTimestamps();
     }
 
     /**
