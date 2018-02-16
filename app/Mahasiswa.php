@@ -576,4 +576,14 @@ class Mahasiswa extends Authenticatable
         $jurusan = Jurusan::findOrFail($jurusan_id);
         return $mager->whereIn('id', $jurusan->getIdMahasiswa())->get();
     }
+
+    /**
+     * mendapatkan id mahasiswa
+     * @param string $status
+     * @return array
+     */
+    public static function getAllId($status = Mahasiswa::AKTIF)
+    {
+        return array_flatten(Mahasiswa::select('id')->where('status', $status)->get()->toArray());
+    }
 }
