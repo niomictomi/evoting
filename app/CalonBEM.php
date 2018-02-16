@@ -22,7 +22,7 @@ class CalonBEM extends Model
      */
     public function getPemilih()
     {
-        return $this->belongsToMany('App\Mahasiswa','pemilihan_bem','calon_bem_id', 'mahasiswa_id')->withTimestamps();
+        return $this->belongsToMany('App\Mahasiswa','pemilihan_bem','calon_bem_id', 'mahasiswa_id')->withTimestamps()->wherePivotIn('mahasiswa_id', Mahasiswa::getAllId());
     }
 
     /**
