@@ -18,11 +18,11 @@ class CalonBEM extends Model
 
     /**
      * mengambil data mahasiswa yang memilih
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return static
      */
     public function getPemilih()
     {
-        return $this->belongsToMany('App\Mahasiswa','pemilihan_bem','calon_bem_id', 'mahasiswa_id')->withTimestamps();
+        return $this->belongsToMany('App\Mahasiswa','pemilihan_bem','calon_bem_id', 'mahasiswa_id')->withTimestamps()->where('status', Mahasiswa::AKTIF);
     }
 
     /**

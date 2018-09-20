@@ -92,7 +92,7 @@
             </table>
             @else
                 <div class="alert alert-info">
-                    Daftar mahasiswa yang telah voting atau belum akan ditampilkan saat voting sedang berlangsung.
+                    Daftar mahasiswa yang telah voting atau belum hanya ditampilkan saat voting sedang berlangsung.
                 </div>
             @endif
         </div>
