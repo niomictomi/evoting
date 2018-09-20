@@ -24,6 +24,11 @@ Route::prefix('root')->group(function () {
             'as' => 'root.admin'
         ]);
 
+        Route::get('voting', [ 
+            'uses' => 'RootController@voting',
+            'as' => 'root.voting'
+        ]);
+
     });
 
     Route::delete('reset', [
@@ -49,6 +54,11 @@ Route::prefix('root')->group(function () {
     Route::put('tambah/admin', [
         'uses' => 'AdminController@tambahAdmin',
         'as' => 'root.tambah.admin'
+    ]);
+
+    Route::post('buka/akun', [
+        'uses' => 'RootController@bukaAkun',
+        'as' => 'root.buka.akun'
     ]);
 
 });

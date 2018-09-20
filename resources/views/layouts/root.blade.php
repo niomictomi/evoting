@@ -16,6 +16,12 @@
     </a>
 </li>
 
+<li @if (Route::currentRouteName() == 'root.voting') class="active" @endif>
+    <a href="{{ route('root.voting') }}">
+        <i class="fa fa-list"></i> Voting
+    </a>
+</li>
+
 <li @if (Route::currentRouteName() == 'root.reset') class="active" @endif>
     <a href="{{ route('root.reset') }}">
         <i class="fa fa-refresh"></i> Reset

@@ -8,6 +8,7 @@ use App\Jurusan;
 use App\Support\Role;
 use App\User;
 use App\Pengaturan;
+use App\Mahasiswa;
 
 class RootController extends Controller
 {
@@ -75,6 +76,20 @@ class RootController extends Controller
         $daftarAdmin = User::where('role', Role::ADMIN)->get();
         return view('admin.root.admin', [
             'daftarAdmin' => $daftarAdmin
+        ]);
+    }
+
+    public function voting(Request $request)
+    {
+        $daftarMahasiswa = Mahasiswa::query();
+
+        if ($request->has('q')) {
+            $daftarMahasiswa = $daftarMahasiswa->where('id', $request->get('q'))
+                ->orWhere('nama', 'ILIKE', $request->get('q'));
+        }
+
+        return view('admin.root.voting', [
+            'daftarMahasiswa' => $daftarMahasiswa->paginate(20)
         ]);
     }
 

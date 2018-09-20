@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
                 foreach (Role::PANITIA_ALL as $panitia){
                     $user = User::create([
                         'id' => ++$id_panitia,
-                        'nama' => $faker->unique()->name,
+                        'nama' => $panitia,
                         'password' => bcrypt('secret'),
                         'role' => $role,
                         'helper' => $panitia

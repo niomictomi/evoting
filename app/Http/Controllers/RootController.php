@@ -17,7 +17,7 @@ class RootController extends Controller
 
     public function __construct()
     {
-        $this->middleware('ajax');
+        $this->middleware('ajax')->except(['bukaAkun']);
     }
 
     /**
@@ -66,6 +66,24 @@ class RootController extends Controller
         }
 
         return response('Forbidden Access !', 403);
-    }  
+    }
+    
+    /**
+     * Mengaktifkan akun mahasiswa
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function bukaAkun(Request $request)
+    {
+        $mahasiswa = Mahasiswa::find($request->nim);
+
+        $mahasiswa->telah_login = false;
+        $mahasiswa->save();
+
+        return back()->with([
+            'success' => 'Berhasil mengaktifkan akun !'
+        ]);
+    }
 
 }
