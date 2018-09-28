@@ -19,70 +19,31 @@ class CalonHMJ extends Model
      * mengambil data mahasiswa yang memilih
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function getPemilih()
+    public function getPemilih($queryReturn = true)
     {
-        return $this->belongsToMany('App\Mahasiswa','pemilihan_hmj','calon_hmj_id', 'mahasiswa_id')->withTimestamps()->where('status', Mahasiswa::AKTIF);
-    }
+        $data = $this->belongsToMany('App\Mahasiswa','pemilihan_hmj','calon_hmj_id', 'mahasiswa_id')->withTimestamps()->where('status', Mahasiswa::AKTIF);
 
-    /**
-     * Mendapatkan relasi ke tabel Mahasiswa dilihat
-     * dari id calon ketua
-     *
-     * @return BelongsTo
-     */
-    public function getRelasiKetua()
-    {
-        return $this->belongsTo('App\Mahasiswa','ketua_id');
+        return $queryReturn ? $data : $data->get();
     }
 
     /**
      * mengambil data ketua
      * @return Model|null|static
      */
-    public function getKetua()
+    public function getKetua($queryReturn = true)
     {
-        return $this->belongsTo('App\Mahasiswa','ketua_id')->first();
+        $data = $this->belongsTo('App\Mahasiswa','ketua_id');
+        return $queryReturn ? $data : $data->first();
     }
 
     /**
      * mengambil data wakil
      * @return Model|null|static
      */
-    public function getWakil()
+    public function getWakil($queryReturn = true)
     {
-        return $this->belongsTo('App\Mahasiswa','wakil_id')->first();
-    }
-
-    /**
-     * mendapatkan id semua calon
-     * @return array
-     */
-    public static function getAllIdCalon($jurusan_id = null)
-    {
-        $id_mhs = Array();
-        foreach (CalonHMJ::all() as $calon){
-            if (is_null($jurusan_id)){
-                array_push($id_mhs, $calon->ketua_id, $calon->wakil_id);
-            }
-            else{
-                if ($calon->getKetua()->getProdi()->jurusan_id == $jurusan_id){
-                    array_push($id_mhs, $calon->ketua_id, $calon->wakil_id);
-                }
-            }
-        }
-
-        return $id_mhs;
-    }
-
-    /**
-     * mendapatkan semua data calon
-     * @return mixed
-     */
-    public static function getAllCalon($jurusan_id = null)
-    {
-        if (is_null($jurusan_id))
-            return Mahasiswa::whereIn('id', CalonHMJ::getAllIdCalon());
-        return Mahasiswa::whereIn('id', CalonHMJ::getAllIdCalon($jurusan_id));
+        $data = $this->belongsTo('App\Mahasiswa','wakil_id');
+        return $queryReturn ? $data : $data->first();
     }
 
     /**
@@ -93,10 +54,8 @@ class CalonHMJ extends Model
      */
     public static function getDaftarCalon($jurusan_id)
     {
-        $calonHMJ = CalonHMJ::whereHas('getRelasiKetua', function ($query) use ($jurusan_id) {
-            $query->whereHas('getRelasiProdi', function ($query) use ($jurusan_id) {
-                $query->where('jurusan_id', $jurusan_id);
-            });
+        $calonHMJ = CalonHMJ::whereHas('getKetua.getProdi', function ($query) use ($jurusan_id) {
+            $query->where('jurusan_id', $jurusan_id);
         });
 
         return $calonHMJ;
