@@ -24,28 +24,14 @@ class Jurusan extends Model
     }
 
     /**
-     * mendapatkan id mhs per jurusan
-     * @return array
-     */
-    public function getIdMahasiswa()
-    {
-        $id_mhs = Array();
-        foreach ($this->getProdi()->get() as $prodi){
-            $id_mhs = array_merge($id_mhs, array_flatten($prodi->mahasiswa()->get()->map(function ($mhs){
-                return collect($mhs->toArray())->only(['id'])->all();
-            })));
-        }
-
-        return $id_mhs;
-    }
-
-    /**
-     * mendapatkan data mahasiswa dari jurusan tertentu
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function getMahasiswa()
     {
-        return Mahasiswa::whereIn('mahasiswa.id', $this->getIdMahasiswa());
+        return Mahasiswa::query()
+            ->whereHas('getProdi.getJurusan', function ($query) {
+                $query->where('id', $this->id);
+            });
     }
 
     /**
