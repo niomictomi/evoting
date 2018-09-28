@@ -19,50 +19,23 @@ class CalonDPM extends Model
      * mengambil data mahasiswa yang memilih
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function getPemilih()
+    public function getPemilih($queryReturn = true)
     {
-        return $this->belongsToMany('App\Mahasiswa','pemilihan_dpm','calon_dpm_id', 'mahasiswa_id')->withTimestamps()->where('status', Mahasiswa::AKTIF);
-    }
+        $data = $this->belongsToMany('App\Mahasiswa','pemilihan_dpm','calon_dpm_id', 'mahasiswa_id')
+            ->withTimestamps()
+            ->where('status', Mahasiswa::AKTIF);
 
-    /**
-     * Mendapatkan relasi ke tabel mahasiswa berdasarkan
-     * id anggota
-     *
-     * @return void
-     */
-    public function getRelasiAnggota()
-    {
-        return $this->belongsTo('App\Mahasiswa', 'anggota_id');
+        return $queryReturn ? $data : $data->get();
     }
 
     /**
      * mengambil data anggota
      * @return Model|null|static
      */
-    public function getAnggota()
+    public function getAnggota($queryReturn = true)
     {
-        return $this->belongsTo('App\Mahasiswa', 'anggota_id')->first();
-    }
-
-    /**
-     * mendapatkan id semua calon
-     * @return array
-     */
-    public static function getAllIdAnggota($jurusan_id = null)
-    {
-        $id_mhs = Array();
-        foreach (CalonDPM::all() as $calon){
-            if (is_null($jurusan_id)){
-                array_push($id_mhs, $calon->anggota_id);
-            }
-            else{
-                if ($calon->getKetua()->getProdi()->jurusan_id == $jurusan_id){
-                    array_push($id_mhs, $calon->anggota_id);
-                }
-            }
-        }
-
-        return $id_mhs;
+        $data = $this->belongsTo('App\Mahasiswa', 'anggota_id');
+        return $queryReturn ? $data : $data->first();
     }
 
     /**
@@ -71,9 +44,13 @@ class CalonDPM extends Model
      */
     public static function getAllAnggota($jurusan_id = null)
     {
-        if (is_null($jurusan_id))
-            return Mahasiswa::whereIn('id', CalonDPM::getAllIdAnggota());
-        return Mahasiswa::whereIn('id', CalonDPM::getAllIdAnggota($jurusan_id));
+        return Mahasiswa::query()
+            ->whereHas('getCalonDpm')
+            ->when($jurusan_id, function ($query) use ($jurusan_id) {
+                $query->whereHas('getProdi.getJurusan', function ($query) use ($jurusan_id) {
+                    $query->where('id', $jurusan_id);
+                });
+            });
     }
 
     /**
@@ -84,10 +61,8 @@ class CalonDPM extends Model
      */
     public static function getDaftarCalon($jurusan_id)
     {  
-        $calonDPM = CalonDPM::whereHas('getRelasiAnggota', function ($query) use($jurusan_id) {
-            $query->whereHas('getRelasiProdi', function ($query) use ($jurusan_id) {
-                $query->where('jurusan_id', $jurusan_id);
-            });
+        $calonDPM = CalonDPM::whereHas('getAnggota.getProdi', function ($query) use($jurusan_id) {
+            $query->where('jurusan_id', $jurusan_id);
         });
 
         return $calonDPM;
