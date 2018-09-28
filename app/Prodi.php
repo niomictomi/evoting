@@ -18,18 +18,20 @@ class Prodi extends Model
      * Mendapatkan data mahasiswa dengan prodi ini
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function mahasiswa()
+    public function getMahasiswa($queryReturn = true)
     {
-        return $this->hasMany('App\Mahasiswa', 'prodi_id');
+        $data = $this->hasMany('App\Mahasiswa', 'prodi_id');
+        return $queryReturn ? $data : $data->get();
     }
 
     /**
      * Mendapatkan data jurusan dari prodi ini
      * @return Model|null|static
      */
-    public function jurusan()
+    public function getJurusan($queryReturn = true)
     {
-        return $this->belongsTo('App\Jurusan', 'jurusan_id')->first();
+        $data = $this->belongsTo('App\Jurusan', 'jurusan_id');
+        return $queryReturn ? $data : $data->first();
     }
 
     /**
