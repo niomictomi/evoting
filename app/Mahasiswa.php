@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 use Mockery\Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Mahasiswa extends Authenticatable
 {
-
     use Notifiable;
 
     protected $table = 'mahasiswa';
@@ -35,23 +35,13 @@ class Mahasiswa extends Authenticatable
     ];
 
     /**
-     * Mendapatkan relasi ke tabel prodi
-     * gunanya untuk bisa menggunakan whereHas
-     *
-     * @return BelongsTo
-     */
-    public function getRelasiProdi()
-    {
-        return $this->belongsTo('App\Prodi', 'prodi_id');
-    }
-
-    /**
      * Mendapatkan data prodi dari salah satu mahasiswa
-     * @return Model|null|static
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function getProdi()
+    public function getProdi($queryReturn = true)
     {
-        return $this->belongsTo('App\Prodi', 'prodi_id')->first();
+        $data = $this->belongsTo('App\Prodi', 'prodi_id');
+        return $queryReturn ? $data : $data->first();
     }
 
     /**
@@ -72,64 +62,74 @@ class Mahasiswa extends Authenticatable
      * mengambil data calon hmj
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function getCalonHmj()
+    public function getCalonHmj($queryReturn = true)
     {
-        $calonHmj = $this->hasOne('App\CalonHMJ', 'ketua_id');
-        if (is_null($calonHmj)){
-            $calonHmj = $this->hasOne('App\CalonHMJ', 'wakil_id');
-        }
+        $calonHmjKetua = $this->hasOne('App\CalonHMJ', 'ketua_id');
 
-        return $calonHmj;
+        $calonHmjWakil = $this->hasOne('App\CalonHMJ', 'wakil_id');
+
+        $data = empty($calonHmjKetua) ? $calonHmjWakil : $calonHmjKetua;
+
+        return ($queryReturn ? $data : $data->first()) ?? null;
     }
 
     /**
      * data calon bem
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function getCalonBem()
+    public function getCalonBem($queryReturn = true)
     {
-        $calonBem = $this->hasOne('App\CalonBEM', 'ketua_id');
-        if (is_null($calonBem)){
-            $calonHmj = $this->hasOne('App\CalonBEM', 'wakil_id');
-        }
+        $calonBemKetua = $this->hasOne('App\CalonBEM', 'ketua_id');
 
-        return $calonBem;
+        $calonBemWakil = $this->hasOne('App\CalonBEM', 'wakil_id');
+
+        $data = empty($calonBemKetua) ? $calonBemWakil : $calonBemKetua;
+
+        return ($queryReturn ? $data : $data->first()) ?? null;
     }
 
     /**
      * data calon dpm
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function getCalonDpm()
+    public function getCalonDpm($queryReturn = true)
     {
-        return $this->hasOne('App\CalonDPM', 'anggota_id');
+        $data = $this->hasOne('App\CalonDPM', 'anggota_id');
+        return $queryReturn ? $data : $data->first();
     }
 
     /**
      * mendapatkan data calon hmj yang dipilih
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function getPemilihanHmj()
+    public function getPemilihanHmj($queryReturn = true)
     {
-        return $this->belongsToMany('App\CalonHMJ', 'pemilihan_hmj', 'mahasiswa_id', 'calon_hmj_id')->withTimestamps();
+        $data = $this->belongsToMany('App\CalonHMJ', 'pemilihan_hmj', 'mahasiswa_id', 'calon_hmj_id')->withTimestamps();
+
+        return $queryReturn ? $data : $data->first();
     }
 
     /**
      * mendapatkan data calon bem yang dipilih
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function getPemilihanBem()
+    public function getPemilihanBem($queryReturn = true)
     {
-        return $this->belongsToMany('App\CalonBEM', 'pemilihan_bem', 'mahasiswa_id', 'calon_bem_id')->withTimestamps();
+        $data = $this->belongsToMany('App\CalonBEM', 'pemilihan_bem', 'mahasiswa_id', 'calon_bem_id')->withTimestamps();
+
+        return $queryReturn ? $data : $data->first();
     }
 
     /**
      * mendapatkan data calon dpm yang dipilih
+     * @param bool $queryReturn
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function getPemilihanDpm()
+    public function getPemilihanDpm($queryReturn = true)
     {
-        return $this->belongsToMany('App\CalonDPM', 'pemilihan_dpm', 'mahasiswa_id', 'calon_dpm_id')->withTimestamps();
+        $data = $this->belongsToMany('App\CalonDPM', 'pemilihan_dpm', 'mahasiswa_id', 'calon_dpm_id')->withTimestamps();
+
+        return $queryReturn ? $data : $data->first();
     }
 
     /**
@@ -174,99 +174,24 @@ class Mahasiswa extends Authenticatable
 
     /**
      * @param $jurusan_id
-     * @return mixed
-     */
-    public static function getYangTelahMemilihHmjViaFlag($jurusan_id)
-    {
-        return Jurusan::find($jurusan_id)->getMahasiswa()
-            ->where('status', Mahasiswa::AKTIF)
-            ->where('hmj', true)
-            ->leftJoin('pemilihan_hmj', 'mahasiswa_id', '=', 'id');
-    }
-
-    /**
-     * @param $jurusan_id
-     * @return mixed
-     */
-    public static function getYangTelahMemilihDpmViaFlag($jurusan_id)
-    {
-        return Jurusan::find($jurusan_id)->getMahasiswa()
-            ->where('status', Mahasiswa::AKTIF)
-            ->where('dpm', true)
-            ->leftJoin('pemilihan_dpm', 'mahasiswa_id', '=', 'id');
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function getYangTelahMemilihBemViaFlag()
-    {
-        return Mahasiswa::where('status', Mahasiswa::AKTIF)
-            ->where('bem', true)
-            ->leftJoin('pemilihan_bem', 'mahasiswa_id', '=', 'id');
-    }
-
-    /**
-     * @param $jurusan_id
-     * @return mixed
-     */
-    public static function getYangBelumMemilihHmjViaFlag($jurusan_id)
-    {
-        return Jurusan::find($jurusan_id)->getMahasiswa()
-            ->where('status', Mahasiswa::AKTIF)
-            ->where('hmj', false);
-    }
-
-    /**
-     * @param $jurusan_id
-     * @return mixed
-     */
-    public static function getYangBelumMemilihHmjViaRelation($jurusan_id)
-    {
-        $id_mhs = Array();
-        foreach (CalonHMJ::all() as $calon){
-            $id_mhs = array_merge($id_mhs, array_flatten($calon->getPemilih()->get()->map(function ($mhs){
-                    return collect($mhs->toArray())->only(['id'])->all();
-                }))
-            );
-        }
-
-        return Jurusan::find($jurusan_id)->getMahasiswa()
-            ->where('status', Mahasiswa::AKTIF)
-            ->whereNotIn('id', $id_mhs);
-    }
-
-    /**
-     * @param $jurusan_id
      * @param null $waktu_mulai
      * @param null $waktu_selesai
      * @return mixed
      */
     public static function getYangTelahMemilihHmjViaRelation($jurusan_id, $waktu_mulai = null, $waktu_selesai = null)
     {
-        $id_mhs = Array();
-        foreach (CalonHMJ::all() as $calon){
-            if ($waktu_mulai == null || $waktu_selesai == null){
-                $id_mhs = array_merge($id_mhs, array_flatten($calon->getPemilih()->get()->map(function ($mhs){
-                        return collect($mhs->toArray())->only(['id'])->all();
-                    }))
-                );
-            }
-            else{
-                $id_mhs = array_merge($id_mhs, array_flatten($calon->getPemilih()
-                        ->wherePivot('created_at','>=', $waktu_mulai)
-                        ->wherePivot('created_at', '<', $waktu_selesai)
-                        ->get()->map(function ($mhs){
-                        return collect($mhs->toArray())->only(['id'])->all();
-                    }))
-                );
-            }
-        }
-
-        return Jurusan::find($jurusan_id)->getMahasiswa()
-            ->where('status', Mahasiswa::AKTIF)
-            ->whereIn('id', $id_mhs)
-            ->leftJoin('pemilihan_hmj', 'mahasiswa_id', '=', 'id');
+        return Jurusan::find($jurusan_id)
+            ->getMahasiswa()
+            ->whereHas(
+                'getPemilihanHmj',
+                function ($query) use ($jurusan_id, $waktu_mulai, $waktu_selesai){
+                    $query->when($waktu_mulai, function ($query) use ($jurusan_id, $waktu_mulai, $waktu_selesai) {
+                        $query->when($waktu_selesai, function ($query) use ($jurusan_id, $waktu_mulai, $waktu_selesai) {
+                            $query->whereBetween('created_at', [$waktu_mulai, $waktu_selesai]);
+                        });
+                    });
+                }
+            );
     }
 
     /**
@@ -277,29 +202,18 @@ class Mahasiswa extends Authenticatable
      */
     public static function getYangTelahMemilihDpmViaRelation($jurusan_id, $waktu_mulai = null, $waktu_selesai = null)
     {
-        $id_mhs = Array();
-        foreach (CalonDPM::all() as $calon){
-            if ($waktu_mulai == null || $waktu_selesai == null){
-                $id_mhs = array_merge($id_mhs, array_flatten($calon->getPemilih()->get()->map(function ($mhs){
-                        return collect($mhs->toArray())->only(['id'])->all();
-                    }))
-                );
-            }
-            else{
-                $id_mhs = array_merge($id_mhs, array_flatten($calon->getPemilih()
-                        ->wherePivot('created_at','>=', $waktu_mulai)
-                        ->wherePivot('created_at', '<=', $waktu_selesai)
-                        ->get()->map(function ($mhs){
-                            return collect($mhs->toArray())->only(['id'])->all();
-                        }))
-                );
-            }
-        }
-
-        return Jurusan::find($jurusan_id)->getMahasiswa()
-            ->where('status', Mahasiswa::AKTIF)
-            ->whereIn('id', $id_mhs)
-            ->leftJoin('pemilihan_dpm', 'mahasiswa_id', '=', 'id');
+        return Jurusan::find($jurusan_id)
+            ->getMahasiswa()
+            ->whereHas(
+                'getPemilihanDpm',
+                function ($query) use ($jurusan_id, $waktu_mulai, $waktu_selesai){
+                    $query->when($waktu_mulai, function ($query) use ($jurusan_id, $waktu_mulai, $waktu_selesai) {
+                        $query->when($waktu_selesai, function ($query) use ($jurusan_id, $waktu_mulai, $waktu_selesai) {
+                            $query->whereBetween('created_at', [$waktu_mulai, $waktu_selesai]);
+                        });
+                    });
+                }
+            );
     }
 
     /**
@@ -309,39 +223,28 @@ class Mahasiswa extends Authenticatable
      */
     public static function getYangTelahMemilihBemViaRelation($waktu_mulai = null, $waktu_selesai = null)
     {
-        $id_mhs = Array();
-        foreach (CalonBEM::all() as $calon){
-            if ($waktu_mulai == null || $waktu_selesai == null){
-                $id_mhs = array_merge($id_mhs, array_flatten($calon->getPemilih()->get()->map(function ($mhs){
-                        return collect($mhs->toArray())->only(['id'])->all();
-                    }))
-                );
-            }
-            else{
-                $id_mhs = array_merge($id_mhs, array_flatten($calon->getPemilih()
-                        ->wherePivot('created_at','>=', $waktu_mulai)
-                        ->wherePivot('created_at', '<=', $waktu_selesai)
-                        ->get()->map(function ($mhs){
-                            return collect($mhs->toArray())->only(['id'])->all();
-                        }))
-                );
-            }
-        }
-
-        return Mahasiswa::getByStatus()
-            ->whereIn('id', $id_mhs)
-            ->leftJoin('pemilihan_bem', 'mahasiswa_id', '=', 'id');
+        return Mahasiswa::whereHas(
+                'getPemilihanBem',
+                function ($query) use ($waktu_mulai, $waktu_selesai){
+                    $query->when($waktu_mulai, function ($query) use ($waktu_mulai, $waktu_selesai) {
+                        $query->when($waktu_selesai, function ($query) use ($waktu_mulai, $waktu_selesai) {
+                            $query->whereBetween('created_at', [$waktu_mulai, $waktu_selesai]);
+                        });
+                    });
+                }
+            );
     }
 
     /**
      * @param $jurusan_id
      * @return mixed
      */
-    public static function getYangBelumMemilihDpmViaFlag($jurusan_id)
+    public static function getYangBelumMemilihHmjViaRelation($jurusan_id)
     {
-        return Jurusan::find($jurusan_id)->getMahasiswa()
+        return Jurusan::find($jurusan_id)
+            ->getMahasiswa()
             ->where('status', Mahasiswa::AKTIF)
-            ->where('dpm', false);
+            ->whereNotIn('id', self::getYangTelahMemilihHmjViaRelation($jurusan_id)->pluck('id'));
     }
 
     /**
@@ -350,26 +253,10 @@ class Mahasiswa extends Authenticatable
      */
     public static function getYangBelumMemilihDpmViaRelation($jurusan_id)
     {
-        $id_mhs = Array();
-        foreach (CalonDPM::all() as $calon){
-            $id_mhs = array_merge($id_mhs, array_flatten($calon->getPemilih()->get()->map(function ($mhs){
-                    return collect($mhs->toArray())->only(['id'])->all();
-                }))
-            );
-        }
-
-        return Jurusan::find($jurusan_id)->getMahasiswa()
+        return Jurusan::find($jurusan_id)
+            ->getMahasiswa()
             ->where('status', Mahasiswa::AKTIF)
-            ->whereNotIn('id', $id_mhs);
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function getYangBelumMemilihBemViaFlag()
-    {
-        return Mahasiswa::where('status', Mahasiswa::AKTIF)
-            ->where('bem', false);
+            ->whereNotIn('id', self::getYangTelahMemilihDpmViaRelation($jurusan_id)->pluck('id'));
     }
 
     /**
@@ -377,16 +264,8 @@ class Mahasiswa extends Authenticatable
      */
     public static function getYangBelumMemilihBemViaRelation()
     {
-        $id_mhs = Array();
-        foreach (CalonBEM::all() as $calon){
-            $id_mhs = array_merge($id_mhs, array_flatten($calon->getPemilih()->get()->map(function ($mhs){
-                    return collect($mhs->toArray())->only(['id'])->all();
-                }))
-            );
-        }
-
         return Mahasiswa::where('status', Mahasiswa::AKTIF)
-            ->whereNotIn('id', $id_mhs);
+            ->whereNotIn('id', self::getYangTelahMemilihBemViaRelation()->pluck('id'));
     }
 
     /**
@@ -500,31 +379,12 @@ class Mahasiswa extends Authenticatable
     }
 
     /**
-     * mendapatkan mahasiswa yang abstain dalam pemilihan bem via flag
-     * @return mixed
-     */
-    public static function getAbstainBemViaFlag()
-    {
-        return self::getYangBelumMemilihBemViaFlag()->where('telah_login', true);
-    }
-
-    /**
      * mendapatkan mahasiswa yang abstain dalam pemilihan bem via relation
      * @return mixed
      */
     public static function getAbstainBemViaRelation()
     {
         return self::getYangBelumMemilihBemViaRelation()->where('telah_login', true);
-    }
-
-    /**
-     * mendapatkan mahasiswa yang abstain dalam pemilihan dpm via flag
-     * @param $jurusan_id
-     * @return mixed
-     */
-    public static function getAbstainDpmViaFlag($jurusan_id)
-    {
-        return self::getYangBelumMemilihDpmViaFlag($jurusan_id)->where('telah_login', true);
     }
 
     /**
@@ -535,16 +395,6 @@ class Mahasiswa extends Authenticatable
     public static function getAbstainDpmViaRelation($jurusan_id)
     {
         return self::getYangBelumMemilihDpmViaRelation($jurusan_id)->where('telah_login', true);
-    }
-
-    /**
-     * mendapatkan mahasiswa yang abstain dalam pemilihan hmj via flag
-     * @param $jurusan_id
-     * @return mixed
-     */
-    public static function getAbstainHmjViaFlag($jurusan_id)
-    {
-        return self::getYangBelumMemilihHmjViaFlag($jurusan_id)->where('telah_login', true);
     }
 
     /**
@@ -562,28 +412,19 @@ class Mahasiswa extends Authenticatable
      * @param null $jurusan_id
      * @return mixed
      */
-    public static function getMager($jurusan_id = null)
+    public static function getMager($queryReturn = true, $jurusan_id = null)
     {
-        $mager = Mahasiswa::where('login', false)->where('telah_login', false)
+        $data = Mahasiswa::where('login', false)->where('telah_login', false)
             ->where('hmj', false)
             ->where('dpm', false)
             ->where('bem', false)
-            ->where('status', static::AKTIF);
-        if (is_null($jurusan_id)){
-            return $mager->get();
-        }
+            ->where('status', static::AKTIF)
+            ->when($jurusan_id, function ($query) use ($jurusan_id) {
+                $query->whereHas('getProdi.getJurusan', function ($query) use ($jurusan_id) {
+                    $query->where('id', $jurusan_id);
+                });
+            });
 
-        $jurusan = Jurusan::findOrFail($jurusan_id);
-        return $mager->whereIn('id', $jurusan->getIdMahasiswa())->get();
-    }
-
-    /**
-     * mendapatkan id mahasiswa
-     * @param string $status
-     * @return array
-     */
-    public static function getAllId($status = Mahasiswa::AKTIF)
-    {
-        return array_flatten(Mahasiswa::select('id')->where('status', $status)->get()->toArray());
+        return $queryReturn ? $data : $data->get();
     }
 }
