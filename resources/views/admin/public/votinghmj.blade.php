@@ -62,7 +62,7 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Memiliki hak suara']) }}">Memiliki hak suara</a>
                             <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Telah memberikan hak suara']) }}">Telah memberikan hak suara</a>
-                            <a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Belum memberikan hak suara']) }}">Belum memberikan hak suara</a>
+                            {{--<a class="dropdown-item" href="{{ route('admin.voting.hmj', ['jurusan' => $jurusan, 'tipe' => 'Belum memberikan hak suara']) }}">Belum memberikan hak suara</a>--}}
                         </div>
                     </div>
                     <div class="btn-group">

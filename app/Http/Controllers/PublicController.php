@@ -49,8 +49,8 @@ class PublicController extends Controller
         $jurusan = Jurusan::findByMd5Id($request->id);
         if ($request->status == md5('Telah memberikan hak suara'))
             $data = Mahasiswa::getYangTelahMemilihHmjViaRelation($jurusan->id);
-        elseif ($request->status == md5('Belum memberikan hak suara'))
-            $data = Mahasiswa::getYangBelumMemilihHmjViaRelation($jurusan->id);
+//        elseif ($request->status == md5('Belum memberikan hak suara'))
+//            $data = Mahasiswa::getYangBelumMemilihHmjViaRelation($jurusan->id);
         else
             $data = $jurusan->getMahasiswa()->where('status', 'A');
 
@@ -65,8 +65,8 @@ class PublicController extends Controller
         $jurusan = Jurusan::findByMd5Id($request->id);
         if ($request->status == md5('Telah memberikan hak suara'))
             $data = Mahasiswa::getYangTelahMemilihDpmViaRelation($jurusan->id);
-        elseif ($request->status == md5('Belum memberikan hak suara'))
-            $data = Mahasiswa::getYangBelumMemilihDpmViaRelation($jurusan->id);
+//        elseif ($request->status == md5('Belum memberikan hak suara'))
+//            $data = Mahasiswa::getYangBelumMemilihDpmViaRelation($jurusan->id);
         else
             $data = $jurusan->getMahasiswa()->where('status', 'A');
 
