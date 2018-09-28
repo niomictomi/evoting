@@ -20,50 +20,30 @@ class CalonBEM extends Model
      * mengambil data mahasiswa yang memilih
      * @return static
      */
-    public function getPemilih()
+    public function getPemilih($queryReturn = true)
     {
-        return $this->belongsToMany('App\Mahasiswa','pemilihan_bem','calon_bem_id', 'mahasiswa_id')->withTimestamps()->where('status', Mahasiswa::AKTIF);
+        $data = $this->belongsToMany('App\Mahasiswa','pemilihan_bem','calon_bem_id', 'mahasiswa_id')->withTimestamps()->where('status', Mahasiswa::AKTIF);
+        return $queryReturn ? $data : $data->get();
     }
 
     /**
      * mengambil data ketua
      * @return Model|null|static
      */
-    public function getKetua()
+    public function getKetua($queryReturn = true)
     {
-        return $this->belongsTo('App\Mahasiswa','ketua_id')->first();
+        $data = $this->belongsTo('App\Mahasiswa','ketua_id');
+        return $queryReturn ? $data : $data->first();
     }
 
     /**
      * mengambil data wakil
      * @return Model|null|static
      */
-    public function getWakil()
+    public function getWakil($queryReturn = true)
     {
-        return $this->belongsTo('App\Mahasiswa','wakil_id')->first();
-    }
-
-    /**
-     * mendapatkan id semua calon
-     * @return array
-     */
-    public static function getAllIdCalon()
-    {
-        $id_mhs = Array();
-        foreach (CalonBEM::all() as $calon){
-            array_push($id_mhs, $calon->ketua_id, $calon->wakil_id);
-        }
-
-        return $id_mhs;
-    }
-
-    /**
-     * mendapatkan semua data calon
-     * @return mixed
-     */
-    public static function getAllCalon()
-    {
-        return Mahasiswa::whereIn('id', CalonBEM::getAllIdCalon());
+        $data = $this->belongsTo('App\Mahasiswa','wakil_id');
+        return $queryReturn ? $data : $data->first();
     }
 
     /**
@@ -114,7 +94,7 @@ class CalonBEM extends Model
             $jum += $calon->getPemilih()->count();
         }
 
-        $data['Abstain'] = \App\Mahasiswa::where('status','A')->where('telah_login',true)->count()-$jum;
+        $data['Abstain'] = Mahasiswa::where('status','A')->where('telah_login',true)->count()-$jum;
 
         return $data;
     }
