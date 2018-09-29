@@ -34,7 +34,7 @@
                     <div class="card-block">
                         <div style="max-height: 200px; overflow: auto">
                             <label>Anggota</label>
-                            <p>{{ $calon->getAnggota()->id }}<br>{{ $calon->getAnggota()->nama }}</p>
+                            <p>{{ $calon->getAnggota(false)->id }}<br>{{ $calon->getAnggota(false)->nama }}</p>
                             <label>Visi</label>
                             <p>{!! $calon->visi !!}</p>
                             <label>Misi</label>
@@ -64,13 +64,13 @@
                             <a class="dropdown-item"
                                href="{{ route('admin.voting.dpm', ['jurusan' => $jurusan, 'tipe' => 'Telah memberikan hak suara']) }}">Telah
                                 memberikan hak suara</a>
-                            <a class="dropdown-item"
-                               href="{{ route('admin.voting.dpm', ['jurusan' => $jurusan, 'tipe' => 'Belum memberikan hak suara']) }}">Belum
-                                memberikan hak suara</a>
+                            {{--<a class="dropdown-item"--}}
+                               {{--href="{{ route('admin.voting.dpm', ['jurusan' => $jurusan, 'tipe' => 'Belum memberikan hak suara']) }}">Belum--}}
+                                {{--memberikan hak suara</a>--}}
                         </div>
                     </div>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-warning btn-sm btn-pill-right dropdown-toggle"
+                        <button type="button" class="btn btn-warning btn-sm btn-pill-right dropdown-toggle text-white"
                                 data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">Jurusan {{ $jurusan }}
                         </button>

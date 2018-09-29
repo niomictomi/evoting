@@ -34,9 +34,9 @@
                     <div class="card-block">
                         <div style="max-height: 200px; overflow: auto">
                             <label>Ketua</label>
-                            <p>{{ $calon->getKetua()->id }}<br>{{ $calon->getKetua()->nama }}</p>
+                            <p>{{ $calon->getKetua(false)->id }}<br>{{ $calon->getKetua(false)->nama }}</p>
                             <label>Wakil</label>
-                            <p>{{ $calon->getWakil()->id }}<br>{{ $calon->getWakil()->nama }}</p>
+                            <p>{{ $calon->getWakil(false)->id }}<br>{{ $calon->getWakil(false)->nama }}</p>
                             <label>Visi</label>
                             <p>{!! $calon->visi !!}</p>
                             <label>Misi</label>
@@ -56,7 +56,7 @@
             <div class="header-block pull-right">
                 <div class="btn-group">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-sm btn-pill-left dropdown-toggle"
+                        <button type="button" class="btn btn-primary btn-sm btn-pill-left btn-pill-right dropdown-toggle"
                                 data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">{{ $tipe }}
                         </button>
@@ -67,9 +67,9 @@
                             <a class="dropdown-item"
                                href="{{ route('admin.voting.bem', ['tipe' => 'Telah memberikan hak suara']) }}">Telah
                                 memberikan hak suara</a>
-                            <a class="dropdown-item"
-                               href="{{ route('admin.voting.bem', ['tipe' => 'Belum memberikan hak suara']) }}">Belum
-                                memberikan hak suara</a>
+                            {{--<a class="dropdown-item"--}}
+                               {{--href="{{ route('admin.voting.bem', ['tipe' => 'Belum memberikan hak suara']) }}">Belum--}}
+                                {{--memberikan hak suara</a>--}}
                         </div>
                     </div>
                 </div>

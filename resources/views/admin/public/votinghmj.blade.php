@@ -34,9 +34,9 @@
                     <div class="card-block">
                         <div style="max-height: 200px; overflow: auto">
                             <label>Ketua</label>
-                            <p>{{ $calon->getKetua()->id }}<br>{{ $calon->getKetua()->nama }}</p>
+                            <p>{{ $calon->getKetua(false)->id }}<br>{{ $calon->getKetua(false)->nama }}</p>
                             <label>Wakil</label>
-                            <p>{{ $calon->getWakil()->id }}<br>{{ $calon->getWakil()->nama }}</p>
+                            <p>{{ $calon->getWakil(false)->id }}<br>{{ $calon->getWakil(false)->nama }}</p>
                             <label>Visi</label>
                             <p>{!! $calon->visi !!}</p>
                             <label>Misi</label>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-warning btn-sm btn-pill-right dropdown-toggle" data-toggle="dropdown"
+                        <button type="button" class="btn btn-warning btn-sm btn-pill-right dropdown-toggle text-white" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">Jurusan {{ $jurusan }}
                         </button>
                         <div class="dropdown-menu">
