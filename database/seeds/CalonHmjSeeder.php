@@ -16,14 +16,21 @@ class CalonHmjSeeder extends Seeder
      */
     public function run()
     {
-        $faker = \Faker\Factory::create();
+        $faker = \Faker\Factory::create('ID_id');
         foreach (Jurusan::all() as $jurusan){
             $jumlahCalon = rand(2, 4);
             $mahasiswa = $jurusan->getMahasiswa()
-                ->whereIn('status', [Mahasiswa::AKTIF])
-                ->whereNotIn('id', CalonBEM::getAllIdCalon())
-                ->whereNotIn('id', CalonDPM::getAllIdAnggota())
-                ->get();
+                ->where('status', Mahasiswa::AKTIF)
+                ->whereNotIn('id', function ($query) {
+                    $query->select('ketua_id')
+                        ->from('calon_bem');
+                })->whereNotIn('id', function ($query) {
+                    $query->select('wakil_id')
+                        ->from('calon_bem');
+                })->whereNotIn('id', function ($query) {
+                    $query->select('anggota_id')
+                        ->from('calon_dpm');
+                })->get();
             $acakMahasiswa = array_rand($mahasiswa->toArray(), $jumlahCalon * 2);
             $counter = 0;
             for ($c = 0; $c < $jumlahCalon; $c++){
