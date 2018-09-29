@@ -27,6 +27,22 @@ class CalonHMJ extends Model
     }
 
     /**
+     * @param bool $queryReturn
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getPemilihUnique($queryReturn = true)
+    {
+        $data = Mahasiswa::query()->whereIn('id', function ($query) {
+            $query->select('mahasiswa_id')
+                ->from('pemilihan_hmj')
+                ->where('calon_hmj_id', $this->id)
+                ->groupBy('mahasiswa_id');
+        });
+
+        return $queryReturn ? $data : $data->get();
+    }
+
+    /**
      * mengambil data ketua
      * @return Model|null|static
      */

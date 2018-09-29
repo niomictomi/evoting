@@ -18,11 +18,27 @@ class CalonBEM extends Model
 
     /**
      * mengambil data mahasiswa yang memilih
-     * @return static
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getPemilih($queryReturn = true)
     {
-        $data = $this->belongsToMany('App\Mahasiswa','pemilihan_bem','calon_bem_id', 'mahasiswa_id')->withTimestamps()->where('status', Mahasiswa::AKTIF);
+        $data = $this->belongsToMany('App\Mahasiswa', 'pemilihan_bem', 'calon_bem_id', 'mahasiswa_id')->withTimestamps()->where('status', Mahasiswa::AKTIF);
+        return $queryReturn ? $data : $data->get();
+    }
+
+    /**
+     * @param bool $queryReturn
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getPemilihUnique($queryReturn = true)
+    {
+        $data = Mahasiswa::query()->whereIn('id', function ($query) {
+            $query->select('mahasiswa_id')
+                ->from('pemilihan_bem')
+                ->where('calon_bem_id', $this->id)
+                ->groupBy('mahasiswa_id');
+        });
+
         return $queryReturn ? $data : $data->get();
     }
 
@@ -32,7 +48,7 @@ class CalonBEM extends Model
      */
     public function getKetua($queryReturn = true)
     {
-        $data = $this->belongsTo('App\Mahasiswa','ketua_id');
+        $data = $this->belongsTo('App\Mahasiswa', 'ketua_id');
         return $queryReturn ? $data : $data->first();
     }
 
@@ -42,7 +58,7 @@ class CalonBEM extends Model
      */
     public function getWakil($queryReturn = true)
     {
-        $data = $this->belongsTo('App\Mahasiswa','wakil_id');
+        $data = $this->belongsTo('App\Mahasiswa', 'wakil_id');
         return $queryReturn ? $data : $data->first();
     }
 
@@ -59,7 +75,7 @@ class CalonBEM extends Model
 
         $waktuMulai = Pengaturan::getWaktuMulai()->minute == 0 ? Pengaturan::getWaktuMulai() : Pengaturan::getWaktuMulai()->addMinutes(-Pengaturan::getWaktuMulai()->minute);
 
-        while($waktuMulai->lessThan(Pengaturan::getWaktuSelesai())) {
+        while ($waktuMulai->lessThan(Pengaturan::getWaktuSelesai())) {
             // generate waktuSelesai
             $waktuSelesai = $waktuMulai->copy()->addMinutes(60);
 
@@ -89,12 +105,12 @@ class CalonBEM extends Model
         $daftar_calon = static::all();
         $jum = 0;
 
-        foreach($daftar_calon as $calon) {
+        foreach ($daftar_calon as $calon) {
             $data['Nomor Paslon ' . $calon->nomor] = $calon->getPemilih()->count();
             $jum += $calon->getPemilih()->count();
         }
 
-        $data['Abstain'] = Mahasiswa::where('status','A')->where('telah_login',true)->count()-$jum;
+        $data['Abstain'] = Mahasiswa::where('status', 'A')->where('telah_login', true)->count() - $jum;
 
         return $data;
     }
