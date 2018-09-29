@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-block">
+        {{--<div class="card-block">--}}
             <div class="table-responsive">
                 <table class="table table-hover" id="panitia">
                     <thead>
@@ -168,7 +168,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        {{--</div>--}}
     </div>
 @endsection
 
