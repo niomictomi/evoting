@@ -55,7 +55,7 @@ class PublicController extends Controller
             $data = $jurusan->getMahasiswa()->where('status', 'A');
 
         return DataTables::of($data)->addColumn('prodi', function (Mahasiswa $mahasiswa){
-            return $mahasiswa->getProdi()->nama;
+            return $mahasiswa->getProdi(false)->nama;
         })->make(true);
     }
 
@@ -71,7 +71,7 @@ class PublicController extends Controller
             $data = $jurusan->getMahasiswa()->where('status', 'A');
 
         return DataTables::of($data)->addColumn('prodi', function (Mahasiswa $mahasiswa){
-            return $mahasiswa->getProdi()->nama;
+            return $mahasiswa->getProdi(false)->nama;
         })->make(true);
     }
 
@@ -80,13 +80,13 @@ class PublicController extends Controller
         $data = null;
         if ($request->status == md5('Telah memberikan hak suara'))
             $data = Mahasiswa::getYangTelahMemilihBemViaRelation();
-        elseif ($request->status == md5('Belum memberikan hak suara'))
-            $data = Mahasiswa::getYangBelumMemilihBemViaRelation();
+//        elseif ($request->status == md5('Belum memberikan hak suara'))
+//            $data = Mahasiswa::getYangBelumMemilihBemViaRelation();
         else
             $data = Mahasiswa::getByStatus();
 
         return DataTables::of($data)->addColumn('prodi', function (Mahasiswa $mahasiswa){
-            return $mahasiswa->getProdi()->nama;
+            return $mahasiswa->getProdi(false)->nama;
         })->make(true);
     }
 
