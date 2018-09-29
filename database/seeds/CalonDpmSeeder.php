@@ -20,10 +20,20 @@ class CalonDpmSeeder extends Seeder
         foreach (Jurusan::all() as $jurusan){
             $jumlahCalon = rand(2, 5);
             $mahasiswa = $jurusan->getMahasiswa()
-                ->whereIn('status', [Mahasiswa::AKTIF])
-                ->whereNotIn('id', CalonHMJ::getAllIdCalon())
-                ->whereNotIn('id', CalonBEM::getAllIdCalon())
-                ->get();
+                ->where('status', Mahasiswa::AKTIF)
+                ->whereNotIn('id', function ($query) {
+                    $query->select('ketua_id')
+                        ->from('calon_hmj');
+                })->whereNotIn('id', function ($query) {
+                    $query->select('wakil_id')
+                        ->from('calon_hmj');
+                })->whereNotIn('id', function ($query) {
+                    $query->select('ketua_id')
+                        ->from('calon_bem');
+                })->whereNotIn('id', function ($query) {
+                    $query->select('wakil_id')
+                        ->from('calon_bem');
+                })->get();
             $acakMahasiswa = array_rand($mahasiswa->toArray(), $jumlahCalon);
             for ($c = 0; $c < $jumlahCalon; $c++){
                 CalonDPM::create([
