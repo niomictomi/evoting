@@ -120,7 +120,7 @@ class CalonHMJ extends Model
         $daftar_calon = static::getDaftarCalon($jurusan_id)->get();
 
         foreach($daftar_calon as $calon) {
-            $data['Nomor Paslon ' . $calon->nomor] = $calon->getPemilih()->count();
+            $data['Nomor Paslon ' . $calon->nomor] = $calon->getPemilihUnique()->count();
         }
 
         $data['Abstain'] = Mahasiswa::getAbstainHmjViaRelation($jurusan_id)->count();
