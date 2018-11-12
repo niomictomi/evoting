@@ -47,26 +47,26 @@ class MahasiswaController extends Controller
      */
     public function vote()
     {
-        $calonHMJ = CalonHMJ::getDaftarCalon(Auth::guard('mhs')->user()->getProdi()->jurusan_id)->orderBy('nomor')->get();
+        $calonHMJ = CalonHMJ::getDaftarCalon(Auth::guard('mhs')->user()->getProdi(false)->jurusan_id)->orderBy('nomor')->get();
 
         foreach($calonHMJ as $item) {
-            $item['nama_ketua'] = $item->getKetua()->nama;
-            $item['nama_wakil'] = $item->getWakil()->nama;
+            $item['nama_ketua'] = $item->getKetua(false)->nama;
+            $item['nama_wakil'] = $item->getWakil(false)->nama;
             $item['dir'] = asset('storage/' . $item['dir']);
         }
         
         $calonBEM = CalonBEM::orderBy('nomor')->get();
 
         foreach($calonBEM as $item) {
-            $item['nama_ketua'] = $item->getKetua()->nama;
-            $item['nama_wakil'] = $item->getWakil()->nama;
+            $item['nama_ketua'] = $item->getKetua(false)->nama;
+            $item['nama_wakil'] = $item->getWakil(false)->nama;
             $item['dir'] = asset('storage/' . $item['dir']);            
         }
 
-        $calonDPM = CalonDPM::getDaftarCalon(Auth::guard('mhs')->user()->getProdi()->jurusan_id)->orderBy('nomor')->get();
+        $calonDPM = CalonDPM::getDaftarCalon(Auth::guard('mhs')->user()->getProdi(false)->jurusan_id)->orderBy('nomor')->get();
 
         foreach($calonDPM as $item) {
-            $item['nama'] = $item->getAnggota()->nama;
+            $item['nama'] = $item->getAnggota(false)->nama;
             $item['dir'] = asset('storage/' . $item['dir']);            
         }
 
