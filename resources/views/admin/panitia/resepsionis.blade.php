@@ -34,7 +34,8 @@
             <center>
                 <form action="{{route('cari')}}" method="get">
                     @if(\App\Pengaturan::isVotingSedangBerlangsung())
-                        <p class="alert alert-warning">Apabila Terdapat Tombol <b><u>Generate Password</u></b> pada hasil pencarian maka mahasiswa tersebut berhak mendapatkan <b><u>Password Baru</u></b>
+                        <p class="alert alert-warning">Apabila Terdapat Tombol <b><u>Generate Password</u></b> pada
+                            hasil pencarian maka mahasiswa tersebut berhak mendapatkan <b><u>Password Baru</u></b>
                             Apabila Mahasiswa tersebut <b>Meminta</b> Kepada PPUR</p>
                         <div class="input-group col-6">
                             <input type="text" class="form-control boxed rounded-s" placeholder="NIM Mahasiswa..."
@@ -65,28 +66,31 @@
                         </div>
                         <div class="card-block">
                             <p>{{$result->id}}</p>
-                            <p>{{ $result->getProdi()->nama }}</p>
+                            <p>{{ App\Prodi::find($result->prodi_id )->nama}}</p>
                         </div>
                         <div class="card-footer">
-                            @if ($result->login == 0 && $result->telah_login == 0)
-                                <form action="{{url('panitia/resepsionis/'.$result->id.'/update')}}" method="post">
-                                    {{ csrf_field() }}
-                                    <button type="submit" class="btn btn-danger btn-sm rounded">Belum Aktif
-                                    </button>
-                                    <input hidden="" value="1" name="login">
-                                </form>
-                            @elseif($result->login == 0 && $result->telah_login == 1)
-                                <button type="button" class="btn btn-primary btn-sm rounded">Telah Login</button>
-                            @elseif ($result->login == 1 && $result->telah_login == 1)
-                                <button type="button" class="btn btn-primary btn-sm rounded">Telah Login</button>
-                            @elseif ($result->login == 1 && $result->telah_login == 0)
-                                <form action="{{url('panitia/resepsionis/'.$result->id.'/update')}}" method="post">
-                                    {{ csrf_field() }}
-                                    <button type="submit" class="btn btn-primary btn-sm rounded">Generate Password
-                                    </button>
-                                    <input hidden="" value="1" name="login">
-                                </form>
-
+                            @if($result->status == 'A')
+                                @if ($result->login == 0 && $result->telah_login == 0)
+                                    <form action="{{url('panitia/resepsionis/'.$result->id.'/update')}}" method="post">
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-danger btn-sm rounded">Belum Aktif
+                                        </button>
+                                        <input hidden="" value="1" name="login">
+                                    </form>
+                                @elseif($result->login == 0 && $result->telah_login == 1)
+                                    <button type="button" class="btn btn-primary btn-sm rounded">Telah Login</button>
+                                @elseif ($result->login == 1 && $result->telah_login == 1)
+                                    <button type="button" class="btn btn-primary btn-sm rounded">Telah Login</button>
+                                @elseif ($result->login == 1 && $result->telah_login == 0)
+                                    <form action="{{url('panitia/resepsionis/'.$result->id.'/update')}}" method="post">
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-primary btn-sm rounded">Generate Password
+                                        </button>
+                                        <input hidden="" value="1" name="login">
+                                    </form>
+                                @endif
+                                @else
+                                <button type="button" class="btn btn-danger btn-sm rounded">Mahasiswa Berstatus Cuti/Non-aktif</button>
                             @endif
                         </div>
                     </div>
@@ -110,7 +114,7 @@
                 window.open('{{url('panitia/print/'.$result->id)}}', '_blank');
             });
         </script>
-session()->get('id')
+        session()->get('id')
     @endif
     @if(session()->has('error'))
         <script>
