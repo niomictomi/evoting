@@ -132,8 +132,8 @@ class PanitiaController extends Controller
         }
 
         $paslonhmj->update([
-           'ketua_id' => $request->ketua_id,
-           'wakil_id' => $request->wakil_id,
+            'ketua_id' => $request->ketua_id,
+            'wakil_id' => $request->wakil_id,
             'visi' => $request->visi,
             'misi' => $request->misi
         ]);
@@ -143,8 +143,8 @@ class PanitiaController extends Controller
             Input::file('newdir')->move('photo/hmj/',$file);
 
             $paslonhmj->update([
-               'dir' => 'photo/hmj/'.$file
-           ]);
+                'dir' => 'photo/hmj/'.$file
+            ]);
         }
         return redirect(route('panitia.paslon'))->with('message','Paslon Berhasil Diupdate!!');
     }
@@ -541,6 +541,69 @@ class PanitiaController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        $mhs = Mahasiswa::find($id);
+        return $mhs;
+    }
+
+    public function updatestatus(Request $request)
+    {
+        $result = 0;
+        $this->validate($request, [
+            'login' => 'required',
+        ]);
+        $mahasiswa = Mahasiswa::find($request->id);
+        if ($mahasiswa->status == 'A') {
+            $mahasiswa->update([
+                'login' => $request->login,
+                //'password' =>$password,
+            ]);
+
+            // set printer
+            $date = Carbon::now();
+            try {
+                // Enter the share name for your USB printer here
+                $connector = null;
+                //$connector = new NetworkPrintConnector("114.5.35.242",9100);
+                $connector = new WindowsPrintConnector("POS-58");
+                /* Print a "Hello world" receipt" */
+                $printer = new Printer($connector);
+                $printer->selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+                $printer->text("E-Voting Pemira!\n");
+                $printer->selectPrintMode();
+                $printer->text("Fakultas Ekonomi");
+                $printer->text("\n");
+                $printer->text("\n");
+                $printer->text("UserName : " . $mahasiswa->id . "\n");
+                $printer->text("Password : ");
+                $printer->selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+                $printer->text($pass);
+                $printer->selectPrintMode();
+                $printer->text("\n");
+                $printer->text("\n");
+                $printer->text("\n");
+                $printer->text($date);
+                $printer->text("\n");
+                $printer->text("\n");
+                $printer->text("\n");
+                $printer->text("\n");
+                $printer->text("\n.");
+                $printer->cut();
+
+                /* Close printer */
+                $printer->close();
+            } catch (\Exception $e) {
+                echo "Couldn't print to this printer: " . $e->getMessage() . "\n";
+            }
+            return back()->with('message', 'Silahkan Klik Tombol Print');
+        } else {
+            return back()->with('error', 'Mahasiswa Berstatus Cuti / Non-aktir');
+        }
+
+
+    }
+
     /**
      * get data for print and registration
      *
@@ -586,7 +649,7 @@ class PanitiaController extends Controller
         ]);
         $paslon = CalonBEM::find($request->id);
         $paslon->update([
-           'nomor'=>$request->nomor,
+            'nomor'=>$request->nomor,
         ]);
         return back()->with('message', 'Nomor Paslon Berhasil Diberikan');
     }
