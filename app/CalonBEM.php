@@ -108,7 +108,7 @@ class CalonBEM extends Model
             $data['Nomor Paslon ' . $calon->nomor] = $calon->getPemilihUnique()->count();
         }
 
-        $data['Abstain'] = Mahasiswa::getAbstainBemViaRelation();
+        $data['Abstain'] = Mahasiswa::getAbstainBemViaRelation()->count();
 
         return $data;
     }
