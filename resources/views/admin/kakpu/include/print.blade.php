@@ -67,8 +67,8 @@
                     @foreach (\App\CalonBEM::all() as $calon)
                         <tr>
                             <td>{{$calon->nomor}}</td>
-                            <td>{{ $calon->getKetua()->nama }}
-                                <br/> {{ $calon->getWakil()->nama }}</td>
+                            <td>{{ $calon->getKetua(false)->nama }}
+                                <br/> {{ $calon->getWakil(false)->nama }}</td>
                             <td>{{ $calon->getPemilih()->count() }}</td>
                             <?php
                             $jum += $calon->getPemilih()->count();
@@ -114,8 +114,8 @@
                         @foreach (\App\CalonHMJ::getDaftarCalon($jurusan->id)->get() as $calon)
                             <tr>
                                 <td>{{$calon->nomor}}</td>
-                                <td>{{ $calon->getKetua()->nama }}
-                                    <br/> {{ $calon->getWakil()->nama }}</td>
+                                <td>{{ $calon->getKetua(false)->nama }}
+                                    <br/> {{ $calon->getWakil(false)->nama }}</td>
                                 <td>{{ $calon->getPemilih()->count() }}</td>
                                 <td>{{ ($calon->getPemilih()->count()/\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->where('telah_login',true)->count())*100 }}
                                     %
@@ -156,7 +156,7 @@
                         @foreach (\App\CalonDPM::getDaftarCalon($jurusan->id)->get() as $calon)
                             <tr>
                                 <td>{{$calon->nomor}}</td>
-                                <td>{{ $calon->getAnggota()->nama }}</td>
+                                <td>{{ $calon->getAnggota(false)->nama }}</td>
                                 <td>{{ $calon->getPemilih()->count() }}</td>
                                 <td>{{ ($calon->getPemilih()->count()/\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->where('telah_login',true)->count())*100 }}
                                     %

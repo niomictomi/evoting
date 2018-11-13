@@ -17,7 +17,7 @@
             <div class="col">
                 <h5>{{ $calon->getPemilih()->count() }}<span>suara</span></h5>
                 <p class="nama">
-                    {{ $calon->getAnggota()->nama }}
+                    {{ $calon->getAnggota(false)->nama }}
                 </p>
             </div>
             @endforeach

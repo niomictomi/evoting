@@ -15,8 +15,8 @@ $jum=0;
                 <span>suara</span>
             </h5>
             <p class="nama">
-                {{ $calon->getKetua()->nama }}
-                <br/> {{ $calon->getWakil()->nama }}
+                {{ $calon->getKetua(false)->nama }}
+                <br/> {{ $calon->getWakil(false)->nama }}
             </p>
             <?php
             $jum += $calon->getPemilih()->count();

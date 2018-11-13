@@ -19,8 +19,8 @@
                     <span>suara</span>
                 </h5>
                 <p class="nama">
-                    {{ $calon->getKetua()->nama }}
-                    <br/> {{ $calon->getWakil()->nama }}
+                    {{ $calon->getKetua(false)->nama }}
+                    <br/> {{ $calon->getWakil(false)->nama }}
                 </p>
             </div>
             @endforeach
@@ -28,8 +28,16 @@
                 <h5>{{ \App\Mahasiswa::getAbstainHmjViaRelation($jurusan->id)->count() }}
                     <span>suara</span>
                 </h5>
-                <p class="nama">
+                    <p class="nama">
                     Abstain
+                </p>
+            </div>
+            <div class="col">
+                <h5>{{ $jurusan->getMahasiswaHanyaAktivasi()->count() }}
+                    <span>suara</span>
+                </h5>
+                <p class="nama">
+                    Aktivasi Tidak Login
                 </p>
             </div>
         </div>

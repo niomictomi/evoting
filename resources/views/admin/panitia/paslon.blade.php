@@ -123,7 +123,7 @@
                                     @endif
                                 </td>
                                 <td>
-                               {{\App\Jurusan::find($hmj->getKetua()->getProdi()->jurusan_id)->nama}}
+                               {{\App\Jurusan::find($hmj->getKetua(false)->getProdi()->jurusan_id)->nama}}
                                 </td>
 
                             </tr>
