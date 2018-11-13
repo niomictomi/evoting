@@ -68,4 +68,22 @@ class Jurusan extends Model
                 return $item;
         return null;
     }
+
+    /**
+     * Mendapatkan mahasiswa yang hanya melakukan aktivasi namun tidak login
+     *
+     * @param boolean $queryReturn
+     *
+     * @return mixed
+     */
+    public function getMahasiswaHanyaAktivasi($queryReturn = true)
+    {
+        $relation = $this->getMahasiswa()
+                        ->where('login', true)
+                        ->where('telah_login', false)
+                        ->where('status', Mahasiswa::AKTIF);
+
+        return ($queryReturn ? $relation : $relation->get());
+    }
+
 }
