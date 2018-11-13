@@ -92,7 +92,7 @@
                                         
                                     </td>
                                     <td><b>{{$dpm->anggota_id}}</b></td>
-                                    <td><b>{{$dpm->getAnggota()->nama }}</b></td>
+                                    <td><b>{{$dpm->getAnggota(false)->nama }}</b></td>
                                     <td>
                                         @if(\App\Pengaturan::isVotingAkanBerlangsung())
                                         <form method="post">
@@ -119,7 +119,7 @@
                                         @endif
                                     </td>
                                         <td>
-                                            {{\App\Jurusan::find($dpm->getAnggota()->getProdi()->jurusan_id)->nama}}
+                                            {{\App\Jurusan::find($dpm->getAnggota(false)->getProdi()->jurusan_id)->nama}}
                                         </td>
                                     </tr>
                                 @endforeach
