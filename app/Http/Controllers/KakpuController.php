@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jurusan;
 use App\Mahasiswa;
 use App\Pengaturan;
 use App\Support\Role;
@@ -41,6 +42,21 @@ class KakpuController extends Controller
             'mhsnonaktif' => $mhs_nonaktif->count(),
             'tipe' => $request->tipe,
             'hasil' => $request->hasil
+        ]);
+    }
+
+    public function hasil(Request $request)
+    {
+        if (!in_array($request->hasil, ['bem', 'dpm', 'hmj']))
+            $request->hasil = 'bem';
+
+        $users = User::whereIn('role', [Role::KETUA_KPU, Role::DOSEN, Role::WD3])->get();
+        $jurusan = Jurusan::find($request->jur);
+//        dd($jurusan);
+        return view('admin.kakpu.hasil', [
+            'users' => $users,
+            'hasil' => $request->hasil,
+            'jurusan' => $jurusan
         ]);
     }
 

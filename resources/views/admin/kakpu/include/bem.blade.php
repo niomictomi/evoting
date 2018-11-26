@@ -6,7 +6,7 @@
 [ 'data' => Chart::parse(collect(\App\CalonBEM::getHasilUntukDiagram())), 'id' => 'qwerty' ])
 
 <?php
-$jum=0;
+$jum = 0;
 ?>
 <div class="row hasil">
     @foreach (\App\CalonBEM::all() as $calon)
@@ -29,6 +29,22 @@ $jum=0;
         </h5>
         <p class="nama">
             Abstain
+        </p>
+    </div>
+    <div class="col">
+        <h5>{{\App\Mahasiswa::getMager()->count()}}
+            <span>orang</span>
+        </h5>
+        <p class="nama">
+            Mahasiswa Yang Tidak Berbartisipasi
+        </p>
+    </div>
+    <div class="col">
+        <h5>{{App\Mahasiswa::where('login',true)->count()}}
+            <span>orang</span>
+        </h5>
+        <p class="nama">
+            Mahasiswa Yang Telah Aktifasi
         </p>
     </div>
 </div>
