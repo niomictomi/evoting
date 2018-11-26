@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Document Mahasiwa</title>
 </head>
 <body>
 
@@ -22,11 +22,11 @@
     <tbody>
     @foreach($mahasiswa as $mahasiswas)
         <tr>
-            <td>{{$loop->iteration}}</td>
+            <td style="align-self: center">{{$loop->iteration}}</td>
             <td>{{$mahasiswas->password}}</td>
-            <td>{{$mahasiswas->getDPMYangDipilih()->count()==1 ? 'ya' : ''}}</td>
-            <td>{{$mahasiswas->getHMJYangDipilih()->count()==1 ? 'ya' : ''}}</td>
-            <td>{{$mahasiswas->getBEMYangDipilih()->count()==1 ? 'ya' : ''}}</td>
+            <td style="align-self: center">{{$mahasiswas->getDPMYangDipilih()->count()==1 ? '✔' : ''}}</td>
+            <td style="align-self: center">{{$mahasiswas->getHMJYangDipilih()->count()==1 ? '✔' : ''}}</td>
+            <td style="align-self: center">{{$mahasiswas->getBEMYangDipilih()->count()==1 ? '✔' : ''}}</td>
         </tr>
     @endforeach
     <tr>
