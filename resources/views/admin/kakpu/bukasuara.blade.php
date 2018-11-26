@@ -111,6 +111,12 @@
                                                     @endforeach
                                                 </div>
                                             </div>
+                                            <a href="{{ route('kakpu.mahasiswa') }}" target="_blank">
+                                                <button class="btn btn-danger">
+                                                    <span class="fa fa-print"></span>
+                                                    Print Data Mahasiswa
+                                                </button>
+                                            </a>
                                         </div>
                                     </div>
                                 @else

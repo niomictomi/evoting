@@ -21,4 +21,8 @@ Route::group(['prefix' => 'kakpu'], function() {
 
     Route::get('print', 'KakpuController@printhasil')->name('kakpu.print');
 
+    Route::get('print/mahasiswa', [
+        'uses' => 'KakpuController@mahasiswa',
+        'as' => 'kakpu.mahasiswa'
+    ]);
 });
