@@ -131,7 +131,7 @@ class MahasiswaController extends Controller
     {
         return dataTables()->eloquent(Mahasiswa::query())
                 ->editColumn('prodi_id', function (Mahasiswa $mahasiswa) {
-                    return $mahasiswa->getProdi(false->nama;
+                    return $mahasiswa->getProdi(false)->nama;
                 })->make(true);
     }
 
