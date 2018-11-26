@@ -22,6 +22,7 @@
                                 <div class="col-12">
                                     <label class="control-label">NIM Calon Ketua Ketua</label>
                                     <input type="text" class="form-control underlined" name="ketua_id" maxlength="11" required>
+                                    <label class="control-label">Foto Paslon</label>
                                     <input type="file" class="form-control underlined" name="dir" required>
                                     <label class="control-label">NIM Calon Ketua Wakil Ketua</label>
                                     <input type="text" class="form-control underlined" name="wakil_id" maxlength="11" required>
@@ -40,9 +41,9 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Visi</label>
-                            <textarea rows="3" class="form-control" name="visi" required> </textarea>
+                            <textarea class="form-control use-tinymce" name="visi" required> </textarea>
                             <label class="control-label">Misi</label>
-                            <textarea rows="3" class="form-control" name="misi" required> </textarea>
+                            <textarea class="form-control use-tinymce" name="misi" required> </textarea>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-info rounded">Tambah</button>

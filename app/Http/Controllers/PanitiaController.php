@@ -281,10 +281,10 @@ class PanitiaController extends Controller
 
         if(Input::has('newdir')){
             $file = str_replace(' ', '_', str_random(4) . '' . $request->file('newdir')->getClientOriginalName());
-            Input::file('newdir')->move('photo/hmj/',$file);
+            Input::file('newdir')->move('photo/bem/',$file);
 
             $paslonhmj->update([
-                'dir' => 'photo/hmj/'.$file
+                'dir' => 'photo/bem/'.$file
             ]);
         }
         return redirect(route('panitia.paslon.bem'))->with('message','Paslon Berhasil Diupdate!!');
@@ -330,33 +330,38 @@ class PanitiaController extends Controller
             'wakil_id' => 'required',
             'visi' => 'required',
             'misi' => 'required',
-            'dir' => 'required',
         ]);
 
-        $id = CalonHMJ::count();
-        $idnow = $id + 1;
-        try {
-            $mhs = Mahasiswa::findorfail($request->ketua_id);
-            if ($request->hasFile('dir')) {
+        $paslonhmj = CalonHMJ::find($request->id);
+        $checkketua = Mahasiswa::where('id',$request->ketua_id)->first();
+        $checkwakil = Mahasiswa::where('id',$request->wakil_id)->first();
 
-                $fillnames2 = $request->dir->getClientOriginalName() . '' . str_random(4);
-                $filename = 'upload/photo/hmj/'
-                    . str_slug($fillnames2, '-') . '.' . $request->dir->getClientOriginalExtension();
-                $request->dir->storeAs('public', $filename);
-                $berkas = new CalonHMJ();
-                $berkas->dir = $filename;
-                $berkas->ketua_id = $request->ketua_id;
-                $berkas->wakil_id = $request->wakil_id;
-                $berkas->visi = $request->visi;
-                $berkas->misi = $request->misi;
-                $berkas->save();
-                $dir = $fillnames2;
-            }
+        $jurketua = Prodi::find($checkketua->prodi_id)->getJurusan(false)->id;
+        $jurwakil = Prodi::find($checkwakil->prodi_id)->getJurusan(false)->id;
 
-            return redirect('panitia/paslon')->with('message', 'Paslon Berhasil Ditambahkan');
-        } catch (ModelNotFoundException $exception) {
-            return back()->with('error', 'NIM ketua Atau wakil Tidak Terdaftar');
+        if($checkketua->count() < 1){
+            return back()->with('error','NIM Ketua tidak ditemukan');
+        }elseif ($jurketua != $jurwakil){
+            return back()->with('error','Ketua dan wakil tidak dalam satu jurusan yg sama');
         }
+
+        $create = CalonHMJ::create([
+            'ketua_id' => $request->ketua_id,
+            'wakil_id' => $request->wakil_id,
+            'visi' => $request->visi,
+            'misi' => $request->misi,
+            'dir' => ''
+        ]);
+
+        if(Input::has('dir')){
+            $file = str_replace(' ', '_', str_random(4) . '' . $request->file('dir')->getClientOriginalName());
+            Input::file('dir')->move('photo/hmj/',$file);
+
+            $create->update([
+                'dir' => 'photo/hmj/'.$file
+            ]);
+        }
+        return redirect(route('panitia.paslon'))->with('message','Paslon Berhasil Ditambahkan!!');
     }
 
     /**
@@ -381,31 +386,31 @@ class PanitiaController extends Controller
             'anggota_id' => 'required',
             'visi' => 'required',
             'misi' => 'required',
-            'dir' => 'required',
         ]);
 
-        $id = CalonHMJ::count();
-        $idnow = $id + 1;
-        try {
-            $mhs = Mahasiswa::findorfail($request->anggota_id);
-            if ($request->hasFile('dir')) {
-                $fillnames2 = $request->dir->getClientOriginalName() . '' . str_random(4);
-                $filename = 'upload/photo/dpm/'
-                    . str_slug($fillnames2, '-') . '.' . $request->dir->getClientOriginalExtension();
-                $request->dir->storeAs('public', $filename);
-                $berkas = new CalonDPM();
-                $berkas->dir = $filename;
-                $berkas->anggota_id = $request->anggota_id;
-                $berkas->visi = $request->visi;
-                $berkas->misi = $request->misi;
-                $berkas->save();
-                $dir = $fillnames2;
-            }
-            return redirect('panitia/paslon/dpm')->with('message', 'Paslon Berhasil Ditambahkan');
-        } catch (ModelNotFoundException $exception) {
-            return back()->with('error', 'NIM calon Anggota Tidak Terdaftar');
+        $paslondpm = CalonDPM::find($request->id);
+        $check = Mahasiswa::where('id',$request->anggota_id)->get();
+
+        if($check->count() < 1){
+            return back()->with('error','NIM Anggota tidak ditemukan');
         }
 
+        $create = CalonDPM::create([
+            'anggota_id' => $request->anggota_id,
+            'visi' => $request->visi,
+            'misi' => $request->misi,
+            'dir' => ''
+        ]);
+
+        if(Input::has('dir')){
+            $file = str_replace(' ', '_', str_random(4) . '' . $request->file('dir')->getClientOriginalName());
+            Input::file('dir')->move('photo/dpm/',$file);
+
+            $create->update([
+                'dir' => 'photo/dpm/'.$file
+            ]);
+        }
+        return redirect(route('panitia.paslon.dpm'))->with('message','Paslon Berhasil Ditambahkan!!');
     }
 
     /**
@@ -431,31 +436,36 @@ class PanitiaController extends Controller
             'wakil_id' => 'required',
             'visi' => 'required',
             'misi' => 'required',
-            'dir' => 'required',
         ]);
-        $id = CalonHMJ::count();
-        $idnow = $id + 1;
-        try {
-            $mhs = Mahasiswa::findorfail($request->ketua_id);
-            if ($request->hasFile('dir')) {
 
-                $fillnames2 = $request->dir->getClientOriginalName() . '' . str_random(4);
-                $filename = 'upload/photo/bem/'
-                    . str_slug($fillnames2, '-') . '.' . $request->dir->getClientOriginalExtension();
-                $request->dir->storeAs('public', $filename);
-                $berkas = new CalonBEM();
-                $berkas->dir = $filename;
-                $berkas->ketua_id = $request->ketua_id;
-                $berkas->wakil_id = $request->wakil_id;
-                $berkas->visi = $request->visi;
-                $berkas->misi = $request->misi;
-                $berkas->save();
-                $dir = $fillnames2;
-            }
-            return redirect('panitia/paslon/bem')->with('message', 'Paslon Berhasil Ditambahkan');
-        } catch (ModelNotFoundException $exception) {
-            return back()->with('error', 'NIM calon Anggota Tidak Terdaftar');
+        $paslonhmj = CalonBEM::find($request->id);
+        $checkketua = Mahasiswa::where('id',$request->ketua_id)->get();
+        $checkwakil = Mahasiswa::where('id',$request->wakil_id)->get();
+
+
+        if($checkketua->count() < 1){
+            return back()->with('error','NIM Ketua tidak ditemukan');
+        }elseif ($checkwakil->count() < 1){
+            return back()->with('error','NIM Wakil tidak ditemukan');
         }
+
+        $create = CalonBEM::create([
+            'ketua_id' => $request->ketua_id,
+            'wakil_id' => $request->wakil_id,
+            'visi' => $request->visi,
+            'misi' => $request->misi,
+            'dir' => ''
+        ]);
+
+        if(Input::has('dir')){
+            $file = str_replace(' ', '_', str_random(4) . '' . $request->file('dir')->getClientOriginalName());
+            Input::file('dir')->move('photo/bem/',$file);
+
+            $create->update([
+                'dir' => 'photo/bem/'.$file
+            ]);
+        }
+        return redirect(route('panitia.paslon.bem'))->with('message','Paslon Berhasil Ditambahkan!!');
 
     }
 
