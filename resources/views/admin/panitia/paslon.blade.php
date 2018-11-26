@@ -94,8 +94,14 @@
                                         {{$hmj->nomor}}
                                     @endif
                                 </td>
-                                <td><b>{{$hmj->ketua_id}}</b></td>
-                                <td><b>{{$hmj->wakil_id}}</b></td>
+                                <td><b>{{App\Mahasiswa::find($hmj->ketua_id)->nama}}</b>
+                                        <br>
+                                        ({{$hmj->ketua_id}})
+                                </td>
+                                <td><b>{{App\Mahasiswa::find($hmj->wakil_id)->nama}}</b>
+                                        <br>
+                                        ({{$hmj->wakil_id}})
+                                </td>
                                 <td>
                                     @if(\App\Pengaturan::isVotingAkanBerlangsung())
                                         <form method="post">
@@ -123,7 +129,7 @@
                                     @endif
                                 </td>
                                 <td>
-                               {{\App\Jurusan::find($hmj->getKetua(false)->getProdi()->jurusan_id)->nama}}
+                               {{\App\Jurusan::find($hmj->getKetua(false)->getProdi(false)->jurusan_id)->nama}}
                                 </td>
 
                             </tr>

@@ -40,7 +40,11 @@ Route::group(['prefix' => 'panitia'], function () {
 
     Route::get('paslon/{id}/update', 'PanitiaController@paslonedit');
 
-    Route::post('paslon/update/save', 'PanitiaController@pasloneditsave')->name('update.hmj');
+    Route::post('paslon/update/hmj', 'PanitiaController@pasloneditsave')->name('update.hmj');
+
+    Route::post('paslon/update/dpm', 'PanitiaController@dpmupdate')->name('update.dpm');
+
+    Route::post('paslon/update/bem', 'PanitiaController@bemupdate')->name('update.bem');
 
     Route::get('paslon/{id}/dpm/update', 'PanitiaController@paslondpmedit');
 

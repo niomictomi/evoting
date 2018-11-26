@@ -92,8 +92,13 @@
                                         {{$bem->nomor}}
                                     @endif
                                 </td>
-                                <td><b>{{$bem->ketua_id}}</b></td>
-                                <td><b>{{$bem->wakil_id}}</b></td>
+                                <td><b>{{App\Mahasiswa::find($bem->ketua_id)->nama}}</b>
+                                    <br>
+                                    ({{$bem->ketua_id}})</td>
+                                <td><b>{{App\Mahasiswa::find($bem->wakil_id)->nama}}</b>
+                                    <br>
+                                    ({{$bem->wakil_id}})
+                                </td>
                                 <td>
                                     @if(\App\Pengaturan::isVotingAkanBerlangsung())
                                         <form method="post">

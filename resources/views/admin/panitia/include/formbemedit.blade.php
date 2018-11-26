@@ -6,7 +6,7 @@
             <span class="sparkline bar" data-type="bar"></span>
         </h3>
     </div>
-    <form role="form" method="post" action="{{route('hmj.save')}}" enctype="multipart/form-data">
+    <form role="form" method="post" action="{{route('update.bem')}}" enctype="multipart/form-data">
         {{ csrf_field() }}
 
         <section class="section ">
@@ -23,9 +23,14 @@
                                 <div class="col-12">
                                     <label class="control-label">NIM Calon Ketua Ketua</label>
                                     <input type="text" class="form-control underlined" name="ketua_id" maxlength="11" value="{{$editbem->ketua_id}}" required>
-                                    <input type="file" class="form-control underlined" name="dir">
+                                    <label class="control-label">Foto</label>
+                                    <br>
+                                    <img src="{{asset($editbem->dir)}}" class="img image-container" style="width: 40%;height: 40%">
+                                    <input type="file" class="form-control underlined" name="newdir">
                                     <label class="control-label">NIM Calon Ketua Wakil Ketua</label>
                                     <input type="text" class="form-control underlined" name="wakil_id" maxlength="11" value="{{$editbem->wakil_id}}" required>
+                                    <input type="hidden" name="id" value="{{$editbem->id}}">
+                                    <input type="hidden" name="dir" value="{{$editbem->dir}}">
                                 </div>
                             </div>
                         </div>
@@ -41,9 +46,9 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Visi</label>
-                            <textarea rows="3" class="form-control" name="visi" required>{{$editbem->visi}}</textarea>
+                            <textarea rows="3" class="form-control use-tinymce" name="visi" required>{{$editbem->visi}}</textarea>
                             <label class="control-label">Misi</label>
-                            <textarea rows="3" class="form-control" name="misi" required>{{$editbem->misi}} </textarea>
+                            <textarea rows="3" class="form-control use-tinymce" name="misi" required>{{$editbem->misi}} </textarea>
                         </div>
                     </div>
                     <button type="submit" class="btn rounded btn-info">Sunting</button>
@@ -53,3 +58,15 @@
     </form>
 
 @endsection
+
+@push('js')
+    @if(session()->has('error'))
+        <script>
+            swal({
+                icon: "error",
+                title: "{{ session()->get('error') }}"
+            });
+        </script>
+
+    @endif
+@endpush

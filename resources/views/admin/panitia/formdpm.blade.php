@@ -38,10 +38,10 @@
                             <h3 class="title"> Visi & Misi </h3>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="visi">Visi</label>
-                            <textarea class="form-control" name="visi" required> </textarea>
+                            <label class="control-label">Visi</label>
+                            <textarea class="form-control use-tinymce" name="visi" required> </textarea>
                             <label class="control-label">Misi</label>
-                            <textarea  class="form-control" name="misi" required> </textarea>
+                            <textarea class="form-control use-tinymce" name="misi" required> </textarea>
                         </div>
                     </div>
                     <input type="submit" class="btn rounded btn-info" value="Tambah">

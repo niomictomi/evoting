@@ -68,7 +68,7 @@
                                             @if($dpm->nomor== null || $dpm->nomor == '')
                                                 <form action="{{route('no.dpm')}}" method="post">
                                                     {{ csrf_field() }}
-                                                    <div class="input-group col-6">
+                                                    <div class="input-group col-sm-12">
                                                         <input type="text" class="form-control underlined" name="nomor"
                                                                maxlength="11" placeholder="isikan Nomor Paslon"
                                                                required>
@@ -119,7 +119,7 @@
                                         @endif
                                     </td>
                                         <td>
-                                            {{\App\Jurusan::find($dpm->getAnggota(false)->getProdi()->jurusan_id)->nama}}
+                                            {{\App\Jurusan::find($dpm->getAnggota(false)->getProdi(false)->jurusan_id)->nama}}
                                         </td>
                                     </tr>
                                 @endforeach
