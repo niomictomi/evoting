@@ -56,6 +56,8 @@ class PublicController extends Controller
 
         return DataTables::of($data)->addColumn('prodi', function (Mahasiswa $mahasiswa){
             return $mahasiswa->getProdi(false)->nama;
+        })->addColumn('created_at', function (Mahasiswa $mahasiswa){
+            return $mahasiswa->getPemilihanHmj(false)->pivot->created_at;
         })->make(true);
     }
 
