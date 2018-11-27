@@ -1,4 +1,6 @@
-@foreach(\App\Jurusan::all() as $jurusan)
+@php
+$jurusan = App\Jurusan::find($jur);
+@endphp
 
             <h3 class="title-divider">Hasil Perhitungan Suara Pemilihan jurusan {{ $jurusan->nama }}</h3>
 
@@ -43,4 +45,3 @@
         </div>
 
 
-@endforeach

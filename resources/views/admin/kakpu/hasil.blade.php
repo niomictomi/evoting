@@ -79,46 +79,44 @@
                             @elseif(\App\Pengaturan::isVotingTelahBerlangsung())
                                 @if(\App\Pengaturan::checkJikaSemuaPasswordBukaHasilTelahDiisiKetuaKpu())
                                     <div class="header-block">
-                                        <div class="btn-group">
-                                            <a href="{{ route('kakpu.hasil', ['hasil' => 'bem']) }}" target="_blank">
-                                                <button class="btn btn-primary">
-                                                    BEM
-                                                </button>
-                                            </a>
-
-                                            <div class="dropdown">
-                                                <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    DPM
+                                        @if($hasil == 'bem')
+                                            <div class="btn-group">
+                                                <a href="{{route('kakpu.print',['hasil' => 'bem'])}}" target="_blank">
+                                                    <button class="btn btn-success">
+                                                        <span class="fa fa-print"></span>
+                                                        Print
+                                                    </button>
                                                 </a>
-
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                    @foreach(App\Jurusan::all() as $jurusan)
-                                                    <a class="dropdown-item"
-                                                       href="{{ route('kakpu.hasil', ['hasil' => 'dpm','jur'=>$jurusan->id]) }}" target="_blank">{{$jurusan->nama}}</a>
-                                                    @endforeach
-                                                </div>
                                             </div>
-
-                                            <div class="dropdown">
-                                                <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    HMJ
+                                        @elseif($hasil == 'dpm')
+                                            <div class="btn-group">
+                                                <a href="{{route('kakpu.print',['hasil' => 'dpm'])}}" target="_blank">
+                                                    <button class="btn btn-success">
+                                                        <span class="fa fa-print"></span>
+                                                        Print
+                                                    </button>
                                                 </a>
-
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                    @foreach(App\Jurusan::all() as $jurusan)
-                                                    <a class="dropdown-item"
-                                                       href="{{ route('kakpu.hasil', ['hasil' => 'hmj','jur'=>$jurusan->id]) }}" target="_blank">{{$jurusan->nama}}</a>
-                                                    @endforeach
-                                                </div>
                                             </div>
-                                            <a href="{{ route('kakpu.mahasiswa') }}" target="_blank">
-                                                <button class="btn btn-danger">
-                                                    <span class="fa fa-print"></span>
-                                                    Print Data Mahasiswa
-                                                </button>
-                                            </a>
-                                        </div>
+                                        @elseif($hasil == 'hmj')
+                                            <div class="btn-group">
+                                                <a href="{{route('kakpu.print',['hasil' => 'hmj'])}}" target="_blank">
+                                                    <button class="btn btn-success">
+                                                        <span class="fa fa-print"></span>
+                                                        Print
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
+                                    @if($hasil == 'bem')
+                                        @include('admin.kakpu.include.bem')
+                                    @elseif($hasil == 'dpm')
+                                        @include('admin.kakpu.include.dpm',['jur'=>$jurusan->id])
+                                    @elseif($hasil == 'hmj')
+                                        @include('admin.kakpu.include.hmj',['jur'=>$jurusan->id])
+                                    @endif
+
+
                                 @else
                                     <a href="{{route('kakpu.buka')}}">
                                         <button class="btn btn-primary">Buka Kotak Suara</button>

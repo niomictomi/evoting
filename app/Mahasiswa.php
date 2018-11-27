@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
 use Mockery\Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Yajra\DataTables\Utilities\Request;
 
 class Mahasiswa extends Authenticatable
 {
@@ -426,5 +427,26 @@ class Mahasiswa extends Authenticatable
             });
 
         return $queryReturn ? $data : $data->get();
+    }
+
+    public function getHMJYangDipilih($query=true)
+    {
+       $relation = $this->belongsToMany(CalonHMJ::class,'pemilihan_hmj','mahasiswa_id','calon_hmj_id');
+
+       return ($query ? $relation : $relation->first());
+    }
+
+    public function getDPMYangDipilih($query=true)
+    {
+        $relation = $this->belongsToMany(CalonDPM::class,'pemilihan_dpm','mahasiswa_id','calon_dpm_id');
+
+        return ($query ? $relation : $relation->first());
+    }
+
+    public function getBEMYangDipilih($query=true)
+    {
+        $relation = $this->belongsToMany(CalonBEM::class,'pemilihan_bem','mahasiswa_id','calon_bem_id');
+
+        return ($query ? $relation : $relation->first());
     }
 }
