@@ -84,7 +84,7 @@ class PublicController extends Controller
 
         if ($request->status == md5('Telah memberikan hak suara')){
             $datatable->addColumn('created_at', function (Mahasiswa $mahasiswa){
-                return $mahasiswa->getPemilihanDpm()(false)->pivot->created_at;
+                return $mahasiswa->getPemilihanDpm(false)->pivot->created_at;
             });
         }
 
@@ -107,7 +107,7 @@ class PublicController extends Controller
 
         if ($request->status == md5('Telah memberikan hak suara')){
             $datatable->addColumn('created_at', function (Mahasiswa $mahasiswa){
-                return $mahasiswa->getPemilihanBem()(false)->pivot->created_at;
+                return $mahasiswa->getPemilihanBem(false)->pivot->created_at;
             });
         }
 
