@@ -59,7 +59,7 @@
                                 @endif
                             </td>
                             <td>
-                                @if($mahasiswa->hima)
+                                @if($mahasiswa->hmj)
                                     <span class="badge badge-success">Sudah</span>
                                 @else
                                     <span class="badge badge-danger">Belum</span>
