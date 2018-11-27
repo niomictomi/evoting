@@ -77,10 +77,18 @@ class PublicController extends Controller
 //            $data = Mahasiswa::getYangBelumMemilihDpmViaRelation($jurusan->id);
         else
             $data = $jurusan->getMahasiswa()->where('status', 'A');
-
-        return DataTables::of($data)->addColumn('prodi', function (Mahasiswa $mahasiswa){
+            
+        $datatable = DataTables::of($data)->addColumn('prodi', function (Mahasiswa $mahasiswa){
             return $mahasiswa->getProdi(false)->nama;
-        })->make(true);
+        });
+
+        if ($request->status == md5('Telah memberikan hak suara')){
+            $datatable->addColumn('created_at', function (Mahasiswa $mahasiswa){
+                return $mahasiswa->getPemilihanDpm()(false)->pivot->created_at;
+            });
+        }
+
+        return $datatable->make(true);
     }
 
     public function getDataPemilihBem(Request $request)
@@ -93,9 +101,17 @@ class PublicController extends Controller
         else
             $data = Mahasiswa::getByStatus();
 
-        return DataTables::of($data)->addColumn('prodi', function (Mahasiswa $mahasiswa){
+        $datatable = DataTables::of($data)->addColumn('prodi', function (Mahasiswa $mahasiswa){
             return $mahasiswa->getProdi(false)->nama;
-        })->make(true);
+        });
+
+        if ($request->status == md5('Telah memberikan hak suara')){
+            $datatable->addColumn('created_at', function (Mahasiswa $mahasiswa){
+                return $mahasiswa->getPemilihanBem()(false)->pivot->created_at;
+            });
+        }
+
+        return $datatable->make(true);
     }
 
     public function pengaturanVoting()
