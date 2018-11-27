@@ -52,7 +52,7 @@ class MahasiswaController extends Controller
         foreach($calonHMJ as $item) {
             $item['nama_ketua'] = $item->getKetua(false)->nama;
             $item['nama_wakil'] = $item->getWakil(false)->nama;
-            $item['dir'] = asset('storage/' . $item['dir']);
+            $item['dir'] = asset('/' . $item['dir']);
         }
         
         $calonBEM = CalonBEM::orderBy('nomor')->get();
@@ -60,14 +60,14 @@ class MahasiswaController extends Controller
         foreach($calonBEM as $item) {
             $item['nama_ketua'] = $item->getKetua(false)->nama;
             $item['nama_wakil'] = $item->getWakil(false)->nama;
-            $item['dir'] = asset('storage/' . $item['dir']);            
+            $item['dir'] = asset('/' . $item['dir']);            
         }
 
         $calonDPM = CalonDPM::getDaftarCalon(Auth::guard('mhs')->user()->getProdi(false)->jurusan_id)->orderBy('nomor')->get();
 
         foreach($calonDPM as $item) {
             $item['nama'] = $item->getAnggota(false)->nama;
-            $item['dir'] = asset('storage/' . $item['dir']);            
+            $item['dir'] = asset('/' . $item['dir']);            
         }
 
         return view('mahasiswa.voting', [
