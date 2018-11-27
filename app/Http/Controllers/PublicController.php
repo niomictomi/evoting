@@ -54,11 +54,17 @@ class PublicController extends Controller
         else
             $data = $jurusan->getMahasiswa()->where('status', 'A');
 
-        return DataTables::of($data)->addColumn('prodi', function (Mahasiswa $mahasiswa){
+        $datatable = DataTables::of($data)->addColumn('prodi', function (Mahasiswa $mahasiswa){
             return $mahasiswa->getProdi(false)->nama;
-        })->addColumn('created_at', function (Mahasiswa $mahasiswa){
-            return $mahasiswa->getPemilihanHmj(false)->pivot->created_at;
-        })->make(true);
+        });
+
+        if ($request->status == md5('Telah memberikan hak suara')){
+            $datatable->addColumn('created_at', function (Mahasiswa $mahasiswa){
+                return $mahasiswa->getPemilihanHmj(false)->pivot->created_at;
+            });
+        }
+
+        return $datatable->make(true);
     }
 
     public function getDataPemilihDpm(Request $request)
