@@ -123,9 +123,9 @@ class KakpuController extends Controller
 
     public function mahasiswa()
     {
-        $mahasiswa = Mahasiswa::whereHas('getBEMYangDipilih')
-            ->orWhereHas('getHMJYangDipilih')
-            ->orWhereHas('getDPMYangDipilih')
+        $mahasiswa = Mahasiswa::whereHas('getPemilihanBem')
+            ->orWhereHas('getPemilihanHmj')
+            ->orWhereHas('getPemilihanDpm')
             ->get();
         $mager = Mahasiswa::getMager()->get();
         return view('admin.kakpu.include.mahasiswa',compact('mahasiswa','mager'));

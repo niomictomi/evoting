@@ -17,7 +17,8 @@
 <div class="row hasil">
     @foreach (\App\CalonDPM::getDaftarCalon($jurusan->id)->get() as $calon)
         <div class="col">
-            <h5>{{ $calon->getPemilih()->count() }}<span>suara</span></h5>
+            <h5>{{ $calon->getPemilihUnique()->count() }}
+                <span>suara</span></h5>
             <p class="nama">
                 {{ $calon->getAnggota(false)->nama }}
             </p>

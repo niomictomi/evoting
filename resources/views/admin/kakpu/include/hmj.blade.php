@@ -17,7 +17,7 @@ $jurusan = App\Jurusan::find($jur);
         <div class="row hasil">
             @foreach (\App\CalonHMJ::getDaftarCalon($jurusan->id)->get() as $calon)
             <div class="col">
-                <h5>{{ $calon->getPemilih()->count() }}
+                <h5>{{ $calon->getPemilihUnique()->count() }}
                     <span>suara</span>
                 </h5>
                 <p class="nama">

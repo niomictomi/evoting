@@ -11,7 +11,7 @@ $jum = 0;
 <div class="row hasil">
     @foreach (\App\CalonBEM::all() as $calon)
         <div class="col">
-            <h5>{{ $calon->getPemilih()->count() }}
+            <h5>{{ $calon->getPemilihUnique()->count() }}
                 <span>suara</span>
             </h5>
             <p class="nama">
@@ -19,7 +19,7 @@ $jum = 0;
                 <br/> {{ $calon->getWakil(false)->nama }}
             </p>
             <?php
-            $jum += $calon->getPemilih()->count();
+            $jum += $calon->getPemilihUnique()->count();
             ?>
         </div>
     @endforeach
@@ -36,7 +36,7 @@ $jum = 0;
             <span>orang</span>
         </h5>
         <p class="nama">
-            Mahasiswa Yang Tidak Berbartisipasi
+            Mahasiswa Yang Tidak Berpartisipasi
         </p>
     </div>
     <div class="col">

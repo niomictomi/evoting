@@ -69,12 +69,12 @@
                             <td>{{$calon->nomor}}</td>
                             <td>{{ $calon->getKetua(false)->nama }}
                                 <br/> {{ $calon->getWakil(false)->nama }}</td>
-                            <td>{{ $calon->getPemilih()->count() }}</td>
+                            <td>{{ $calon->getPemilihUnique()->count() }}</td>
                             <?php
-                            $jum += $calon->getPemilih()->count();
+                            $jum += $calon->getPemilihUnique()->count();
                             ?>
                             <td>
-                                {{($calon->getPemilih()->count()/\App\Mahasiswa::where('status','A')->where('telah_login',true)->count())*100}}%
+                                {{($calon->getPemilihUnique()->count()/\App\Mahasiswa::where('status','A')->where('telah_login',true)->count())*100}}%
                             </td>
                         </tr>
                     @endforeach
@@ -116,8 +116,8 @@
                                 <td>{{$calon->nomor}}</td>
                                 <td>{{ $calon->getKetua(false)->nama }}
                                     <br/> {{ $calon->getWakil(false)->nama }}</td>
-                                <td>{{ $calon->getPemilih()->count() }}</td>
-                                <td>{{ ($calon->getPemilih()->count()/\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->where('telah_login',true)->count())*100 }}
+                                <td>{{ $calon->getPemilihUnique()->count() }}</td>
+                                <td>{{ ($calon->getPemilihUnique()->count()/\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->where('telah_login',true)->count())*100 }}
                                     %
                                 </td>
                             </tr>
@@ -157,8 +157,8 @@
                             <tr>
                                 <td>{{$calon->nomor}}</td>
                                 <td>{{ $calon->getAnggota(false)->nama }}</td>
-                                <td>{{ $calon->getPemilih()->count() }}</td>
-                                <td>{{ ($calon->getPemilih()->count()/\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->where('telah_login',true)->count())*100 }}
+                                <td>{{ $calon->getPemilihUnique()->count() }}</td>
+                                <td>{{ ($calon->getPemilihUnique()->count()/\App\Jurusan::find($jurusan->id)->getMahasiswa()->where('status','A')->where('telah_login',true)->count())*100 }}
                                     %
                                 </td>
                             </tr>

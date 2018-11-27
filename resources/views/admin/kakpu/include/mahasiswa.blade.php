@@ -24,16 +24,17 @@
         <tr>
             <td style="align-self: center">{{$loop->iteration}}</td>
             <td>{{$mahasiswas->password}}</td>
-            <td style="align-self: center">{{$mahasiswas->getDPMYangDipilih()->count()==1 ? '✔' : ''}}</td>
-            <td style="align-self: center">{{$mahasiswas->getHMJYangDipilih()->count()==1 ? '✔' : ''}}</td>
-            <td style="align-self: center">{{$mahasiswas->getBEMYangDipilih()->count()==1 ? '✔' : ''}}</td>
+            <td style="align-self: center">{{$mahasiswas->telahMemilihDpm() ? $mahasiswas->getPemilihanDpm(false)->pivot->created_at : ''}}</td>
+            <td style="align-self: center">{{$mahasiswas->telahMemilihHmj() ? $mahasiswas->getPemilihanHmj(false)->pivot->created_at : ''}}</td>
+            <td style="align-self: center">{{$mahasiswas->telahMemilihBem() ? $mahasiswas->getPemilihanBem(false)->pivot->created_at : ''}}</td>
+            
         </tr>
     @endforeach
     <tr>
         <td colspan="2">Total : </td>
-        <td>{{App\Mahasiswa::whereHas('getDPMYangDipilih')->count()}}</td>
-        <td>{{App\Mahasiswa::whereHas('getHMJYangDipilih')->count()}}</td>
-        <td>{{App\Mahasiswa::whereHas('getBEMYangDipilih')->count()}}</td>
+    <td>{{App\Mahasiswa::whereHas('getDPMYangDipilih')->count()}} </td>
+        <td>{{App\Mahasiswa::whereHas('getHMJYangDipilih')->count()}} </td>
+        <td>{{App\Mahasiswa::whereHas('getBEMYangDipilih')->count()}} </td>
 
     </tr>
     </tbody>
